@@ -19,6 +19,7 @@
    sole command-line argument.
 */
 
+#define _XOPEN_SOURCE 500
 #include <stdarg.h>
 #include <limits.h>
 #include <ftw.h>

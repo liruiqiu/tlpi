@@ -21,7 +21,7 @@
 #include <sys/xattr.h>
 #include "tlpi_hdr.h"
 
-#define XATTR_SIZE 10000
+#define XATTR_SIZE 300000
 
 static void
 usageError(char *progName)

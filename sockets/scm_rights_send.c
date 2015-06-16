@@ -35,6 +35,10 @@ main(int argc, char *argv[])
     int data, sfd, opt, fd;
     ssize_t ns;
     Boolean useDatagramSocket;
+
+    /* Allocate a char array of suitable size to hold the ancillary data.
+       However, since this buffer is in reality a 'struct cmsghdr', use a
+       union to ensure that it is aligned as required for that structure. */
     union {
         struct cmsghdr cmh;
         char   control[CMSG_SPACE(sizeof(int))];

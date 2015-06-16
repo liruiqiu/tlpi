@@ -682,3 +682,15 @@ for TLPI, available at http://man7.org/tlpi/errata/.
         Makefile
         README
                 Adjusted for addition of "namespaces" subdirectory
+2015-04-21
+        inotify/rand_dtree.c
+                Add "#define _XOPEN_SOURCE 500" so that the program
+                builds cleanly from the command line. (It already built
+                fine using the Makefile.)
+        namespaces/README
+                Add a README explaining the origin of these programs.
+        sockets/scm_cred_recv.c
+        sockets/scm_cred_send.c
+        sockets/scm_rights_recv.c
+        sockets/scm_rights_send.c
+                Add a comment explaining use of a union to force alignment.

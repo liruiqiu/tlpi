@@ -40,7 +40,7 @@ main(int argc, char *argv[])
     /* Walk through linked list, ignoring loopback interface and
        non-AF_INET* addresses */
 
-    while (ifaddr != NULL) {
+    for (; ifaddr != NULL; ifaddr = ifaddr->ifa_next) {
 
         if (ifaddr->ifa_addr == NULL || strcmp(ifaddr->ifa_name, "lo") == 0)
             continue;
@@ -62,8 +62,6 @@ main(int argc, char *argv[])
         }
 
         printf("%-16s %s\n", ifaddr->ifa_name, host);
-
-        ifaddr = ifaddr->ifa_next;
     }
 
     exit(EXIT_SUCCESS);
