@@ -218,3 +218,10 @@ UNIX V6 的内核源代码包括设备驱动程序在内 约有1 万行，这个
 
 10. NETBSD
 NetBSD是一个免费的，具有高度移植性的 UNIX-like 操作系统，是现行可移植平台最多的操作系统，可以在许多平台上执行，从 64bit alpha 服务器到手持设备和嵌入式设备。NetBSD计划的口号是：”Of course it runs NetBSD”。它设计简洁，代码规范，拥有众多先进特性，使得它在业界和学术界广受好评。由于简洁的设计和先进的特征，使得它在生产和研究方面，都有卓越的表现，而且它也有受使用者支持的完整的源代码。许多程序都可以很容易地通过NetBSD Packages Collection获得。下载地址： http://www.netbsd.org/
+
+vim
+https://github.com/amix/vimrc
+make android
+https://source.android.com/source/initializing.html
+Downloading Android Source
+http://source.android.com/source/downloading.html
