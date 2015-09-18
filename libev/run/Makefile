@@ -2,6 +2,11 @@ CC=gcc
 FLAGS=-I. -I.. 
 LDFLAGS=$(FLAGS) -L/usr/lib -L../.libs -lev -lpthread -Wall -Wl,-rpath ../.libs
 
+CFLAGS=-g
+LDFLAGS=-I..
+LDLIBS=../.libs/libev.a -lpthread -lm
+
+
 OBJECTS=server.o
 ALL_BIN=server evtest server_multi
  
@@ -11,8 +16,8 @@ all:$(ALL_BIN)
 #$(ALL_BIN):$(OBJECTS) 
 #	$(CC) $(FLAGS) $(LDFLAGS) -o $@ $^
 
-%.o:%.c
-	$(CC) -c $< $(FLAGS)
+#%.o:%.c
+#$(CC) -c $< $(FLAGS)
 
 clean:
 	rm -fr $(OBJECTS) $(ALL_BIN) *.o
