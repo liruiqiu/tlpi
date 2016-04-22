@@ -1,0 +1,55 @@
+script/server webrick -p4000
+ruby script/generate model user
+script/destroy model user
+vi db/migrate/001_create_tops.rb 
+rake db:migrate
+script/generate scaffold topic
+tail  -f log/development.log 
+rake db:migrate
+script/generate controller users
+Rview index.rhtml
+rm public/index.html
+gem list
+gem install queuehash
+JAVA_HOME=C:\JDK
+CLASSPATH=%JAVA_HOME%\lib\tools.jar
+PATH=%JAVA_HOME%\bin
+script/generate scaffold topic
+:Rconsole
+=G 格式化代码
+/usr/local/bin/gem sources --update
+script/process/reaper 
+tail -f log/production.log
+
+script/process/reaper  ## 改完helpers需要重起
+ruby -c app/helpers/page_helper.rb ##检查语法是否有错
+
+Rconsole
+
+MVC M=>models 执行操做.更接近对象   V=>views 前台页面    C => controllers 逻辑操做
+C调动M 执行V 提供实例变量.
+
+SELECT users.* FROM users INNER JOIN managements ON users.id = managements.user_id WHERE ((managements.forum_id = 30) AND ((managements.is_hidden=0)));  
+
+
+Rcont backend
+
+ svn ci -m ''  ##提交
+ vi db/schema.rb ##最后能看明白就OK
+ :Rconsole  ##多用这个命令写方法.
+ models 的方法给 controllers 用,自己也可以使用
+ 
+ helpers 的方法给views 用.
+ 
+ initializers 都可以用
+ 
+ 
+ validates :http://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html
+
+
+has_many: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
+
+
+ rake rails:freeze:gems ##控制版本
+ 
+ /usr/local/setup/lighttpd-1.4.16    ##  patch  connections.c < connections.c.diff  ## lighttpd-1.4.16  不能跳转页面的bug修正补丁.

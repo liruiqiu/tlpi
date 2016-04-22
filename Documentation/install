@@ -1,0 +1,316 @@
+win7 64G = 64GB * 1024 + 1 = 65537MB  
+
+
+Ubuntu Server Gnome桌面的安装过程
+
+sudo apt-get install x-window-system-core #安装x－windows的基础
+
+sudo apt-get install gdm #安装登录管理器 还可以为kdm/xdm
+
+sudo apt-get install ubuntu-desktop #安装Ubuntu的桌面 还可以为Kubunut-desktop/ Xubuntu-desktop
+
+sudo apt-get install gnome-core #安装GNOME的一些基础
+
+由于我在shell里locate，reboot，shutdown -r等命令用不了，便按键盘上的Ctrl + Alt + Del来进行系统的重启
+
+重启之后进入系统便有GUI。
+
+
+安装RUBY
+访问 http://www.ruby-lang.org/en/downloads/
+找到Ruby Source Code
+ 
+wget ftp://ftp.ruby-lang.org/pub/ruby/1.8/ruby-1.8.6-p114.tar.gz
+ 
+tar ruby-**.tar.gz
+cd ruby-**
+./configure && make && make install
+如果没有错误
+make install-doc
+安装完成以后执行
+ruby -v 应该能显示版本号
+ 
+安装rubygems
+wget http://rubyforge.org/frs/download.php/35283/rubygems-1.1.1.tgz
+ 
+tar -xzvf rubygems-*
+cd rubygems-*
+ruby setup.rb
+安装完成执行 gem -v 应该能显示版本号
+ 
+3 安装mysql支持包和基础框架(借以检查mysql相关库安装是否良好)
+上两步都ok后, 执行
+gem install rails
+gem install vim-ruby
+gem install mysql
+ 
+安装普通支持包
+realline
+vim
+拷贝.vimrc
+ 
+ 
+安装mysql 
+下载标准的mysql源代码包 采用如下参数编译
+./configure  --with-charset=utf8 --with-extra-charsets=complex --enable-thread-safe-client--enable-local-infile --enable-assembler --disable-shared --with-client-ldflags=-all-static --with-mysqld-ldflags=-all-static && make && make install
+ 
+
+
+mysql_install_db --user=mysql
+
+
+
+安装 VIM
+
+cp $VIMRUNTIME/vimrc_example.vim ~/.vimrc
+
+
+ update-alternatives --config editor ## 可以修改缺省的编辑器
+ apt-get remove vim --purge  ##删除VIM
+ ./configure --prefix=/usr/local/vim --with-features=huge --without-x --disable-gui
+ --with-features=huge  ##支持所有高级字符 
+ --without-x           ## 不编译 X-windows 相关的特性。 
+ --disable-gui         ##不编译 GUI 界面
+  --prefix={directory}            安装 Vim 的顶级目录。
+
+        --with-features=tiny            关掉很多特性。
+        --with-features=small           关掉一些特性。
+        --with-features=big             打开更多的特性。
+        --with-features=huge            打开大多数特性。
+                                        参阅 |+feature-list| 察看每一种方式
+                                        的详细特性列表。
+       --enable-perlinterp             开启 Perl 界面。类似的还有
+                                        ruby, python 和 tcl 的参数。 
+ ./configure --prefix=/usr/local/vim --with-features=huge
+ 
+ apt-get install libncurses5-dev ## 解决 no terminal library found
+ make 
+ make install
+ cp $VIMRUNTIME/vimrc_example.vim ~/.vimrc
+ vim
+  ./configure --prefix=/usr/local/vim --with-features=huge
+ 
+ mysql 
+ 
+  ./configure -prefix=/usr/local/mysql --with-charset=utf8 --with-extra-charsets=utf8,gb2312,big5 --enable-thread-saf
+e-client --with-plugins=innobase,partition
+
+
+ Pike 
+ pike /src/build/modules/Mird/config.log
+ /root/zpc/Pike-v7.6.86/src/modules/Mird/configure --prefix=/usr/local --prefix=/usr/local --without-bundles CC=/root/zpc/
+Pike-v7.6.86/src/build/smartlink gcc CPP=gcc -E --cache-file=.././config.cache --srcdir=/root/zpc/Pike-v7.6.86/src/modules --
+cache-file=../.././config.cache --srcdir=/root/zpc/Pike-v7.6.86/src/modules/Mird
+ 
+ 
+ ./configure --prefix=/usr/local/squid --enable-arp-acl --enable-delay-pools --enable-snmp --enable-dlmalloc --with-pthreads --enable-epoll --enable-poll --disable-internal-dns --enable-stacktrace  --enable-removal-policies="heap,lru" --enable-delay-pools --enable-storeio=ufs,aufs,diskd,coss,null --enable-external-acl --with-large-files --enable-large-files --enable-async-io --enable-dl-malloc --enable-ssl --enable-auth=basic,digest,negotiate,ntlm --enable-icmp --enable-large-cache-files
+make && make install
+ 
+ ./configure --prefix=/usr/local/net-snmp --enable-mfd-rewrites --with-default-snmp-version=2 --with-sys-contact=root --with-persistent-directory=/var/net-snmp --with-logfile=/var/log/snmpd.log --with-sys-location=China
+ 
+ PHP
+  ./configure  --prefix=/usr/local/php-5.2.8 --with-apxs2=/usr/local/apache-2.2.11/bin/apxs --with-mysql=/usr/local/mysql --enable-gd-native-ttf --with-ttf --with-freetype-dir=/usr/local/rrdtool --with-zlib-dir=/usr/local/rrdtool --enable-xml --enable-fastcgi --with-mcrypt --enable-mbstring --enable-sockets --with-snmp=/usr/local/net-snmp
+||
+./configure  --prefix=/usr/local/php --with-mysql=/usr/local/mysql --enable-gd-native-ttf --with-ttf --with-freetype-dir=/usr/local/rrdtool --with-zlib-dir=/usr/local/rrdtool --enable-xml --enable-fastcgi --enable-mbstring --enable-sockets
+
+./configure --prefix=/usr/local/php-5.2.5 --enable-fastcgi --with-mysql=/usr/local/mysql --enable-zend-multibyte --with-config-file-path=/usr/local/php-5.2.5/conf --enable-discard-path --enable-force-cgi-redirect
+
+
+cp php.ini-dist /etc/php.ini
+lighttpd
+ ./configure --prefix=/usr/local/lighttpd
+ libevent-1.4.3-stable
+ ./configure --prefix=/usr
+memcache
+./configure -with-libevent=/usr --prefix=/usr/local/memcache
+
+
+loadrunner9.0破解成功，现予以公布（更新）
+[font=微软雅黑][b]:victory: [/b]
+[b]1、过程和方法：[/b]
+打开Loadrunner，发现以下几个dll可能和注册有关，mlr5lprg.dll、licensebundles.dll、lm50.dll、lm70.dll。
+最后确认mlr5lprg.dll、lm70.dll是关键dll。
+破解方法类似与LR8.1
+a、用LR8.0中的mlr5lprg.dll、lm70.dll覆盖LR9.0安装目录下“bin”文件夹中的对应文件；
+b、然后使用老的注册码就可以使用了；
+c、golba-100: AEAMAUIK-YAFEKEKJJKEEA-BCJGI
+      web-10000: AEABEXFR-YTIEKEKJJMFKEKEKWBRAUNQJU-KBYGB
+
+[b]2、可能会遇到的问题[/b]
+在破解的过程中我还遇到了个问题，就是通过上述的方法注册时提示“License security violation……”，无法注册。
+该问题可通过如下办法解决：
+a、手动修改注册表，删除下面内容：
+[HKEY_LOCAL_MACHINE\SOFTWARE\Mercury Interactive\LoadRunner\License2]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Mercury Interactive\LoadRunner\License2\History]
+"AIBGEBFW-JVED-ZKEKEKEKEKEBDNQAF-KBRDN"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Mercury Interactive\LoadRunner\License2\PermanentLicense]
+@="AIBGEBFW-JVED-ZKEKEKEKEKEBDNQAF-KBRDN"
+"last"="AIBGEBFW-JVED-ZKEKEKEKEKEBDNQAF-KBRDN"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Mercury Interactive\LoadRunner\License2\TemporaryLicense]
+@="AEBGEBFS-AKEKEKEKE-KAUCA"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Interface\{87B3ADD4-21EB-11d5-93EF-00105AA0FD2D}]
+@="IControl"
+
+参照==> http://robbin.javaeye.com/blog/43228
+apt-get install build-essential ## 要安装gcc和g++编译程序，你需要build-essential包。
+
+dpkg --list ## 查看安装了哪些包
+apt-cache search libopenssl-ruby ##
+
+安装 VIM
+
+cp $VIMRUNTIME/vimrc_example.vim ~/.vimrc
+
+
+ update-alternatives --config editor ## 可以修改缺省的编辑器
+ apt-get remove vim --purge  ##删除VIM
+ ./configure --prefix=/usr/local/vim72 --with-features=huge --without-x --disable-gui
+ --with-features=huge  ##支持所有高级字符 
+ --without-x           ## 不编译 X-windows 相关的特性。 
+ --disable-gui         ##不编译 GUI 界面
+  --prefix={directory}            安装 Vim 的顶级目录。
+
+        --with-features=tiny            关掉很多特性。
+        --with-features=small           关掉一些特性。
+        --with-features=big             打开更多的特性。
+        --with-features=huge            打开大多数特性。
+                                        参阅 |+feature-list| 察看每一种方式
+                                        的详细特性列表。
+
+        --enable-perlinterp             开启 Perl 界面。类似的还有
+                                        ruby, python 和 tcl 的参数。 
+ ./configure --with-features=huge
+ apt-get install libncurses5-dev ## 解决 no terminal library found
+ make 
+ make install
+ 
+ 
+ 安装mysql
+ wget http://dev.mysql.com/get/Downloads/MySQL-5.0/mysql-5.0.67.tar.gz/from/http://mysql.mirror.kangaroot.net/
+  apt-get install g++ ##需要安装g++
+ groupadd mysql
+  useradd -g mysql mysql
+ ./configure --prefix=/usr/local/mysql --with-charset=utf8
+ make 
+ make install
+ make clean
+ 
+  cp support-files/my-medium.cnf.sh /etc/my.cnf  ++ default_character_set = utf8  skip-locking
+  cd /usr/local/
+   
+  mysqld_safe --user=mysql &
+  /data/soft/mysql-5.0.67/support-files/mysql.server.sh
+  mysqladmin -u root password '34ccpalm'
+  use mysql
+  GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.0.%' IDENTIFIED BY '34ccpalm' WITH GRANT OPTION;
+  update user set password=PASSWORD('ghaxqn6fsi') where user='root';
+  set  password  for  root@"192.168.0.%"=old_password('34ccpalm');
+
+安装ruby
+wget ftp://ftp.gnu.org/gnu/readline/readline-5.2.tar.gz##可以显示ruby默认的方法
+./configure && make &&make install
+
+wget ftp://ftp.ruby-lang.org/pub/ruby/1.8/ruby-1.8.7-p72.tar.gz
+./configure && make && make install 
+如果没有错误
+make install-doc
+安装完成以后执行
+ruby -v 应该能显示版本号
+
+安装 rails
+wget http://rubyforge.org/frs/download.php/45905/rubygems-1.3.1.tgz
+ruby setup.rb
+gem install rails –y ##报错觉##no such file to load -- zlib (LoadError)
+http://firelife.javaeye.com/blog/200499
+
+其实openssl-ruby是ruby的扩展（extension），它不是像其他纯ruby代码一样，可以用gem来安装。一般情况下需要编译才行。 
+
+在linux系统下，这是经常碰到的问题，所以必须记住。 
+
+对于openssl-ruby的编译。 
+
+首先 
+cd ruby-source/ext/openssl 
+ruby extconf.rb 
+make 
+make instll 
+
+如果rails启动的时候遇到下面的错误，你就需要编译openssl。 
+'require_frameworks': no such file to load -- openssl (RuntimeError)
+
+
+
+wget http://www.zlib.net/zlib-1.2.3.tar.gz
+./configure make make install
+wget http://www.blue.sky.or.jp/atelier/ruby/ruby-zlib-0.6.0.tar.gz
+ruby extconf.rb && make && make install
+
+gem install rails 
+
+安装 ruby 的数据库适配器
+rails发行包中已经自带纯ruby的MySQL数据库适配器，然而对于生产环境来说，我们仍然应该下载安装C版本的数据库适配器，以达到更好的性能。
+wget http://tmtm.org/downloads/mysql/ruby/mysql-ruby-2.8.tar.gz
+./configure && make && make install
+安装 Ruby 的 FCGI 支持
+由于ruby的fcgi支持库需要在编译的时候联接FCGI的系统库，因此我们需要先安装FCGI库，下载FCGI源代码发行包：
+wget http://www.fastcgi.com/dist/fcgi-2.4.0.tar.gz
+./configure --prefix=/usr/local/fcgi && make && make install
+
+然后就可以安装ruby的fcgi支持库了
+wget http://rubyforge.org/frs/download.php/11368/ruby-fcgi-0.8.7.tar.gz
+ruby install.rb config -- --with-fcgi-include=/usr/local/fcgi/include --with-fcgi-lib=/usr/local/fcgi/lib
+ruby install.rb setup && ruby install.rb install
+
+安装 ImageMagic
+ImageMagick是用C语言实现的图形处理库，有Unix版本和Windows版本。对于Unix版本来说，安装比较麻烦些，另外不建议安装ImageMagick二进制版本，往往会导致缺少某些图片处理功能，导致RMagic安装失败。下载ImageMagick源代码
+wget ftp://mirror.aarnet.edu.au/pub/ImageMagick/ImageMagick-6.4.5-5.tar.gz
+.configure --prefix=/usr/local/ImageMagick
+apt-get install libtiff-dev
+经安装如下rpm包：
+rpm –qa |grep libpng 
+rpm –qa |grep libpng-devel 
+rpm –qa |grep libjpeg 
+rpm –qa |grep gd-devel 
+如果你希望支持tiff格式，还应该检查
+rpm –qa |grep libtiff
+如果没有安装，那么在Linux安装光盘找到相应rpm包安装上，再次configure直到确认需要的图形格式全部支持为止，然后编译安装：
+make && make install 
+ 
+由于ImageMagic被安装在我们自行指定的/usr/local/ImageMagick，后面安装RMagic会找不到需要用到的ImageMagic的命令和库，因此需要配置一下操作系统：
+ 
+编辑/etc/profile里面的PATH环境变量，在最后面加入：
+export PATH=/usr/local/ruby/bin:/usr/local/ImageMagick/bin:$PATH 
+ 
+编辑/etc/ld.so.conf，加入：
+/usr/local/ImageMagick/lib 
+执行命令：
+ldconfig 
+将ImageMagick的库加入系统联接库
+ 
+然后注销当前用户重新登录，便于环境变量修改生效，执行：
+convert logo: logo.gif 
+看是否正确生成一个logo.gif的图片文件。
+
+
+
+gem install rmagic
+gem install rails
+gem install vim-ruby
+gem install mysql
+apt-get install libopenssl-ruby1.8 ##rails 启不来需安装这个
+
+pike ./configure --prefix=/usr/local/pike --datadir=/usr/local/mysql
+
+添加开机起动
+
+# chmod 755 /etc/init.d/lighttpd
+# chown root:root /etc/init.d/lighttpd
+# chkconfig --add lighttpd
+# chkconfig lighttpd on
+# service lighttpd start
+
+

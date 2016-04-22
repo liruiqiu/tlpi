@@ -1,0 +1,85 @@
+一、为什么不加密反而能访问？
+
+1、Google Docs经常用来传播非法信息
+
+Google Docs一直是不和谐信息的传播工具，因为它提供了https的访问方式，信息加密传输，第三者无法简单地窃听。Twitter上经常流传着一些使用Google Docs来传播的非法文档。
+
+前段时间网上流传着一份上海某大学的硕士论文，该论文揭示了非法软件FreeGate如何获取最新的代理列表，其中最为重要的一个渠道就是Google Docs，由于GDocs在中国大陆能被正常访问，FreeGate能实时更新DNS和代理列表，从而逃过封锁。FreeGate获取Google Docs里的文件信息同样使用https方式来访问。
+
+2、新型的拦截手段
+
+类似于Google Docs这样的，https无法访问、http方式却可以访问的屏蔽方式以往很少见。之所以采用这样的方式，原因有3：
+
+（1）Google Docs是一个常用的服务，不能完全屏蔽
+
+（2）Google有众多的IP，几乎不能完全屏蔽，如果完全屏蔽，则会影响Google的正常使用
+
+（3）必须要屏蔽Google Docs里的非法信息
+
+这3个原因推动了新的拦截手段的发展。根据猜测，这种手段是这样进行的：当客户端发出加密的DNS解析请求时，DNS监视端一旦发现这个请求是Google Docs的，立即发出一个重置信号。而对于一般的非加密DNS请求，DNS监视端则不工作，剩下的监视工作交由正常的审查系统来进行。
+
+3、新型拦截手段的好处
+
+（1）有效地阻止了Google Docs上非法信息的传播，又能让Google Docs正常使用
+
+（2）较为根本地封杀了FreeGate等非法软件
+
+（3）当用户放弃使用https方式而改用http方式来访问时，信息都是以明文传输，所有内容全部都进入到审查系统审查，非法信息又不能传播。
+
+二、解决方法一：OpenDNS
+
+既然https访问被重置是发生在向DNS发出请求的时候，一个能很容易就想到的解决方案是换一个不会审查DNS请求的DNS。OpenDNS是较为普遍的选择。使用方法很简单，将电脑的DNS设置为：
+
+208.67.222.222
+
+208.67.220.220
+
+
+
+如果你需要经常切换不同的DNS，可以使用“8个提高windows效率的免费软件”里介绍的NetSetman来进行DNS切换。
+
+但是，OpenDNS是位于国外的DNS，连接速度有点慢，我们不妨考虑另一种解决方案。
+
+三、解决方法二：自定义hosts
+
+在hosts里添加Google Docs的解析IP直接绕过DNS查询，就能正常使用https的Google Docs了。
+
+hosts文件的位置：
+
+1、windows：C:\Windows\System32\drivers\etc\hosts
+
+2、Linux：/etc/hosts
+
+用记事本打开hosts文件，下面这些内容添加到hosts文件的顶部：
+
+209.85.225.101 docs.google.com
+
+74.125.127.100 writely.google.com
+
+74.125.127.139 spreadsheets.google.com
+
+保存hosts，重启浏览器后，https方式的Google Docs就能正常访问了。
+
+万一Gmail也遭遇到Google Docs的情况怎么办？用同样的方法，在hosts文件里加入Gmail的IP即可，为方便使用，我将提供有https方式的Google服务及其的IP列表如下：
+
+209.85.147.109 pop.gmail.com
+
+209.85.147.109 smtp.gmail.com
+
+66.102.7.19 mail.google.com
+
+209.85.225.101 docs.google.com
+
+209.85.225.102 groups.google.com
+
+74.125.127.139 spreadsheets.google.com
+
+74.125.127.100 services.google.com
+
+74.125.127.100 writely.google.com
+
+74.125.127.100 sites.google.com
+
+209.85.225.104 reader.google.com
+
+74.125.127.101 calendar.google.com 

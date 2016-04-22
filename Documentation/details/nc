@@ -1,0 +1,60 @@
+linux nc 命令传输文件
+来源: ChinaUnix博客 　日期： 2008.12.30 10:15　(共有0条评论) 我要评论
+ 
+NAME
+     nc - arbitrary TCP and UDP connections and listens
+SYNOPSIS
+     nc [-46DdhklnrStUuvz] [-i interval] [-p source_port] [-s source_ip_address] [-T ToS] [-w timeout]
+        [-X proxy_protocol] [-x proxy_address[:port]] [hostname] [port[s]]
+
+
+nc到底干嘛用的我不多描述，今天主要讲下用nc传输文件。由于公司的设备sudo后没有ssh，scp等远程接入命令，或host.deny里面设置了 ssh的deny，不管怎样的原因。我今天跨过大家常用的scp,来说明下一个更有用的轻量级工具，nc的另一个强大的功---文件传输。
+
+
+范例如下：
+
+目的主机监听
+nc -l 监听端口  > 要接收的文件名
+nc -l 4444 > cache.tar.gz
+
+源主机发起请求
+nc  目的主机ip    目的端口
+nc  192.168.0.85  4444
+
+netstat  如下
+[root@localhost jiangbao]# netstat -tpln
+
+tcp        0      0 0.0.0.0:4444                0.0.0.0:*                   LISTEN      18166/nc  
+
+英文描述如下
+
+DATA TRANSFER
+
+Start by using nc to listen on a specific port, with output captured into a file:
+           $ nc -l 1234 > filename.out
+Using a second machine, connect to the listening nc process, feeding it the file which is to be transferred:
+           $ nc host.example.com 1234
+
+
+另附nc的其他选项说明：
+
+语　　法：nc [-hlnruz][-g][-G][-i][-o][-p][-s][-v...][-w][主机名称][通信端口...]
+补充说明：执行本指令可设置路由器的相关参数。
+参　　数：
+  -g   设置路由器跃程通信网关，最丢哦可设置8个。
+  -G   设置来源路由指向器，其数值为4的倍数。
+  -h   在线帮助。
+  -i   设置时间间隔，以便传送信息及扫描通信端口。
+  -l   使用监听模式，管控传入的资料。
+  -n   直接使用IP地址，而不通过域名
+服务器
+。
+  -p   设置本地主机使用的通信端口。
+  -r   乱数指定本地与远端主机的通信端口。
+  -s   设置本地主机送出数据包的IP地址。
+  -u   使用UDP传输
+协议
+。
+  -v   显示指令执行过程。
+  -w   设置等待连线的时间。
+  -z   使用0输入/输出模式，只在扫描通信端口时使用

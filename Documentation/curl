@@ -1,0 +1,183 @@
+zlib
+nmake -f win32/Makefile.msc OBJA="inffast.obj" 
+openssl
+	ms\32all.bat
+CURL
+SET OPENSSL_PATH=..\..\openssl-1.0.1j
+SET ZLIB_PATH=..\..\zlib-1.2.8
+nmake -f Makefile.vc10 CFG=debug-ssl-zlib
+
+nmake -f Makefile.vc10 CFG=release-ssl-zlib
+
+nmake -f Makefile.vc10 CFG=debug-dll-ssl-dll-zlib-dll
+
+
+
+set path=E:\Projects\lib\nasm-2.10;%path%
+切换到openssl-1.0.0j目录，输入perl Configure threads zlib VC-WIN32 enable-static-engine --prefix=E:\Projects\lib\openssl进行配置，此时OPENSSL还没有编译和安装，仅仅把这些参数写入配置文件。 
+EX_LIBS=ws2_32.lib gdi32.lib advapi32.lib crypt32.lib user32.lib E:\Projects\lib\deps\lib\zlibstat_Release.lib
+#EX_LIBS=ws2_32.lib gdi32.lib advapi32.lib crypt32.lib user32.lib E:\Projects\lib\deps\lib\zlibstat_Debug.lib
+
+/IE:\Projects\lib\deps\include -DASMU -DASMINF -DZLIB_WINAPI 
+
+
+
+win下visual studio 2010编译CURL和libcurl
+时间 2012-05-13 06:07:56 白菜的博客 原文  http://aiyooyoo.com/index.php/archives/581/
+    要想在WIN下编译CURL和libcurl，真是件麻烦事。要编译curl，就得先编译openssl和zlib，因为curl依赖这两个库。分别到其官方网站下载三个软件的源代码
+到 http://curl.haxx.se/download.html 下载 curl-7.25.0
+到 http://www.zlib.net / 下载 zlib-1.2.7
+到 http://www.openssl.org/source/ 下载 openSSL最新版2.1.0j,以上皆为最新版。本机环境WIN7，VS2010，把这三个软件解压到E:\Projects\lib目录下。
+开始干活。
+1.编译ZLIB
+curl依赖openssl和zlib，而openssl又依赖zlib，所以得先编译zlib
+(1)由于zlib部分模块为了追求速度，使用了汇编来编写，所以在编译ZLIB之前，还需要先编译两个汇编程序，先来编译masmx86模块。
+(2)从visual studio-工具-visual studio命令提示下进入命令行，VS自动设置命令行环境。进入contrib/masmx86目录下，执行bld_ml32.bat,调用汇编器编译汇编代码。在E:\Projects\lib\zlib-1.2.7\contrib\masmx86下应该生成了几个obj文件.
+(3)打开contrib\vstudio\vc10\zlibvc.sln文件，选择zlibstat模块，添加一个缺少的文件zlib-1.2.7\contrib\minizip\iowin32.c，解决方案配置选择release，当然也可以选择debug版本，但是编译后的体积会略大一些（附带了debug信息）,编译此方案。
+2012-05-13_042555.png
+（4）复制E:\Projects\lib\zlib-1.2.7\contrib\vstudio\vc10\x86\ZlibStatRelease\zlibstat.lib文件到E:\Projects\lib\zlib\lib文件夹，同时在E:\Projects\lib\zlib文件夹下新建include目录，复制E:\Projects\lib\zlib-1.2.7和E:\Projects\lib\zlib-1.2.7\contrib\minizip下的头文件到此目录。
+     到这里，ZLIB编译完毕。
+
+2.编译openssl
+
+
+(5)编译OPENSSL依赖PERL和汇编环境，到 http://www.activestate.com/activeperl/downloads 下载最新版的active perl，
+安装，安装时注意勾选上自动添加环境变量，输入perl -version看是否已经设置好环境变量，如果出现找不到命令一类的提示，那么可能是环境变量设置未生效，可以在任务管理器里重启下exploer进程。接着到 http://www.nasm.us/pub/nasm/releasebuilds/2.10/win32/ 下载NASM汇编环境，解压到E:\Projects\lib\nasm-2.10。在命令行下执行 set path=E:\Projects\lib\nasm-2.10;%path% ，将NASM环境添加到环境变量，可输入nasm验证。
+(6)切换到openssl-1.0.0j目录，输入perl Config threads zlib VC-WIN32 enable-static-engine --prefix=E:\Projects\lib\openssl进行配置，此时OPENSSL还没有编译和安装，仅仅把这些参数写入配置文件。
+（7）执行ms\do_nasm.bat编译汇编模块。
+（8）打开openssl-1.0.0j\ms 目录下的nt.mak文件，在20行左右的位置找到CFLAG=这一行，在等号后加入/IE:\Projects\lib\zlib\include -DASMU -DASMINF -DZLIB_WINAPI。这里主要是为了声明编译过程使用了WIN API
+。在28行，找到EX_LIBS配置项，修改zlib1.lib为zlib的真实路径，我这里是E:\Projects\lib\zlib\lib\zlibstat.lib。
+（9）编译。输入nmake -f ms/nt.mak，等待编译，这一过程视电脑配置情况而定，可能需要1-5分钟左右。如果编译没有出错的话，输入nmake -f ms/nt.mak test进行测试，通过的话会显示passed all test，视电脑配置情况而定，可能需要1-3分钟左右。
+2012-05-13_050202.png
+（10）安装。输入nmake -f ms/nt.mak install，现在E:\Projects\lib\openssl\bin目录下应该生成了可执行文件。
+到这里，openssl编译完毕。
+
+3.编译CURL库
+（11）打开E:\Projects\lib\curl-7.25.0\lib下的Makefile.vc10文件，在67行左右的位置，修改以下的变量为实际的文件地址。
+
+!IFNDEF OPENSSL_PATH
+
+OPENSSL_PATH   = ../../openssl-0.9.8r
+
+!ENDIF
+
+
+
+!IFNDEF LIBSSH2_PATH
+
+LIBSSH2_PATH   = ../../libssh2-1.2.8
+
+!ENDIF
+
+
+
+!IFNDEF ZLIB_PATH
+
+ZLIB_PATH  = ../../zlib-1.2.5
+
+!ENDIF
+
+
+修改为
+
+OPENSSL_PATH   =E:\Projects\lib\openssl
+
+LIBSSH2_PATH   = ../../libssh2-1.2.8
+
+ZLIB_PATH  = E:\Projects\lib\zlib
+
+
+在100行，把
+
+CFLAGSSSL  = /DUSE_SSLEAY /I "$(OPENSSL_PATH)/inc32" /I 
+
+
+
+"$(OPENSSL_PATH)/inc32/openssl"
+
+
+修改为
+
+CFLAGSSSL  = /DUSE_SSLEAY /I "$(OPENSSL_PATH)/include" /I 
+
+
+
+"$(OPENSSL_PATH)/include/openssl"
+
+
+103行
+
+CFLAGSZLIB = /DHAVE_ZLIB_H /DHAVE_ZLIB /DHAVE_LIBZ /I "$(ZLIB_PATH)"
+
+
+修改为
+
+CFLAGSZLIB =-DASMU -DASMINF -DZLIB_WINAPI /DHAVE_ZLIB_H /DHAVE_ZLIB 
+
+
+
+/DHAVE_LIBZ /I "$(ZLIB_PATH)/include"
+
+
+111行
+
+ZLIBLIBS   = zlib.lib
+
+
+修改为
+
+ZLIBLIBS   = zlibstat.lib
+
+
+
+大约179行，# release-ssl-zlib的编译配置下，
+修改
+
+LFLAGSSSL = "/LIBPATH:$(OPENSSL_PATH)\out32"
+
+LFLAGSZLIB = "/LIBPATH:$(ZLIB_PATH)"
+
+
+为
+
+LFLAGSSSL = "/LIBPATH:$(OPENSSL_PATH)\lib"
+
+LFLAGSZLIB = "/LIBPATH:$(ZLIB_PATH)\lib"
+
+
+125行处
+
+# Runtime library configuration
+
+
+
+RTLIB   = /MD
+
+RTLIBD  = /MDd
+
+
+
+!IF "$(RTLIBCFG)" == "static"
+
+RTLIB  = /MT
+
+RTLIBD = /MTd
+
+!ENDIF
+
+
+修改为
+
+RTLIB  = /MT
+
+RTLIBD = /MTd
+
+
+（12）开始编译，切换到lib\curl-7.25.0目录，依次执行
+
+cd lib
+
+nmake -f Makefile.vc10 CFG=release-ssl-zlib
+
+
+顺利的话，将生成libcurl.lib文件。至此，curl编译成功。我们这里编译的是静态库lib文件，如果需要编译动态库dll 文件，需要修改MT编译参数为MD，其他地方类似。

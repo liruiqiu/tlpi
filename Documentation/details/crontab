@@ -1,0 +1,32 @@
+ps aux|grep -v grep|grep "svnserve -d -r /data/server/svn/work"|awk '{print $2}'|xargs -i kill {}
+
+
+110     ms51hyfgwwewfw2234      
+
+
+0 * * * * /usr/sbin/ntpdate pool.ntp.org > /dev/null;/sbin/hwclock -w                                                                                           
+0 * * * * /usr/local/subversion/bin/svn up /home/script > /dev/null
+*/5 * * * * /usr/local/bin/pike /home/script/projectMonitor.pike
+30 * * * * /bin/sh /home/script/deskcheck.sh   
+01 * * * * /bin/sh /home/script/project_bak.sh
+45 0 * * * /bin/sh /home/script/clear_log.sh 
+30 */2 * * * /bin/sh /home/script/rsync_project.sh 
+30 5 * * * /bin/sh /home/script/data_to_db.sh 
+30 3 * * * /bin/sh /home/script/mysql_clear.sh game_database 
+00 4 * * * /bin/sh /home/script/mysql_bak.sh game_database
+40 * * * * /bin/sh /home/script/sys_check.sh
+0 * * * * (find /tmp -name 'ruby_sess*' -cmin +60 -exec rm \{} \;)
+
+
+
+
+# Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller                                                 
+DEVICE=eth1
+BOOTPROTO=none
+HWADDR=90:e6:ba:e1:1d:0a
+ONBOOT=yes
+DHCP_HOSTNAME=localhost
+TYPE=Ethernet
+IPADDR=121.101.215.110
+NETMASK=255.255.255.128
+GATEWAY=121.101.215.1

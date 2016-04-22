@@ -1,0 +1,26 @@
+/usr/share/doc/dovecot-1.0/examples/dovecot-sql.conf
+
+CentOS 5
+dovecot-1.0-1.2.rc15.el5
+dovecot啟動後outlock 一直無法到驗證密碼
+用 telnet localhost 110 沒看到 +ok Dovecot ready        然後就停住了
+
+請教酷學園後開maillog檔發現
+libraries: libsepol.so.1: failed to map segment from shared object: Cannot allocate memory
+於是作了以下動作
+#vi /etc/dovecot.conf
+找到這一行
+＃login_process_size = 32    
+把＃拿掉 改為
+login_process_size = 64
+再來執行
+# /etc/init.d/dovecot restart
+測試看看
+# telnet localhost 110 
+Trying 127.0.0.1...
+Connected to localhost.localdomain (127.0.0.1).
+Escape character is '^]'.
++OK Dovecot ready.
+成功解決
+參考網站    http://www.cyberciti.biz/tips/rhel-dovecot-error-while-loading-shared-libraries.html
+最後感謝各位大大幫忙

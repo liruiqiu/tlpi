@@ -1,0 +1,14 @@
+#!/bin/bash
+/bin/echo 1 > /proc/sys/net/ipv4/ip_forward
+#/sbin/modprode ip_tables
+#/sbin/modprode ip_nat_ftp
+#/sbin/modprode ipt_state
+/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+/sbin/iptables -A FORWARD -s 192.168.0.0/24 -j ACCEPT
+/sbin/iptables -A FORWARD -d 192.168.0.0/24 -j ACCEPT
+/sbin/iptables -A FORWARD -s ! 192.168.0.0/24 -j DROP
+#/sbin/iptables -t nat -A PREROUTING -d 192.168.0.1 -i eth3 -p tcp -m tcp --dport 8080 -j DNAT --to-destination 192.168.0.240:80
+#/sbin/iptables -t nat -A PREROUTING -d 192.168.0.1 -i eth3 -p tcp -m tcp --dport 8888 -j DNAT --to-destination 192.168.0.20:8888
+route del -net 0.0.0.0 netmask 0.0.0.0 gw 192.168.0.1
+exit 0
+

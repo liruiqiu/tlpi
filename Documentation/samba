@@ -1,0 +1,481 @@
+net use * /del
+11#Qm0rdkNaNEFBdHJjRjU1REwvV2dJL0E9#0#0#1
+smbclient //localhost/public -U zawm%zawm
+
+
+38.595242     zawm
+39.459817   
+
+
+
+16.792628      src
+16.859842
+
+
+
+0.864575   zawm
+0.067214	 src
+
+
+static void format_debug_text( const char *msg )
+//dbgflush();
+
+smbd_do_qfilepathinfo()   :: case SMB_QUERY_FILE_BASIC_INFO:
+
+DEBUG(19, ("[runner] begin\n"));
+DEBUG(19, ("[runner] end\n"));
+
+ "SMBwriteX","reply_write_and_X
+"SMBtrans2","reply_trans2"
+
+
+grep "static int ori_" SMB_XML.c |awk -F"ori_" '{print "ori_"$2}'|awk -F'(' '{print "{\""$1"\","$1",0, 0, 0, 0, 0, 0},"}'
+
+SendCMD4RW
+ori_Read
+
+DEBUG_RUNNRE_TIMER_BEGIN()
+ DEBUG_RUNNRE_TIMER_END()
+ 
+ 
+{"ori_Path2ID",ori_Path2ID,0, 0, 0, 0, 0, 0},
+{"ori_ID2Path",ori_ID2Path,0, 0, 0, 0, 0, 0},
+{"ori_UpdateFile",ori_UpdateFile,0, 0, 0, 0, 0, 0},
+{"ori_DeleteFs",ori_DeleteFs,0, 0, 0, 0, 0, 0},
+{"ori_Move",ori_Move,0, 0, 0, 0, 0, 0},
+{"ori_HeartBeats",ori_HeartBeats,0, 0, 0, 0, 0, 0},
+{"ori_RenameFs",ori_RenameFs,0, 0, 0, 0, 0, 0},
+{"ori_CreateDir",ori_CreateDir,0, 0, 0, 0, 0, 0},
+{"ori_GetRespondXml",ori_GetRespondXml,0, 0, 0, 0, 0, 0},
+{"ori_CheckPower",ori_CheckPower,0, 0, 0, 0, 0, 0},
+{"ori_GetRestrictedDirs",ori_GetRestrictedDirs,0, 0, 0, 0, 0, 0},
+{"ori_GetWorkDirs",ori_GetWorkDirs,0, 0, 0, 0, 0, 0},
+{"ori_OpenFile",ori_OpenFile,0, 0, 0, 0, 0, 0},
+{"ori_Open",ori_Open,0, 0, 0, 0, 0, 0},
+{"ori_Write",ori_Write,0, 0, 0, 0, 0, 0},
+{"ori_Read",ori_Read,0, 0, 0, 0, 0, 0},
+{"ori_Seek",ori_Seek,0, 0, 0, 0, 0, 0},
+{"ori_Close",ori_Close,0, 0, 0, 0, 0, 0},
+{"ori_Truncate",ori_Truncate,0, 0, 0, 0, 0, 0},
+{"ori_getfilesize",ori_getfilesize,0, 0, 0, 0, 0, 0},
+
+
+b process.c:1721
+b SMB_XML.c:558
+watch messages_cmd_type
+p messages_cmd_type
+
+
+b SMB_XML.c:590
+
+
+(gdb) p &messages_cmd_type
+$2 = (uint8_t *) 0x8b3a800 "\242"
+
+
+(gdb) p &messages_cmd_type
+$2 = (uint8_t *) 0x8b3a800 "\242"
+(gdb) watch *(uint8_t *) 0x8b3a800
+Hardware watchpoint 3: *(uint8_t *) 0x8b3a800
+(gdb) c
+Continuing.
+
+Breakpoint 2, end_dsm_timer (idx=2 '\002') at ../SMB_XML.c:558
+558             p->count++;
+(gdb) p &messages_cmd_type        
+$3 = (uint8_t *) 0x8ba5c18 ""
+
+
+
+
+PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                                                                                                         
+12925 1000      20   0 43704 5412 3804 S 73.4  0.3   0:39.43 mysmb   
+
+
+delete	2	154349	204664	104034	154349
+
+
+ PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                                                                                                         
+24623 zawm      20   0 20548 3524 2848 S  8.3  0.2   0:01.62 smbd   
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                                                                                                         
+24730 1000      20   0 43020 4760 3752 R 82.5  0.2   6:28.42 mysmb    
+
+
+
+ PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                                                                                                         
+24227 1000      20   0 43004 4768 3776 R 83.1  0.2   1:26.63 mysmb    
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                                                                                                         
+24505 zawm      20   0 20548 3592 2888 S 11.6  0.2   0:01.60 smbd  
+
+
+
+All MO files for Samba are installed. You can use "make uninstall"
+or "make uninstallmo" to remove them.
+
+
+
+
+ Source_File Target_Directory Log_Directory
+ 
+ D:\\test\\sometest.xml D:\\test\\dir D:\\test
+ 
+static int vfswrap_open(vfs_handle_struct *handle,
+			struct smb_filename *smb_fname,
+			files_struct *fsp, int flags, mode_t mode)
+			
+			
+			
+	客户    →        ←     samba        →   ← DSM          
+   samba             →       DSM
+
+
+
+smbd_process
+srv_send_smb                process_smb  
+
+C_AddElem(*pIndex,"CMD", cmd, 0, C_STR);
+
+
+Path2Standard
+Path2ID
+Id2Path
+
+
+#0  ori_Write (rid=32, writeBuf=0x995dbcc "", len=1, pRet=0xbf9a9358, pCode=0xbf9a935c) at ../SMB_XML.c:1668
+#1  0x0885102d in fake_write (rid=32, buf=0x995dbcc "", len=1) at ../SMB_XML.c:2725
+#2  0x08786839 in wrap_fake_write (sconn=0x992e5b0, fd=4096, buf=0x995dbcc, count=1, offset=5118) at ../source3/lib/system.c:2904
+#3  0x087869e5 in sys_fake_pwrite (handle=0x9936e18, fd=4096, buf=0x995dbcc, count=1, offset=5118) at ../source3/lib/system.c:2932
+#4  0x0821c729 in vfswrap_pwrite (handle=0x9936e18, fsp=0x993d148, data=0x995dbcc, n=1, offset=5118) at ../source3/modules/vfs_default.c:3010
+#5  0x081288d1 in smb_vfs_call_pwrite (handle=0x9936e18, fsp=0x993d148, data=0x995dbcc, n=1, offset=5118) at ../source3/smbd/vfs.c:1396
+#6  0x08125fce in vfs_pwrite_data (req=0x995dc08, fsp=0x993d148, buffer=0x995dbcc "", N=1, offset=5118) at ../source3/smbd/vfs.c:441
+#7  0x0806474b in real_write_file (req=0x995dc08, fsp=0x993d148, data=0x995dbcc "", pos=5118, n=1) at ../source3/smbd/fileio.c:142
+#8  0x0806513c in write_file (req=0x995dc08, fsp=0x993d148, data=0x995dbcc "", pos=5118, n=1) at ../source3/smbd/fileio.c:467
+#9  0x080d1371 in reply_write_and_X (req=0x995dc08) at ../source3/smbd/reply.c:4676
+#10 0x080bf051 in switch_message (type=47 '/', req=0x995dc08, size=69) at ../source3/smbd/process.c:1982
+#11 0x080bf1e6 in construct_reply (sconn=0x992e5b0, inbuf=0x0, size=69, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:2026
+#12 0x080bf68c in process_smb (sconn=0x992e5b0, inbuf=0x995db88 "", nread=69, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:2111
+#13 0x080c0a00 in smbd_server_connection_read_handler (conn=0x992e5b0, fd=30) at ../source3/smbd/process.c:2743
+#14 0x080c0a6c in smbd_server_connection_handler (ev=0x992e540, fde=0x9937b70, flags=1, private_data=0x992e5b0) at ../source3/smbd/process.c:2760
+#15 0x08767122 in run_events_poll (ev=0x992e540, pollrtn=1, pfds=0x9936d38, num_pfds=3) at ../source3/lib/events.c:286
+#16 0x080bdddd in smbd_server_connection_loop_once (conn=0x992e5b0) at ../source3/smbd/process.c:1023
+#17 0x080c390c in smbd_process (sconn=0x992e5b0) at ../source3/smbd/process.c:3590
+#18 0x080ddf81 in smbd_accept_connection (ev=0x992e540, fde=0x993e348, flags=1, private_data=0x993f618) at ../source3/smbd/server.c:505
+#19 0x08767122 in run_events_poll (ev=0x992e540, pollrtn=1, pfds=0x993b390, num_pfds=5) at ../source3/lib/events.c:286
+#20 0x087673cf in s3_event_loop_once (ev=0x992e540, location=0x889e720 "../source3/smbd/server.c:838") at ../source3/lib/events.c:350
+#21 0x088259a1 in _tevent_loop_once (ev=0x992e540, location=0x889e720 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#22 0x080dee16 in smbd_parent_loop (parent=0x99436c0) at ../source3/smbd/server.c:838
+#23 0x080e0122 in main (argc=3, argv=0xbf9a9fc4) at ../source3/smbd/server.c:1328
+
+
+
+
+(gdb) bt
+#0  ori_Seek (rid=32, offset=0, whence=1, pRet=0xbf9a9350, pCode=0xbf9a935c) at ../SMB_XML.c:1711
+#1  0x088511dd in fake_lseek (rid=32, offset=0, whence=1) at ../SMB_XML.c:2760
+#2  0x087866d3 in wrap_fake_write (sconn=0x992e5b0, fd=4096, buf=0x995dbcc, count=1, offset=5118) at ../source3/lib/system.c:2888
+#3  0x087869e5 in sys_fake_pwrite (handle=0x9936e18, fd=4096, buf=0x995dbcc, count=1, offset=5118) at ../source3/lib/system.c:2932
+#4  0x0821c729 in vfswrap_pwrite (handle=0x9936e18, fsp=0x993d148, data=0x995dbcc, n=1, offset=5118) at ../source3/modules/vfs_default.c:3010
+#5  0x081288d1 in smb_vfs_call_pwrite (handle=0x9936e18, fsp=0x993d148, data=0x995dbcc, n=1, offset=5118) at ../source3/smbd/vfs.c:1396
+#6  0x08125fce in vfs_pwrite_data (req=0x995dc08, fsp=0x993d148, buffer=0x995dbcc "", N=1, offset=5118) at ../source3/smbd/vfs.c:441
+#7  0x0806474b in real_write_file (req=0x995dc08, fsp=0x993d148, data=0x995dbcc "", pos=5118, n=1) at ../source3/smbd/fileio.c:142
+#8  0x0806513c in write_file (req=0x995dc08, fsp=0x993d148, data=0x995dbcc "", pos=5118, n=1) at ../source3/smbd/fileio.c:467
+#9  0x080d1371 in reply_write_and_X (req=0x995dc08) at ../source3/smbd/reply.c:4676
+#10 0x080bf051 in switch_message (type=47 '/', req=0x995dc08, size=69) at ../source3/smbd/process.c:1982
+#11 0x080bf1e6 in construct_reply (sconn=0x992e5b0, inbuf=0x0, size=69, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:2026
+#12 0x080bf68c in process_smb (sconn=0x992e5b0, inbuf=0x995db88 "", nread=69, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:2111
+#13 0x080c0a00 in smbd_server_connection_read_handler (conn=0x992e5b0, fd=30) at ../source3/smbd/process.c:2743
+#14 0x080c0a6c in smbd_server_connection_handler (ev=0x992e540, fde=0x9937b70, flags=1, private_data=0x992e5b0) at ../source3/smbd/process.c:2760
+#15 0x08767122 in run_events_poll (ev=0x992e540, pollrtn=1, pfds=0x9936d38, num_pfds=3) at ../source3/lib/events.c:286
+#16 0x080bdddd in smbd_server_connection_loop_once (conn=0x992e5b0) at ../source3/smbd/process.c:1023
+#17 0x080c390c in smbd_process (sconn=0x992e5b0) at ../source3/smbd/process.c:3590
+#18 0x080ddf81 in smbd_accept_connection (ev=0x992e540, fde=0x993e348, flags=1, private_data=0x993f618) at ../source3/smbd/server.c:505
+#19 0x08767122 in run_events_poll (ev=0x992e540, pollrtn=1, pfds=0x993b390, num_pfds=5) at ../source3/lib/events.c:286
+#20 0x087673cf in s3_event_loop_once (ev=0x992e540, location=0x889e720 "../source3/smbd/server.c:838") at ../source3/lib/events.c:350
+#21 0x088259a1 in _tevent_loop_once (ev=0x992e540, location=0x889e720 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#22 0x080dee16 in smbd_parent_loop (parent=0x99436c0) at ../source3/smbd/server.c:838
+#23 0x080e0122 in main (argc=3, argv=0xbf9a9fc4) at ../source3/smbd/server.c:1328
+
+
+
+鼠标左击文件
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(gdb) b SMB_XML.c:SendCMD
+(gdb) bt
+#0  SendCMD (index=0, subcmd=0x8b0802f "INVALID", outParam=0xbfe89038 "", pCode=0xbfe8927c, type=0, ppOutBuf=0xbfe89034) at ../SMB_XML.c:533
+#1  0x08815a49 in ori_GetRespondXml (pIndex=0xbfe892b0, rid=498, subcmd=0x8b087b4 "GetAttr", sid=0x8b417c0 "2E5453A3B49B4A97998221D00638FB9C", pCode=0xbfe8927c, ppSpace=0xbfe892b4)
+    at ../SMB_XML.c:1008
+#2  0x08817f3e in GetRespondXml (pIndex=0xbfe892b0, rid=498, subcmd=0x8b087b4 "GetAttr", ppSpace=0xbfe892b4) at ../SMB_XML.c:1992
+#3  0x08818420 in IsDir (rid=498, bDir=0xbfe892fc) at ../SMB_XML.c:2143
+#4  0x08819648 in fake_stat (rid=498, sbuf=0xbfe893ac) at ../SMB_XML.c:2609
+#5  0x087580e3 in sys_fake_stat (rid=498, sbuf=0x9b15c2c, fake_dir_create_times=false) at ../source3/lib/system.c:3412
+#6  0x08201c50 in vfswrap_stat (handle=0x9aebac0, smb_fname=0x9b15c20) at ../source3/modules/vfs_default.c:3249
+#7  0x0811d22e in smb_vfs_call_stat (handle=0x9aebac0, smb_fname=0x9b15c20) at ../source3/smbd/vfs.c:1443
+#8  0x0810e7ae in call_trans2qfilepathinfo (conn=0x9af6950, req=0x9b15b00, tran_call=5, pparams=0x9af85b8, total_params=34, ppdata=0x9af85c0, total_data=0, max_data_bytes=40)
+    at ../source3/smbd/trans2.c:5909
+#9  0x0811682c in handle_trans2 (conn=0x9af6950, req=0x9b15b00, state=0x9af8578) at ../source3/smbd/trans2.c:9253
+#10 0x081173de in reply_trans2 (req=0x9b15b00) at ../source3/smbd/trans2.c:9497
+#11 0x080b8a63 in switch_message (type=50 '2', req=0x9b15b00, size=106) at ../source3/smbd/process.c:2001
+#12 0x080b8bf3 in construct_reply (sconn=0x9aea058, inbuf=0x0, size=106, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:2045
+#13 0x080b9064 in process_smb (sconn=0x9aea058, inbuf=0x9b15a60 "", nread=106, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:2130
+#14 0x080ba314 in smbd_server_connection_read_handler (conn=0x9aea058, fd=30) at ../source3/smbd/process.c:2762
+#15 0x080ba37b in smbd_server_connection_handler (ev=0x9ae9fe8, fde=0x9afd7b0, flags=1, private_data=0x9aea058) at ../source3/smbd/process.c:2779
+#16 0x0873a620 in run_events_poll (ev=0x9ae9fe8, pollrtn=1, pfds=0x9af1790, num_pfds=3) at ../source3/lib/events.c:286
+#17 0x080b78ae in smbd_server_connection_loop_once (conn=0x9aea058) at ../source3/smbd/process.c:1023
+#18 0x080bce19 in smbd_process (sconn=0x9aea058) at ../source3/smbd/process.c:3609
+#19 0x080d5e07 in smbd_accept_connection (ev=0x9ae9fe8, fde=0x9afa0f8, flags=1, private_data=0x9afa678) at ../source3/smbd/server.c:505
+#20 0x0873a620 in run_events_poll (ev=0x9ae9fe8, pollrtn=1, pfds=0x9af6608, num_pfds=5) at ../source3/lib/events.c:286
+#21 0x0873a8ab in s3_event_loop_once (ev=0x9ae9fe8, location=0x8865ee0 "../source3/smbd/server.c:838") at ../source3/lib/events.c:350
+#22 0x087effd8 in _tevent_loop_once (ev=0x9ae9fe8, location=0x8865ee0 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#23 0x080d6ba8 in smbd_parent_loop (parent=0x9afc8e8) at ../source3/smbd/server.c:838
+#24 0x080d7d9b in main (argc=1, argv=0xbfe89f34) at ../source3/smbd/server.c:1328
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#1  0x08814c7a in SendCMD (index=0, subcmd=0x8b0c852 "size", outParam=0xbfadc788 "", pCode=0xbfadcae0, type=2, ppOutBuf=0xbfadc888) at ../SMB_XML.c:740
+#2  0x08818fa0 in ori_getfilesize (pRealPath=0x90e4b58 "/DSM_FILE_1/SUB_00000/289A02F9F0284E5788FC7C5243126007", pFilesize=0xbfadc8c8, pCode=0xbfadcae0) at ../SMB_XML.c:2454
+#3  0x08819189 in ori_stat (rid=501, sbuf=0xbfadcbdc) at ../SMB_XML.c:2495
+#4  0x08819d70 in fake_stat (rid=501, sbuf=0xbfadcbdc) at ../SMB_XML.c:2839
+#5  0x087580fb in sys_fake_stat (rid=501, sbuf=0x90e0814, fake_dir_create_times=false) at ../source3/lib/system.c:3412
+#6  0x08201f3f in vfswrap_fstat (handle=0x90ed7c0, fsp=0x90e74b0, sbuf=0x90e0814) at ../source3/modules/vfs_default.c:3310
+#7  0x0811d284 in smb_vfs_call_fstat (handle=0x90ed7c0, fsp=0x90e74b0, sbuf=0x90e0814) at ../source3/smbd/vfs.c:1450
+#8  0x08098dae in open_file (fsp=0x90e74b0, conn=0x90e86b0, req=0x9104ac8, parent_dir=0x9105158 "私有文件夹", flags=578, unx_mode=484, access_mask=131487, open_access_mask=131487)
+    at ../source3/smbd/open.c:603
+#9  0x0809d155 in open_file_ntcreate (conn=0x90e86b0, req=0x9104ac8, access_mask=131487, share_access=3, create_disposition=5, create_options=64, new_dos_attributes=0, oplock_request=3, 
+    private_flags=0, pinfo=0xbfadd1bc, fsp=0x90e74b0) at ../source3/smbd/open.c:2089
+#10 0x080a0552 in create_file_unixpath (conn=0x90e86b0, req=0x9104ac8, smb_fname=0x9104c28, access_mask=131487, share_access=3, create_disposition=5, create_options=64, 
+    file_attributes=128, oplock_request=3, allocation_size=0, private_flags=0, sd=0x0, ea_list=0x0, result=0xbfadd26c, pinfo=0xbfadd270) at ../source3/smbd/open.c:3317
+#11 0x080a1207 in create_file_default (conn=0x90e86b0, req=0x9104ac8, root_dir_fid=0, smb_fname=0x9104c28, access_mask=131487, share_access=3, create_disposition=5, create_options=64, 
+    file_attributes=128, oplock_request=3, allocation_size=0, private_flags=0, sd=0x0, ea_list=0x0, result=0xbfadd444, pinfo=0xbfadd448) at ../source3/smbd/open.c:3725
+#12 0x08200e6e in vfswrap_create_file (handle=0x90ed7c0, req=0x9104ac8, root_dir_fid=0, smb_fname=0x9104c28, access_mask=131487, share_access=3, create_disposition=5, create_options=64, 
+    file_attributes=128, oplock_request=3, allocation_size=0, private_flags=0, sd=0x0, ea_list=0x0, result=0xbfadd444, pinfo=0xbfadd448) at ../source3/modules/vfs_default.c:2899
+#13 0x0811ceef in smb_vfs_call_create_file (handle=0x90ed7c0, req=0x9104ac8, root_dir_fid=0, smb_fname=0x9104c28, access_mask=131487, share_access=3, create_disposition=5, 
+    create_options=64, file_attributes=128, oplock_request=3, allocation_size=0, private_flags=0, sd=0x0, ea_list=0x0, result=0xbfadd444, pinfo=0xbfadd448) at ../source3/smbd/vfs.c:1353
+#14 0x0808f3c1 in reply_ntcreate_and_X (req=0x9104ac8) at ../source3/smbd/nttrans.c:582
+#15 0x080b8a7c in switch_message (type=162 '\242', req=0x9104ac8, size=116) at ../source3/smbd/process.c:1721
+#16 0x080b8c0c in construct_reply (sconn=0x90db058, inbuf=0x0, size=116, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1765
+#17 0x080b907d in process_smb (sconn=0x90db058, inbuf=0x9104a18 "", nread=116, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1850
+#18 0x080ba32d in smbd_server_connection_read_handler (conn=0x90db058, fd=30) at ../source3/smbd/process.c:2482
+#19 0x080ba394 in smbd_server_connection_handler (ev=0x90dafe8, fde=0x90ee7b0, flags=1, private_data=0x90db058) at ../source3/smbd/process.c:2499
+#20 0x0873a638 in run_events_poll (ev=0x90dafe8, pollrtn=1, pfds=0x90ed730, num_pfds=3) at ../source3/lib/events.c:286
+#21 0x080b78ae in smbd_server_connection_loop_once (conn=0x90db058) at ../source3/smbd/process.c:1023
+#22 0x080bce32 in smbd_process (sconn=0x90db058) at ../source3/smbd/process.c:3329
+#23 0x080d5e1f in smbd_accept_connection (ev=0x90dafe8, fde=0x90eb0f8, flags=1, private_data=0x90eb678) at ../source3/smbd/server.c:505
+#24 0x0873a638 in run_events_poll (ev=0x90dafe8, pollrtn=1, pfds=0x90e7608, num_pfds=5) at ../source3/lib/events.c:286
+#25 0x0873a8c3 in s3_event_loop_once (ev=0x90dafe8, location=0x8867520 "../source3/smbd/server.c:838") at ../source3/lib/events.c:350
+#26 0x087efff0 in _tevent_loop_once (ev=0x90dafe8, location=0x8867520 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#27 0x080d6bc0 in smbd_parent_loop (parent=0x90ed8e8) at ../source3/smbd/server.c:838
+#28 0x080d7db3 in main (argc=1, argv=0xbfaddd64) at ../source3/smbd/server.c:1328
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+static const struct tevent_ops s3_event_ops = {
+	.context_init		= s3_event_context_init,
+	.add_fd			= tevent_common_add_fd,
+	.set_fd_close_fn	= tevent_common_fd_set_close_fn,
+	.get_fd_flags		= tevent_common_fd_get_flags,
+	.set_fd_flags		= tevent_common_fd_set_flags,
+	.add_timer		= tevent_common_add_timer,
+	.schedule_immediate	= tevent_common_schedule_immediate,
+	.add_signal		= tevent_common_add_signal,
+	.loop_once		= s3_event_loop_once,
+	.loop_wait		= tevent_common_loop_wait,
+};
+
+const struct tevent_ops *ops = s3_event_ops
+
+
+(gdb) p (struct tevent_context)ev
+$29 = {ops = 0x8d87540, fd_events = 0x0, timer_events = 0x8d9a728, immediate_events = 0x5, signal_events = 0xbf928634, additional_data = 0x8801134, pipe_fde = 0x8b1af94, pipe_fds = {
+    148421616, 5}, debug_ops = {debug = 0xea60, context = 0x8d87db0}, nesting = {allowed = false, level = 0, hook_fn = 0, hook_private = 0xbf928688}}
+    
+    
+(gdb) p (struct tevent_timer)ev->timer_events 
+$24 = {prev = 0x8d9c4a8, next = 0x0, event_ctx = 0x8d97668, next_event = {tv_sec = 148405680, tv_usec = 148417920}, handler = 0x6, private_data = 0x7, 
+  handler_name = 0x8754da6 "U\211\345\203\354\070\307E\364\377\377\377\377\307E", <incomplete sequence \360>, location = 0x0, additional_data = 0x0}
+  
+(gdb) p ev->timer_events.handler_name 
+$25 = 0x88797f1 "smbd_idle_event_handler"
+
+(gdb) p (struct idle_event) event.name
+$32 = {te = 0x8d9a798, interval = {tv_sec = 135122773, tv_usec = 0}, name = 0x50 <Address 0x50 out of bounds>, handler = 0x241, private_data = 0x9435d0}
+(gdb) p event.name                    
+$33 = 0x8d9a798 "idle_evt(parent_housekeeping)"
+smbd_parent_housekeeping
+
+
+struct tevent_context *ev
+struct tevent_fd *fde;
+for (fde = ev->fd_events; fde; fde = fde->next) {
+
+fde->handler(ev, fde, flags, fde->private_data);
+smbd_accept_connection
+
+登陆宕机
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(gdb) bt
+#0  0x00f6f424 in __kernel_vsyscall ()
+#1  0x007d9b11 in raise () from /lib/libc.so.6
+#2  0x007db3ea in abort () from /lib/libc.so.6
+#3  0x0873b6b6 in dump_core () at ../source3/lib/fault.c:391
+#4  0x0875d083 in smb_panic (why=0x8a7c352 "internal error") at ../source3/lib/util.c:1150
+#5  0x0873ae19 in fault_report (sig=11) at ../source3/lib/fault.c:53
+#6  0x0873ae2a in sig_fault (sig=11) at ../source3/lib/fault.c:76
+#7  <signal handler called>
+#8  0x00828dcc in strncat () from /lib/libc.so.6
+#9  0x0881471c in get_dsm_idx_by_name (name=0x9f3acfc "Logon") at ../SMB_XML.c:595
+#10 0x08814c4f in SendCMD (index=0, subcmd=0x8b0c066 "SessionID", outParam=0xbfdadd28 "", pCode=0xbfdadda0, type=0, ppOutBuf=0xbfdadd58) at ../SMB_XML.c:737
+#11 0x08814f9b in LogonDSM (username=0xbfdadfa4 "11", passwd=0xbfdadda4 "Bm+vCZ4AAtrcF55DL/WgI/A=", Type=0, EnvLv=1, Role=0, pSid=0x8ba5bc0 "", pCode=0xbfdadda0) at ../SMB_XML.c:810
+#12 0x081e8217 in TryLogon (userInfo=0x9f3a4e8 "11#Qm0rdkNaNEFBdHJjRjU1REwvV2dJL0E9#0#0#1") at ../source3/passdb/pdb_smbpasswd.c:1396
+#13 0x081e83a0 in smbpasswd_getsampwnam (my_methods=0x9f34cf0, sam_acct=0x9f388d0, username=0x9f3a4e8 "11#Qm0rdkNaNEFBdHJjRjU1REwvV2dJL0E9#0#0#1") at ../source3/passdb/pdb_smbpasswd.c:1440
+#14 0x081e1738 in pdb_getsampwnam (sam_acct=0x9f388d0, username=0x9f3a4e8 "11#Qm0rdkNaNEFBdHJjRjU1REwvV2dJL0E9#0#0#1") at ../source3/passdb/pdb_interface.c:319
+#15 0x0877d310 in check_sam_security (challenge=0x9f4d008, mem_ctx=0x9f40300, user_info=0x9f3ff28, server_info=0x9f3ab8c) at ../source3/auth/check_samsec.c:395
+#16 0x087771a2 in auth_samstrict_auth (auth_context=0x9f4d008, my_private_data=0x0, mem_ctx=0x9f40300, user_info=0x9f3ff28, server_info=0x9f3ab8c) at ../source3/auth/auth_sam.c:104
+#17 0x087737a0 in check_ntlm_password (auth_context=0x9f4d008, user_info=0x9f3ff28, server_info=0x9f3ab8c) at ../source3/auth/auth.c:258
+#18 0x087768bd in auth_ntlmssp_check_password (ntlmssp_state=0x9f3f130, mem_ctx=0x9f42e30, user_session_key=0x9f42e30, lm_session_key=0x9f42e38) at ../source3/auth/auth_ntlmssp.c:184
+#19 0x087c2ae8 in ntlmssp_server_auth (ntlmssp_state=0x9f3f130, out_mem_ctx=0x9f3f130, in=..., out=0xbfdae724) at ../libcli/auth/ntlmssp_server.c:583
+#20 0x082579fa in ntlmssp_update (ntlmssp_state=0x9f3f130, input=..., out=0xbfdae724) at ../source3/libsmb/ntlmssp.c:269
+#21 0x082592bc in auth_ntlmssp_update (ans=0x9f3ab88, request=..., reply=0xbfdae724) at ../source3/libsmb/ntlmssp_wrap.c:154
+#22 0x080decc8 in reply_spnego_auth (req=0x9f56bb8, vuid=100, blob1=..., auth_ntlmssp_state=0x9f43038) at ../source3/smbd/sesssetup.c:802
+#23 0x080dff86 in reply_sesssetup_and_X_spnego (req=0x9f56bb8) at ../source3/smbd/sesssetup.c:1205
+#24 0x080e08af in reply_sesssetup_and_X (req=0x9f56bb8) at ../source3/smbd/sesssetup.c:1370
+#25 0x080b8a7c in switch_message (type=115 's', req=0x9f56bb8, size=502) at ../source3/smbd/process.c:1721
+#26 0x080b8c0c in construct_reply (sconn=0x9f31058, inbuf=0x0, size=502, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1765
+#27 0x080b907d in process_smb (sconn=0x9f31058, inbuf=0x9f56988 "", nread=502, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1850
+#28 0x080ba32d in smbd_server_connection_read_handler (conn=0x9f31058, fd=30) at ../source3/smbd/process.c:2482
+#29 0x080ba394 in smbd_server_connection_handler (ev=0x9f30fe8, fde=0x9f447d8, flags=1, private_data=0x9f31058) at ../source3/smbd/process.c:2499
+#30 0x0873a638 in run_events_poll (ev=0x9f30fe8, pollrtn=1, pfds=0x9f44040, num_pfds=2) at ../source3/lib/events.c:286
+#31 0x080b78ae in smbd_server_connection_loop_once (conn=0x9f31058) at ../source3/smbd/process.c:1023
+#32 0x080bce32 in smbd_process (sconn=0x9f31058) at ../source3/smbd/process.c:3329
+#33 0x080d5e1f in smbd_accept_connection (ev=0x9f30fe8, fde=0x9f410f8, flags=1, private_data=0x9f41678) at ../source3/smbd/server.c:505
+#34 0x0873a638 in run_events_poll (ev=0x9f30fe8, pollrtn=1, pfds=0x9f3d608, num_pfds=5) at ../source3/lib/events.c:286
+#35 0x0873a8c3 in s3_event_loop_once (ev=0x9f30fe8, location=0x8867500 "../source3/smbd/server.c:838") at ../source3/lib/events.c:350
+#36 0x087efff0 in _tevent_loop_once (ev=0x9f30fe8, location=0x8867500 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#37 0x080d6bc0 in smbd_parent_loop (parent=0x9f438e8) at ../source3/smbd/server.c:838
+#38 0x080d7db3 in main (argc=1, argv=0xbfdaf304) at ../source3/smbd/server.c:1328
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(gdb) bt
+#0  0x00cb0424 in __kernel_vsyscall ()
+#1  0x00886d5b in poll () from /lib/libc.so.6
+#2  0x08800a04 in sys_poll (fds=0x8d9a728, num_fds=5, timeout=60000) at ../lib/util/select.c:104
+#3  0x08754b3f in s3_event_loop_once (ev=0x8d87540, location=0x88858e0 "../source3/smbd/server.c:838") at ../source3/lib/events.c:342
+#4  0x0880f73c in _tevent_loop_once (ev=0x8d87540, location=0x88858e0 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#5  0x080dd7f1 in smbd_parent_loop (parent=0x8d9ad48) at ../source3/smbd/server.c:838
+#6  0x080deaf3 in main (argc=1, argv=0xbf928964) at ../source3/smbd/server.c:1328
+(gdb) p 
+The history is empty.
+(gdb) p tevent_backends
+$1 = (struct tevent_ops_list *) 0x8d874f8
+(gdb) p (tevent_ops_list)tevent_backends
+No symbol "tevent_ops_list" in current context.
+(gdb) p (struct tevent_ops_list)tevent_backends
+$2 = {next = 0x8d874f8, prev = 0x8d873a0, name = 0x0, ops = 0x8d88f60}
+(gdb) p tevent_backends->next
+$3 = (struct tevent_ops_list *) 0x8d874b0
+(gdb) p (struct tevent_ops_list)tevent_backends->next
+$4 = {next = 0x8d874b0, prev = 0x8d873d8, name = 0x8b1eb48 "epoll", ops = 0x8b1eb20}
+(gdb) p (struct tevent_ops_list)tevent_backends->next-next
+No symbol "next" in current context.
+(gdb) p (struct tevent_ops_list)tevent_backends->next->next
+$5 = {next = 0x8d87468, prev = 0x8d874f8, name = 0x8b1f4e8 "standard", ops = 0x8b1f4c0}
+(gdb) p (struct tevent_ops_list)tevent_backends->next->next->next
+$6 = {next = 0x8d87420, prev = 0x8d874b0, name = 0x8b1ed48 "poll", ops = 0x8b1ed20}
+(gdb) p (struct tevent_ops_list)tevent_backends->next->next->next->next
+$7 = {next = 0x8d873d8, prev = 0x8d87468, name = 0x8b1f168 "select", ops = 0x8b1f140}
+(gdb) p (struct tevent_ops_list)tevent_backends->next->next->next->next->next
+$8 = {next = 0x0, prev = 0x8d87420, name = 0x8a98968 "s3", ops = 0x8a98940}
+(gdb) p (struct tevent_ops_list)tevent_backends->next->next->next->next->next
+$9 = {next = 0x0, prev = 0x8d87420, name = 0x8a98968 "s3", ops = 0x8a98940}
+(gdb) p (struct tevent_ops_list)tevent_backends->next->next->next->next->next
+
+
+#0  0x00848424 in __kernel_vsyscall ()
+#1  0x00205de6 in kill () from /lib/libc.so.6
+#2  0x08760d1a in message_notify (procid=...) at ../source3/lib/messages_local.c:292
+#3  0x087612d2 in messaging_tdb_send (msg_ctx=0x95d1b58, pid=..., msg_type=784, data=0xbfe5b0c4, backend=0x95d1bd0) at ../source3/lib/messages_local.c:396
+#4  0x087600b3 in messaging_send (msg_ctx=0x95d1b58, server=..., msg_type=784, data=0xbfe5b0c4) at ../source3/lib/messages.c:353
+#5  0x0808fc42 in notify_send (notify=0x95e3ce0, e=0x95e84f8, path=0x95e4620 "22.docx", action=4) at ../source3/smbd/notify_internal.c:819
+#6  0x0808fefc in notify_onelevel (notify=0x95e3ce0, action=4, filter=1, fid=..., name=0x95e4620 "22.docx") at ../source3/smbd/notify_internal.c:876
+#7  0x0808bf2c in notify_fname (conn=0x95ddb10, action=4, filter=1, path=0x95e4610 "私有文件夹/22.docx") at ../source3/smbd/notify.c:379
+#8  0x080d394f in notify_rename (conn=0x95ddb10, is_dir=false, smb_fname_src=0x95e6620, smb_fname_dst=0x9600af8) at ../source3/smbd/reply.c:5986
+#9  0x080d4736 in rename_internals_fsp (conn=0x95ddb10, fsp=0x95e0df8, smb_fname_dst_in=0x95ff4b8, attrs=22, replace_if_exists=false) at ../source3/smbd/reply.c:6318
+#10 0x080d4f66 in rename_internals (ctx=0x95fefe8, conn=0x95ddb10, req=0x95ff0d8, smb_fname_src=0x95ff2a8, smb_fname_dst=0x95ff4b8, attrs=22, replace_if_exists=false, src_has_wild=false, 
+    dest_has_wild=false, access_mask=65536) at ../source3/smbd/reply.c:6576
+#11 0x080d5ed8 in reply_mv (req=0x95ff0d8) at ../source3/smbd/reply.c:6890
+#12 0x080bdf94 in switch_message (type=7 '\a', req=0x95ff0d8, size=114) at ../source3/smbd/process.c:1624
+#13 0x080be10d in construct_reply (sconn=0x95d05b0, inbuf=0x0, size=114, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1660
+#14 0x080be5ae in process_smb (sconn=0x95d05b0, inbuf=0x95ff028 "", nread=114, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1745
+#15 0x080bf8dc in smbd_server_connection_read_handler (conn=0x95d05b0, fd=30) at ../source3/smbd/process.c:2377
+#16 0x080bf943 in smbd_server_connection_handler (ev=0x95d0540, fde=0x95d65a0, flags=1, private_data=0x95d05b0) at ../source3/smbd/process.c:2394
+#17 0x0875476e in run_events_poll (ev=0x95d0540, pollrtn=1, pfds=0x95e05d0, num_pfds=3) at ../source3/lib/events.c:286
+#18 0x080bd175 in smbd_server_connection_loop_once (conn=0x95d05b0) at ../source3/smbd/process.c:1023
+#19 0x080c2798 in smbd_process (sconn=0x95d05b0) at ../source3/smbd/process.c:3224
+#20 0x080dc7c8 in smbd_accept_connection (ev=0x95d0540, fde=0x95e2cc8, flags=1, private_data=0x95e26d8) at ../source3/smbd/server.c:505
+#21 0x0875476e in run_events_poll (ev=0x95d0540, pollrtn=1, pfds=0x95e3728, num_pfds=5) at ../source3/lib/events.c:286
+#22 0x08754a11 in s3_event_loop_once (ev=0x95d0540, location=0x88855e0 "../source3/smbd/server.c:838") at ../source3/lib/events.c:350
+#23 0x0880f594 in _tevent_loop_once (ev=0x95d0540, location=0x88855e0 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#24 0x080dd649 in smbd_parent_loop (parent=0x95e3d48) at ../source3/smbd/server.c:838
+#25 0x080de94b in main (argc=1, argv=0xbfe5bd24) at ../source3/smbd/server.c:1328
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Breakpoint 2, write_data (fd=30, buffer=0x9730760 "", N=139) at ../source3/lib/util_sock.c:469
+469             iov.iov_base = CONST_DISCARD(void *, buffer);
+(gdb) bt
+#0  write_data (fd=30, buffer=0x9730760 "", N=139) at ../source3/lib/util_sock.c:469
+#1  0x080ba34a in srv_send_smb (sconn=0x97035b0, buffer=0x9730760 "", do_signing=true, seqnum=1, do_encrypt=false, pcd=0x97300c0) at ../source3/smbd/process.c:161
+#2  0x080bf1f4 in chain_reply (req=0x9730080) at ../source3/smbd/process.c:2130
+#3  0x08092cae in reply_ntcreate_and_X (req=0x9730080) at ../source3/smbd/nttrans.c:796
+#4  0x080bdfc4 in switch_message (type=162 '\242', req=0x9730080, size=98) at ../source3/smbd/process.c:1624
+#5  0x080be13d in construct_reply (sconn=0x97035b0, inbuf=0x0, size=98, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1660
+#6  0x080be5de in process_smb (sconn=0x97035b0, inbuf=0x972ffe0 "", nread=98, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1745
+#7  0x080bf90c in smbd_server_connection_read_handler (conn=0x97035b0, fd=30) at ../source3/smbd/process.c:2377
+#8  0x080bf973 in smbd_server_connection_handler (ev=0x9703540, fde=0x9704898, flags=1, private_data=0x97035b0) at ../source3/smbd/process.c:2394
+#9  0x08750e1a in run_events_poll (ev=0x9703540, pollrtn=1, pfds=0x970dae8, num_pfds=3) at ../source3/lib/events.c:286
+#10 0x080bd1a5 in smbd_server_connection_loop_once (conn=0x97035b0) at ../source3/smbd/process.c:1023
+#11 0x080c27c8 in smbd_process (sconn=0x97035b0) at ../source3/smbd/process.c:3224
+#12 0x080dc7f8 in smbd_accept_connection (ev=0x9703540, fde=0x9715cc8, flags=1, private_data=0x97156d8) at ../source3/smbd/server.c:505
+#13 0x08750e1a in run_events_poll (ev=0x9703540, pollrtn=1, pfds=0x9716728, num_pfds=5) at ../source3/lib/events.c:286
+#14 0x087510bd in s3_event_loop_once (ev=0x9703540, location=0x8881c80 "../source3/smbd/server.c:838") at ../source3/lib/events.c:350
+#15 0x0880bc40 in _tevent_loop_once (ev=0x9703540, location=0x8881c80 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#16 0x080dd679 in smbd_parent_loop (parent=0x9716d48) at ../source3/smbd/server.c:838
+#17 0x080de97b in main (argc=1, argv=0xbfeb8624) at ../source3/smbd/server.c:1328
+
+Breakpoint 2, write_data (fd=30, buffer=0x9732428 "", N=72) at ../source3/lib/util_sock.c:469
+469             iov.iov_base = CONST_DISCARD(void *, buffer);
+(gdb) c
+Continuing.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Breakpoint 2, write_data (fd=30, buffer=0x9732798 "", N=139) at ../source3/lib/util_sock.c:469
+469             iov.iov_base = CONST_DISCARD(void *, buffer);
+(gdb) bt
+#0  write_data (fd=30, buffer=0x9732798 "", N=139) at ../source3/lib/util_sock.c:469
+#1  0x080ba34a in srv_send_smb (sconn=0x97035b0, buffer=0x9732798 "", do_signing=true, seqnum=1, do_encrypt=false, pcd=0x9732108) at ../source3/smbd/process.c:161
+#2  0x080bf1f4 in chain_reply (req=0x97320c8) at ../source3/smbd/process.c:2130
+#3  0x08092cae in reply_ntcreate_and_X (req=0x97320c8) at ../source3/smbd/nttrans.c:796
+#4  0x080bdfc4 in switch_message (type=162 '\242', req=0x97320c8, size=110) at ../source3/smbd/process.c:1624
+#5  0x080be13d in construct_reply (sconn=0x97035b0, inbuf=0x0, size=110, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1660
+#6  0x080be5de in process_smb (sconn=0x97035b0, inbuf=0x9732028 "", nread=110, unread_bytes=0, seqnum=0, encrypted=false, deferred_pcd=0x0) at ../source3/smbd/process.c:1745
+#7  0x080bf90c in smbd_server_connection_read_handler (conn=0x97035b0, fd=30) at ../source3/smbd/process.c:2377
+#8  0x080bf973 in smbd_server_connection_handler (ev=0x9703540, fde=0x9704898, flags=1, private_data=0x97035b0) at ../source3/smbd/process.c:2394
+#9  0x08750e1a in run_events_poll (ev=0x9703540, pollrtn=1, pfds=0x970dae8, num_pfds=3) at ../source3/lib/events.c:286
+#10 0x080bd1a5 in smbd_server_connection_loop_once (conn=0x97035b0) at ../source3/smbd/process.c:1023
+#11 0x080c27c8 in smbd_process (sconn=0x97035b0) at ../source3/smbd/process.c:3224
+#12 0x080dc7f8 in smbd_accept_connection (ev=0x9703540, fde=0x9715cc8, flags=1, private_data=0x97156d8) at ../source3/smbd/server.c:505
+#13 0x08750e1a in run_events_poll (ev=0x9703540, pollrtn=1, pfds=0x9716728, num_pfds=5) at ../source3/lib/events.c:286
+#14 0x087510bd in s3_event_loop_once (ev=0x9703540, location=0x8881c80 "../source3/smbd/server.c:838") at ../source3/lib/events.c:350
+#15 0x0880bc40 in _tevent_loop_once (ev=0x9703540, location=0x8881c80 "../source3/smbd/server.c:838") at ../lib/tevent/tevent.c:494
+#16 0x080dd679 in smbd_parent_loop (parent=0x9716d48) at ../source3/smbd/server.c:838
+#17 0x080de97b in main (argc=1, argv=0xbfeb8624) at ../source3/smbd/server.c:1328
+(gdb) c
+Continuing.
+
+Breakpoint 2, write_data (fd=30, buffer=0x9734430 "", N=72) at ../source3/lib/util_sock.c:469
+469             iov.iov_base = CONST_DISCARD(void *, buffer);
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

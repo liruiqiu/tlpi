@@ -1,0 +1,126 @@
+该CSS属性参考是根据W3C的CSS2标准的属性参考说明和微软的CSS属性参考说明整理而成。两者有差异处，如默认值，则以Internet Explorer 的效果为准。
+W3C 参考来源： W3C CSS2 Property Index
+微软 参考来源：微软MSDN中的CSS Reference
+颜色和背景属性(Color and background properties)
+color 颜色属性
+该CSS属性用来设定前景色，通常用于设定元素的字体颜色。
+background 背景属性
+该CSS属性是一个复合属性，是5个背景属性 background-color, background-image, background-repeat, background-attachment 和 background-position 的综合快捷写法。
+background-attachment 背景附着属性
+该CSS属性用来设定背景图片是否随文档一起滚动。
+background-color 背景颜色属性
+该CSS属性用来设定对象的背景颜色。
+background-image 背景图片属性
+该CSS属性用来设定元素的背景图片。
+background-position 背景位置属性
+该CSS属性用来设定背景图片的位置。
+background-repeat 背景重复属性
+该CSS属性用来设定背景图片是否重复平铺。
+字体属性(Font properties)
+font 字体属性
+该CSS属性是各种字体属性的一种快捷的综合写法。
+font-family 字体名称属性
+该CSS属性用来设定所用字体的名称。
+font-size 字体大小属性
+该CSS属性用来设定字体的大小。
+font-style 字体风格属性
+设定字体风格是斜体，正常，或是倾斜。
+font-variant 字体变量属性
+该CSS属性用来设定字体是正常显示，还是以小型大写字母显示。
+font-weight 字体浓淡属性
+该CSS属性用来设定字体的浓淡程度。
+文本属性(Text properties)
+direction 方向属性
+该CSS属性用来设定文本的书写顺序。
+letter-spacing 字符间距属性
+该CSS属性用来设定字符间距。
+line-height 行高属性
+该CSS属性用来设定行间距。
+text-align 水平对齐属性
+该CSS属性用来设定文本的水平对齐方式。
+text-decoration 文本修饰属性
+该CSS属性用来审定文本的修饰效果，如上划线，下划线等。
+text-indent 文本缩进属性
+该CSS属性用来设定文本块中第一行的缩进。
+text-transform 文本转换属性
+该CSS属性用来设定字体的大小写转换。
+vertical-align 垂直对齐属性
+该CSS属性用来设定垂直对齐方式。
+white-space 空白属性
+该CSS属性用来处理空白。
+word-spacing 词间距属性
+该CSS属性用来设定词与词之间的空间。
+布局属性(Layout properties)
+border 边框属性
+该CSS属性用来设定边框宽度，风格和颜色。
+border-bottom 下边框属性
+该CSS属性用来设定下边框宽度，风格和颜色。
+border-bottom-color 下边框颜色属性
+该CSS属性用来设定下边框的颜色。
+border-bottom-style 下边框风格属性
+该CSS属性用来设定下边框的风格。
+border-bottom-width 下边框宽度属性
+该CSS属性用来设定下边框的宽度。
+border-collapse 边框合并属性
+该CSS属性用来设定表格的行和列的边框是合并成单边框，还是分别有各自的边框。
+border-color 边框颜色属性
+该CSS属性用来设定边框的颜色。
+border-left 左边框属性
+该CSS属性用来设定左边框宽度，风格和颜色。
+border-left-color 左边框颜色属性
+该CSS属性用来设定左边框的颜色。
+border-left-style 左边框风格属性
+该CSS属性用来设定左边框的风格。
+border-left-width 左边框宽度属性
+该CSS属性用来设定左边框的宽度。
+border-right 右边框属性
+该CSS属性用来设定右边框宽度，风格和颜色。
+border-right-color 右边框颜色属性
+该CSS属性用来设定右边框的颜色。
+border-right-style 右边框风格属性
+该CSS属性用来设定右边框的风格。
+border-right-width 右边框宽度属性
+该CSS属性用来设定右边框的宽度。
+border-style 边框风格属性
+该CSS属性用来设定边框的风格。
+border-top 上边框属性
+该CSS属性用来设定上边框宽度，风格和颜色。
+border-top-color 上边框颜色属性
+该CSS属性用来设定上边框的颜色。
+border-top-style 上边框风格属性
+该CSS属性用来设定上边框的风格。
+border-top-width 上边框宽度属性
+该CSS属性用来设定上边框的宽度。
+border-width 边框宽度属性
+该CSS属性用来设定边框的宽度。
+margin 边距属性
+该CSS属性用来设定边距的宽度。
+margin-bottom 下边距属性
+该CSS属性用来设定下边距的宽度。
+margin-left 左边距属性
+该CSS属性用来设定左边距的宽度。
+margin-right 右边距属性
+该CSS属性用来设定右边距的宽度。
+margin-top 上边距属性
+该CSS属性用来设定下边距的宽度。
+padding 间隙属性
+该CSS属性用来设定间隙的宽度。
+padding-bottom 下间隙属性
+该CSS属性用来设定下间隙的宽度。
+padding-left 左间隙属性
+该CSS属性用来设定左间隙的宽度。
+padding-right 右间隙属性
+该CSS属性用来设定右间隙的宽度。
+padding-top 上间隙属性
+该CSS属性用来设定上间隙的宽度。
+分类属性(Classification properties)
+display 显示属性
+该CSS属性用来设定对象如何显示。
+list-style 列表样式属性
+该CSS属性是设定列表样式的一个快捷的综合写法。用这个属性可以同时设置列表样式类型属性 (list-style-type)，列表样式位置属性 (list-style-position) 和列表样式图片属性 (list-style-image) 。
+list-style-image 列表样式图片属性
+该CSS属性用来设定列表样式图片标记的地址。
+list-style-position 列表样式位置属性
+该CSS属性用来设定列表样式标记的位置。
+list-style-type 列表样式类型属性
+该CSS属性用来设定列表项标记(list-item marker)的类型。

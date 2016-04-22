@@ -1,0 +1,128 @@
+
+在fedora下想升级python软件包，可以出现"rpmdb: unable to join the environment"，不能升级，经搜索发现是因为rpm包的数据库损坏了，影响所有软件的升级、安装和卸载等，rpm命令和yum命令都不能使用了，解决方法如下：
+cd /var/lib/rpm/
+mkdir db_bak
+mv db.* db_bak （才开始按人家的弄，还是不行，最后看到几个__db.00*文件，我也给移走了，果然见效）
+rpm --rebuilddb     重建rpm数据库
+yum clean all
+操作无误后，应该可以正常使用rpm和yum命令安装软件包了
+
+
+
+tune2fs -m 1 /dev/sda4
+
+不知道为什么，Fedora 13没有自带搜索mp3插件的功能，需要自己寻找安装，下面来教大家一个在Fedora 13下听音乐r看电影的方法：
+
+在root权限下执行下面两个命令：
+
+rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm
+yum install gstreamer-plugins-bad gstreamer-ffmpeg gstreamer-plugins-ugly -y
+
+完了之后在点击mp3文件就可以听了，rmvb/rm/mkv/mp4/wmv也可以看，我试过，可以用的！另外，Fedora是有音乐预听功能的，即不用打开文件,只要把鼠标移到音乐文件上面就可以听到了！
+
+$visudo     //切记，此处没有vi和sudo之间没有空格
+your_user_name ALL=(ALL) ALL  //比如我的是dengnice ALL=(ALL) ALL
+如果不想在sudo的时候输入密码，干脆就把上面那行换成下面这行即可：
+username ALL=(ALL)NOPASSWD: ALL
+
+
+原Fedora不支持，貌似现在可以啦，如果同学你那里没有自动补全，可以通过下面命令安装bash-completion：
+# yum install bash-completion
+
+
+
+mkdir /media/cdrom && mount /dev/cdrom /media/cdrom
+ sudo mkdir /media/iso && sudo mount -t iso9660 -o loop Fedora-15-i386-DVD.iso /media/iso
+
+
+mv /etc/yum.repos.d/* /data/bak
+vi /etc/yum.repos.d/iso.repo
+[ISO]
+name=iso
+baseurl=file:///media/cdrom
+gpgkey=file:///media/cdrom/RPM-GPG-KEY-fedora
+failovermethod=priority
+enabled=1
+gpgcheck=0
+#enabled=0 ŸÍÊÇÆÁ±ÎÈíŒþÔŽ
+yum update
+yum install gcc
+
+chkconfig iptables --level 2345 off
+chkconfig sshd --level 2345 on
+    
+rm -rf /etc/systemd/system/default.target
+ln -s /lib/systemd/system/runlevel3.target /etc/systemd/system/default.target
+
+
+2.Fedora软件源的设置
+
+解决方案1：
+
+yum-plugin-fastestmirror: 寻找最快的软件源  Fedora 连接软件源的速度慢，其实还是有办法可以解决的。那就是安装 yum-plugin-fastestmirror 打开终端，键入以下命令： sudo yum install yum-plugin-fastestmirror  安装结束以后，以后每一次运行 yum 的时候，都会先寻找一个最快的源。现在中国大陆 163 和搜狐都做了完整的 Fedora 镜像，速度自然提升了了很多。
+
+ 
+
+解决方案2：
+
+ fedora 12 自带的软件源较慢，一般都要更换，测试了下发现上海交大的源比较快，那就更换为上海交大的源。
+更换步骤如下：
+        (1)首先，把备份系统自带源。（软件源的默认路径是/etc/yum.repos.d）
+可以在终端输入命令
+# mkdir ~/fedora_repo.bak
+# mv /etc/yum.repos.d/* ~/fedora_repo.bak
+      （2）用gedit编辑文件sjtu.repo 并将它保存在/etc/yum.repos.d文件夹下面，文件内容如下：
+#----------------------------------------------------------------------------------------------------------------------------------
+[Fedora-ftp.sjtu.edu.cn]
+name=Fedora 12 - i386
+baseurl=http://ftp.sjtu.edu.cn/fedora/linux/releases/12/Fedora/i386/os/
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Fedora file:///etc/pki/rpm-gpg/RPM-GPG-KEY
+[Everything-ftp.sjtu.edu.cn]
+name=Everything 12 - i386
+baseurl=http://ftp.sjtu.edu.cn/fedora/linux/releases/12/Everything/i386/os/
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Fedora file:///etc/pki/rpm-gpg/RPM-GPG-KEY
+[updates-ftp.sjtu.edu.cn]
+name=Fedora updates
+baseurl=http://ftp.sjtu.edu.cn/fedora/linux/updates/12/i386/
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Fedora file:///etc/pki/rpm-gpg/RPM-GPG-KEY
+（3）然后执行：
+       yum makecache
+    换软件源
+（4）执行软件源更新
+       yum update
+
+ 
+
+3.Fedora汉化：
+
+ 
+
+解决方案：
+
+一、系统语言配置文件/etc/sysconfig/i18n ；
+
+这个文件起到整体控制作用，比如当您把这个文件改为中文支持的，那么所有的登录用户的桌面环境都是中文的；
+
+二、系统用户有自己的语言配置 ；
+
+如果您想使每个系统用户有各自不同的语言环境；可以在当前用户目录下建一个.i18n的文件；
+
+比如我想让beinan，这个用户登录中文桌面环境，所以我要在beinan这个用户下建一个i18n的文件；内容如下：
+
+LANG="zh_CN.UTF-8"
+SYSFONT="latarcyrheb-sun16"
+SUPPORTED="zh_CN.UTF-8:zh_CN:zh"
+退出保存；
+
+然后运行重启X，第二次登录桌面环境就能看到中文了；
+
+4.和虚拟机实现共享
+
+vmware里在系统启动之前，在options里面有个shared folders，变为enabled就好。
+

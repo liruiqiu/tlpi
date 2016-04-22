@@ -1,0 +1,32 @@
+echo 1 > /proc/sys/net/ipv4/ip_forward
+vi /etc/sysctl.conf     net.ipv4.ip_forward = 1
+/sbin/iptables -t nat -A POSTROUTING -o eth1(Õ‚Õ¯£©-j MASQUERADE
+/sbin/iptables -A FORWARD -s 192.168.0.0/24 -j ACCEPT
+/sbin/iptables -A FORWARD -d 192.168.0.0/24 -j ACCEPT
+/sbin/iptables -A FORWARD -s ! 192.168.0.0/24 -j DROP
+/sbin/iptables -A FORWARD -d ! 192.168.0.0/24 -j DROP
+route add default gw 192.168.0.189 dev eth0
+route del default gw 192.168.0.189 dev eth0
+
+
+iptables -I FORWARD 3 -s www.baidu.com -j DROP
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+iptables -A FORWARD -i eth0 -p tcp -s 219.237.0.83 --sport 0:65535 -d www.baidu.com --dport 0:65535 -j DROP
+iptables -A FORWARD -i eth0 -p udp -s 219.237.0.83 --sport 0:65535 -d 202.108.22.5 --dport 0:65535 -j DROP
+iptables -A FORWARD -i eth0 -p tcp -s 219.237.0.0 --sport 0:65535 -d any/0 --dport 0:65535 -j ACCEPT
+iptables -A FORWARD -i eth0 -p icmp -s 219.237.0.83 -d www.baidu.com  -j DROP
+iptables -A FORWARD -i eth0 -s 219.237.0.83  -d www.baidu.com -j DROP
+iptables -A FORWARD  -s 219.237.0.83  -d www.baidu.com -j DROP
+iptables -A FORWARD  -d 219.237.0.83  -s www.baidu.com -j DROP
+iptables -A INPUT -p tcp -i  eth0 --dport ssh -j ACCEPT
+iptables -A FORWARD -s  www.baidu.com -j DROP
+iptables -A FORWARD -s  192.168.0.1  -j DROP
+iptables -A FORWARD -d  www.baidu.com -j DROP
+
+iptables -I FORWARD 1 -s www.msnlivesn.com  -j DROP                      
+iptables -I FORWARD 1 -d www.msnlivesn.com  -j DROP 
+iptables -I FORWARD 1 -s www.meet8.com  -j DROP                   
+iptables -I FORWARD 1 -d www.meet8.com  -j DROP
+ptables -D FORWARD -s 192.168.0.1 -j DROP
+iptables -D FORWARD -d 192.168.0.1 -j DROP

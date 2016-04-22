@@ -1,0 +1,55 @@
+http://pike.ida.liu.se/
+
+pike-mysql-1.4.tar.gz
+
+http://www.mysql.com/Contrib/pike-mysql-1.4.tar.gz
+root@localhost Pike-v7.6.112]# pike
+Pike v7.6 release 112 running Hilfe v3.5 (Incremental Pike Frontend)
+> Sql.Sql db = Sql.Sql("mysql://root:34ccpalm@127.0.0.1:22334/test");
+> db;
+(1) Result: Sql.mysql(/*127.0.0.1 via TCP/IP*/)
+
+
+mysql 安装
+   
+     shell> ./configure 
+     shell> make
+     shell> make install
+     shell> cp support-files/my-medium.cnf /etc/my.cnf
+           vi my.cnf      
+[clier]
+user    = root
+password        = 34ccpalm
+port            = 22334
+socket          = /tmp/mysql.sock
+default_character_set = utf8
+
+[mysqld]
+port            = 22334
+socket          = /tmp/mysql.sock
+default_character_set = utf8
+       
+       /usr/local/bin/mysql_install_db --user=root &
+       
+       /usr/local/bin/mysqld_safe --user=root &
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.0.%' IDENTIFIED BY '34ccpalm' WITH GRANT OPTION;
+
+ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '34ccpalm' WITH GRANT OPTION;
+ 
+ GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '34ccpalm' WITH GRANT OPTION;
+ 
+  flush privileges;
+  
+pike 安装
+cd /usr/local/setup/Pike-v7.6.86
+make && make install
+ 
+ 
+ 
+ use mysql;
+ select * from user;
+ update user set password=PASSWORD('ghaxqn6fsi') where user='root';
+ 
+ 
+  mysql --version

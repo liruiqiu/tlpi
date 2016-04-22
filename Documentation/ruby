@@ -1,0 +1,112 @@
+Ruby语言为各种名字的命名制定了一种规则用以方便、有效的区别名字的使用，包括变量、参数、方法等等：根据名字的第一个字母即可指出名字代表的意义。局部变量，方法参数和方法名字(local variables, method parameters, method names)以一个小写字母或下划线开头。全局变量(global variables)使用一个$符号作为前缀，而实例变量(instance variables)以一个@符号作为开头。类变量(class variables)以两个@符号（即@@）开头。最后，类名字、模块名和常量(class names, module names, constants)应该用一个大写字母开头。以下是不同类型名字的使用范例：
+
+Example variable and class names Variables 
+
+局部变量          全局变量     实例变量   类变量     类名字、模块名和常量
+ ------------------------Variables ----------------    Constants and
+Local 	           Global 	   Instance 	Class        Class Names
+name 	             $debug 	    @name 	   @@total 	  PI
+fishAndChips       $CUSTOMER 	  @point_1 	 @@symtab 	FeetPerMile
+x_axis 	           $_ 					@X    	   @@N 	      String
+thx1138 	         $plan9 	    @_ 	       @@x_pos  	MyClass
+_26 	             $Global    	@plan9 	   @@SINGLE 	Jazz_Song
+
+安装RUBY
+访问 http://www.ruby-lang.org/en/downloads/
+找到Ruby Source Code
+ 
+wget ftp://ftp.ruby-lang.org/pub/ruby/1.8/ruby-1.8.6-p114.tar.gz
+ 
+tar ruby-**.tar.gz
+cd ruby-**
+./configure && make && make install
+如果没有错误
+make install-doc
+安装完成以后执行
+ruby -v 应该能显示版本号
+ 
+安装rubygems
+wget http://rubyforge.org/frs/download.php/35283/rubygems-1.1.1.tgz
+ 
+tar -xzvf rubygems-*
+cd rubygems-*
+ruby setup.rb
+安装完成执行 gem -v 应该能显示版本号
+ 
+3 安装mysql支持包和基础框架(借以检查mysql相关库安装是否良好)
+上两步都ok后, 执行
+gem install rails
+gem install vim-ruby
+gem install mysql
+ 
+安装普通支持包
+realline
+vim
+拷贝.vimrc
+ 
+ 
+安装mysql
+下载标准的mysql源代码包 采用如下参数编译
+./configure  --with-charset=utf8 --with-extra-charsets=complex --enable-thread-safe-client--enable-local-infile --enable-assembler --disable-shared --with-client-ldflags=-all-static --with-mysqld-ldflags=-all-static && make && make install
+ 
+mysql_install_db --user=mysql
+ 
+安装vim
+ 
+
+
+
+
+
+
+
+#{Time.now.strftime("%Y-%m-%d %H:%M:%S")
+
+cd ror
+wget http://rubyforge.org/frs/download.php/53271/rails-2.3.2.gem
+gem install rails-2.3.2.gem
+gem list
+wget http://rubyforge.org/frs/download.php/56871/rake-0.8.7.gem
+gem install rake-0.8.7.gem
+gem install rails-2.3.2.gem
+wget http://rubyforge.org/frs/download.php/53256/activesupport-2.3.2.gem
+wget http://rubyforge.org/frs/download.php/53265/actionmailer-2.3.2.gem
+wget http://rubyforge.org/frs/download.php/53268/activeresource-2.3.2.gem
+wget http://rubyforge.org/frs/download.php/53262/actionpack-2.3.2.gem
+wget http://rubyforge.org/frs/download.php/53259/activerecord-2.3.2.gem
+gem install rails-2.3.2.gem
+
+m_key =~ /^(\d+)(\d{2})$/
+    site_id,bill_index = $1.to_i,$2.to_i
+site_id,bill_index = 6543,21
+Ruport是一个免费的Ruby报表工具，它可以令到制作报表软件变得简单一些。Ruport支持从文件或者数据库获得数据，提供工具操作数据。额外地，Ruport支持高扩展的格式化软件，目前能够支援HTML、PDF、CSV和文本输出。
+
+Ruport可能是Ruby目前唯一的报表工具，目前在持续开发中，更多的新特性正在添加。
+
+安装方法：
+
+gem install ruport -y
+gem install ruport-util -y
+
+示例代码：
+
+  require "rubygems"  require "ruport"  require "ruport/util"  class GraphReport < Ruport::Report     renders_as_graph    def renderable_data(format)      graph = Graph(%w[a b c d e])      graph.series [1,2,3,4,5], "foo"       graph.series [11,22,70,2,19], "bar"      return graph    end  end                                  GraphReport.generate do |r|     r.save_as("foo.svg", :template => :graph)  end
+
+
+
+no such file to load -- xmlsimple (MissingSourceFile) ##
+gem install  xml-simple 
+
+
+
+
+ruby  script/process/reaper
+
+
+
+sudo /usr/local/ruby/bin/ruby extconf.rb --with-mysql-dir=/usr/local/mysql
+
+
+
+gem install -v=2.3.2 rails
+

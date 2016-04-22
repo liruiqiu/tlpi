@@ -1,0 +1,1373 @@
+
+上一篇 | 下一篇 
+Coyote Linux 频宽管制 (QoS) 设定教学
+
+发布: 2006-11-12 11:35 | 作者: webmaster | 来源: 本站原创 | 查看: 1396次  
+
+Coyote Linux 频宽管制 (QoS) 设定教学
+
+大家好，我来自台湾，此帖文章是由繁体中文转简体中文
+原刊载于台湾 PCZONE 论坛，转贴于此，提供有需要的朋友参考
+
+前言：
+----------------------------------------------------------------------
+此篇教学以 Coyote Linux 软件路由器为范例系统
+演示如何以 tc 指令设定 QoS 频宽管制
+
+由于 Coyote Linux，即是精简型 Linux
+所以此篇 Linux QoS 设定原理，亦适用任何 Linux distro 发行版
+
+以下教学内容会有点复杂，但完成的效果，可以媲美一台几万元的硬件路由器，物超所值。
+
+
+名词解释：
+--------------------------------------------------------------------
+QoS (Quality of Service)：网络服务质量保证，俗称的频宽管制。
+
+队列规则 (qdisc)：
+队列 (Queue) 是网卡存放外送封包的地方
+可以想象成是高速公路的交流道
+如同交流道是用来管制高速公路(网络)的车流量(封包流量)
+队列规则就是用来管制网络流量的规则
+
+若没有设定，预设的规则是 FIFO (First In First Out，先进先出) ，意即完全无管制。
+
+Linux QoS 的队列规则有两种：CBQ，HTB
+CBQ (Class Based Queueing) 的设定比较复杂，但可设定的东西较多，弹性较大
+HTB (Hierarchy Token Bucket) 是 CBQ 的改良版 ，设定较精简，效能也比 CBQ 来的好
+此篇教学，以 HTB 为主。
+
+
+类别 (class)：
+类别是一个集合，举例要把频宽分成：看网页类，玩在线游戏类，P2P 下载类....等等
+P2P 下载类：不需要实时反应，所以给予最少的频宽，最低的优先权
+看网页类：频宽大一点，才不会等到睡着，但优先权用普通的即可
+玩在线游戏类：玩在线游戏最怕的就是和人 PK 时网络 LAG，LAG 一下可能就输了，所以优先权要最高，这是无庸置疑的
+
+
+过滤器：
+检查封包该属于哪个类别，并给予归类的东西，称作过滤器。
+Linux QoS 过滤器有两种：u32，fw
+u32： 设定比较复杂，需懂封包结构，才有办法设定
+fw：fw 是靠 iptables 给封包贴标签，设定比较简单
+此篇教学，以 fw 为主。
+
+
+iptables 指令：
+Linux 负责防火墙功能的，是一个叫 NetFilter 的模块，而 iptables 就是用来设定 NetFilter 模块的指令。
+
+tc 指令：
+Linux 负责QoS (频宽管制) 功能的，是一个叫 Traffic Control 的模块，而 tc 就是用来设定 Traffic Control 模块的指令。
+
+shell script：
+俗称脚本文件(剧本)，Linux 操作系统会依照里面的内容，逐行执行程序
+类似 windows 下的 .bat 自动批次文件，但 shell script 功能比较强
+
+在设定 QoS 的时候，往往要打上几十行的指令
+但是打了这一大堆东西，重开机之后就会消失
+所以要把这些指令，编辑成一个脚本文件，让计算机一开机就执行。
+
+
+###############################################################################
+
+教学开始 ↓
+
+规划篇： (分配频宽，定义类别)
+-----------------------------------------------------------------------
+由于 QoS 要先计算出整体频宽，给予分配，才有办法设定
+所以在设定之前，必须先进行规划的前置作业
+
+导读：
+讲解「类别」原理的部份，因为较深入可能会比较烦，可省略跳过
+最重要的部分，是要完成那个频宽计算分配表，因为底下实作时必须填入分配的数字。
+此次教学示范的网络架构如上
+
+对外网卡：eth1
+对内网卡：eth0
+
+将分配频宽给三台 PC 计算机
+每台计算机可以得到各自的保证的频宽，以及可借用的最大频宽
+
+另有一台 服务器，上面有 web、e-mail、dns 三个服务
+近来利用 ADSL 在家里架设服务器的人数也有增多的趋势
+故此次教学，也示范如何管制服务器的频宽
+
+default (预设) 类别
+指如果封包不属于那三台计算机，也不属于服务器，则归类于 default 类别，进行频宽控管
+具体来说，此种情况就是笔记型计算机，PDA，PSP掌上游戏机....... 等等之类，有使用到网络频宽的设备
+首先，第一步要计算出「合理的频宽分配」
+
+分配频宽，就像在分家产一样，务必公平合理，否则 QoS 便无法运作，或者无法达到预期的效果
+
+请拿出纸、笔、计算器，或者利用电子表格软件，进行计算 
+
+此次的范例是 ADSL 2M/51K
+
+HTB 队列规则用的是 KByte/s ，所以要先换算
+
+ADSL 的频宽单位，是 bps (bits per second)
+--------------------------------------
+8 bps = 1 Byte/s
+
+下载 2Mbps = 256 KB/s
+上传 512Kbps =  64 KB/s
+
+
+保证下载，保证上传：是手动填入的数字
+
+「保证」指的是无论如何，别的「类别」都不能来抢这个频宽
+
+这个值不宜设太大，因为还可以借用频宽，且保证设太大，整体频宽都用完了，就失去意义了
+一般建议值是每台计算机的保证上传，最少要有 32Kbps = 4KB/s
+
+
+其余数值，是公式计算所得，计算方式如下：
+-----------------------------------------------------------------
+剩余频宽  (可借用的频宽量) = 总频宽 - 保证频宽总和
+
+最大下载 = 保证下载 + 下载剩余频宽 
+最大上传 = 保证上传 + 上传剩余频宽
+
+最大下载，最大上传：亦可填入固定数字
+
+「最大」指的是无论如何，该「类别」能使用的频宽不会超过这个数字
+
+
+优先权：指谁可以有较大权力抢用剩余频宽，由 0 开始的整数，数字愈小，优先权愈高，0 为最高优先权。
+
+以上表的例子来说
+192.168.1.1 这台计算机是笔者所用，俗话说肥水不落外人田，当然优先权为 0 最高
+其余计算机设 1，优先权普通，但若有特别的下载狂，可考虑降低他的优先权
+至于服务器的 http、smtp、dns 等对外的服务，服务的是外面的人
+优先权可设小一点，以不干扰自己内部的人使用网络为原则
+Linux QoS 有三要素：队列规则、类别、过滤器
+
+完成了这三项的设定，也就完成了 Linux QoS 的设定
+在计算分配好频宽表的前置作业之后，接着要做的事，是规划「类别」
+
+---------------------------------------------------------------------------
+Q.为什么「类别」规划，会分成 下载、上传 两部份？
+
+前面提到「队列」是网卡存放外送封包的地方，故「队列规则」也只能管制外送的封包
+
+『Linux Advanced Routing & Traffic Control HOWTO』文件
+用一个生动的比喻，来解释这种情况：
+"我们只能规定自己写多少信给别人，无法限制每天会有多少人写信给我们"
+
+简单的说，Linux QoS 只能管制网卡往外传送的流量
+
+不过这并不是说 Linux QoS 只能管制上传
+因 NAT 主机上，会有两片网卡
+
+「对外网卡」往外传送，称之为：上传
+「对内网卡」往外传送，称之为：下载
+
+所以若要同时进行 上传/下载 的双向管制，必要条件为两片网卡
+
+整个 Qos 的设定，亦会分成两部分，上传 和 下载
+
+-------------------------------------------------------------------------
+
+类别规划图，看起来像一张树形图
+实体网卡的队列规则，称作「根」队列规则
+其下的类别，就像叶子一样，又称「叶类别」
+而最末尾的「叶类别」，必须带有「叶队列规则」
+
+您可能会注意到，每个「队列规则」、「类别」都有编号
+这是因为待会实作下指令时，必须用到
+
+编号中的冒号为必须
+「队列规则」只有冒号左边有数字
+「叶类别」冒号左边数字是指挂在哪个「根队列规则」，右边则是「叶类别」的编号
+
+编号是随人高兴取的，但习惯上，会有一些固定的取法
+「根队列规则」会取编号 10:
+第 1 层，第 1 个「叶类别」，取编号 10:1
+第 2 层，第 1 个「叶类别」，取编号 10:10
+第 2 层，第 2 个「叶类别」，取编号 10:20 ..........以此类推
+最末尾的「叶队列规则」，取编号 101: 、102: ......以此类推
+
+
+此范例图，是只有二层架构的树形图
+实际上，Linux QoS 的类别规划，最多可以到八层，应用在规划网段的频宽管制
+但一般用途，规划到二层即够使用，故不再做多层规划的范例
+若对多层规划有兴趣，请参考 Linux QoS 相关书籍
+
+类别规划图，可画也可不画
+画出来的话，可以帮助 QoS 设定更容易了解
+不过下面的实作教学，将会提供参考用原始码，小部份修改后，直接套用即可  ^^
+
+
+#################################################################################
+
+实作篇： (开始实际设定 Linux QoS )
+-----------------------------------------------------------------------------------------
+
+实作篇，将开始用 tc 指令，和 iptables 指令，撰写 shell script，实现 Linux QoS
+
+原理讲解的部份，由于上面规划篇的时候，已经差不多都讲解完了
+再者指令的语法是变化多端的，碍于篇幅
+因此底下实作篇将不做任何原理方面的讲解
+改以直接秀出参考用原始码的方法，小部分修改后，套用即可
+
+
+Coyote 自定义 QoS 设定步骤：(看图说故事)
+
+STEP.1
+
+
+STEP.2
+
+
+STEP.3
+
+
+STEP.4
+
+
+STEP.5
+
+
+STEP.6
+
+
+STEP.7
+
+
+##############################################
+
+Linux QoS 参考用原始码
+
+基本说明：
+
+1.凡是以 # 符号开头，代表该行为批注，不会被系统执行
+2.第一行的 #!/bin/sh 为 shell script 必要语法，不可删除
+3.Coyote 不支持 Big5 中文，所以中文批注贴上后会变成乱码，是正常的
+4.若要显示中文批注，需转码成 UTF-8 (无 BOM格式)
+
+
+tc 指令 ( /etc/rc.d/rc.local )  ：
+
+[Copy to clipboard]
+CODE:
+#!/bin/sh
+#
+# Coyote local command init script
+
+# 清除 eth1 所有队列规则
+tc qdisc del dev eth1 root 2>/dev/null
+
+# 定义最顶层(根)队列规则，并指定 default 类别编号
+tc qdisc add dev eth1 root handle 10: htb default 70
+
+# 定义第一层的 10:1 类别 (总频宽)
+tc class add dev eth1 parent 10:  classid 10:1 htb rate 64kbps ceil 64kbps
+
+# 定义第二层叶类别
+# rate 保证频宽，ceil 最大频宽，prio 优先权
+tc class add dev eth1 parent 10:1 classid 10:10 htb rate 2kbps ceil 4kbps prio 2
+tc class add dev eth1 parent 10:1 classid 10:20 htb rate 2kbps ceil 4kbps prio 2
+tc class add dev eth1 parent 10:1 classid 10:30 htb rate 32kbps ceil 40kbps prio 3
+
+
+tc class add dev eth1 parent 10:1 classid 10:40 htb rate 8kbps ceil 16kbps prio 0
+tc class add dev eth1 parent 10:1 classid 10:50 htb rate 4kbps ceil 12kbps prio 1
+tc class add dev eth1 parent 10:1 classid 10:60 htb rate 4kbps ceil 12kbps prio 1
+tc class add dev eth1 parent 10:1 classid 10:70 htb rate 4kbps ceil 12kbps prio 1
+
+
+# 定义各叶类别的队列规则
+# parent 类别编号，handle 叶类别队列规则编号
+# 由于采用 fw 过滤器，所以此处使用 pfifo 的队列规则即可
+tc qdisc add dev eth1 parent 10:10 handle 101: pfifo
+tc qdisc add dev eth1 parent 10:20 handle 102: pfifo
+tc qdisc add dev eth1 parent 10:30 handle 103: pfifo
+tc qdisc add dev eth1 parent 10:40 handle 104: pfifo
+tc qdisc add dev eth1 parent 10:50 handle 105: pfifo
+tc qdisc add dev eth1 parent 10:60 handle 106: pfifo
+tc qdisc add dev eth1 parent 10:70 handle 107: pfifo
+
+# 设定过滤器
+# 指定贴有 10 标签 (handle) 的封包，归类到 10:10 类别，以此类推
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 10 fw classid 10:10
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 20 fw classid 10:20
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 30 fw classid 10:30
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 40 fw classid 10:40
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 50 fw classid 10:50
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 60 fw classid 10:60
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 70 fw classid 10:70
+
+
+
+# QoS eth0  下载方面
+#
+
+# 清除 eth0所有队列规则
+tc qdisc del dev eth0 root 2>/dev/null
+
+# 定义最顶层(根)队列规则，并指定 default 类别编号
+tc qdisc add dev eth0 root handle 10: htb default 70
+
+# 定义第一层的 10:1 类别 (总频宽)
+tc class add dev eth0 parent 10:  classid 10:1 htb rate 256kbps ceil 256kbps
+
+# 定义第二层叶类别
+# rate 保证频宽，ceil 最大频宽，prio 优先权
+tc class add dev eth0 parent 10:1 classid 10:10 htb rate 2kbps ceil 32kbps prio 2
+tc class add dev eth0 parent 10:1 classid 10:20 htb rate 2kbps ceil 32kbps prio 2
+tc class add dev eth0 parent 10:1 classid 10:30 htb rate 32kbps ceil 212kbps prio 3
+
+tc class add dev eth0 parent 10:1 classid 10:40 htb rate 16kbps ceil 196kbps prio 0 
+tc class add dev eth0 parent 10:1 classid 10:50 htb rate 8kbps ceil 188kbps prio 1
+tc class add dev eth0 parent 10:1 classid 10:60 htb rate 8kbps ceil 188kbps prio 1
+tc class add dev eth0 parent 10:1 classid 10:70 htb rate 8kbps ceil 188kbps prio 1
+
+# 定义各叶类别的队列规则
+# parent 类别编号，handle 叶类别队列规则编号
+tc qdisc add dev eth0 parent 10:10 handle 101: pfifo
+tc qdisc add dev eth0 parent 10:20 handle 102: pfifo
+tc qdisc add dev eth0 parent 10:30 handle 103: pfifo
+tc qdisc add dev eth0 parent 10:40 handle 104: pfifo
+tc qdisc add dev eth0 parent 10:50 handle 105: pfifo
+tc qdisc add dev eth0 parent 10:60 handle 106: pfifo
+tc qdisc add dev eth0 parent 10:70 handle 107: pfifo
+
+# 设定过滤器
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 10 fw  classid 10:10
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 20 fw  classid 10:20
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 30 fw  classid 10:30
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 40 fw  classid 10:40
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 50 fw  classid 10:50
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 60 fw  classid 10:60
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 70 fw  classid 10:70
+
+说明：
+--------------------------------
+这边的 eh1 是对外网卡，eth0 是对内网卡
+若与您的实际环境不同，请自行修改
+
+主要过程：
+1.清除网卡上的所有队列规则 (不论有或没有)
+2.定义网卡的队列规则
+3.定义各类别
+4.定义各类别的队列规则
+5.定义过滤器
+
+rate 后面的数字：保证频宽
+ceil 后面的数字：最大频宽
+单位只有：KByte/s ，不过上面要写 kbps，因为这是 HTB 的规定语法
+
+prio 后面的数字：优先权，数字愈低愈高，0最大
+
+classid 后面的编号：完整类别编号
+parent 后面的编号：父类别，或者队列规则，亦即该项目上一层的对象
+
+
+这里列出了 7 个类别，可以自行新增或减少
+
+default 类别，可有可无
+较严谨的频宽管制，可取消 default 类别，以避免内部有人钻漏洞
+一般情况，则建议设 default 比较好
+
+
+注1：可参考前面的「类别规划示意图」，比较容易了解此处的设定用意
+
+注2：这段参考用原始码，只是一个范例，必须修改后，才能符合您的环境
+
+
+
+iptables 指令，过滤器 (编辑自定义防火墙规则) ：
+
+[Copy to clipboard]
+CODE:
+# uploads
+# 设定上传方面，先利用 iptables 给封包贴标签，再交由 fw 过滤器进行过滤
+
+iptables -t mangle -A PREROUTING -s 192.168.1.6 -m layer7 --l7proto dns -j mark --set-mark 10
+iptables -t mangle -A PREROUTING -s 192.168.1.6 -m layer7 --l7proto smtp -j mark --set-mark 20
+iptables -t mangle -A PREROUTING -s 192.168.1.6 -m layer7 --l7proto http -j mark --set-mark 30
+
+iptables -t mangle -A PREROUTING -s 192.168.1.1 -j mark --set-mark 40
+iptables -t mangle -A PREROUTING -s 192.168.1.2 -j mark --set-mark 50
+iptables -t mangle -A PREROUTING -s 192.168.1.3 -j mark --set-mark 60
+
+# downloads
+# 下载方面
+
+iptables -t mangle -A POSTROUTING -d 192.168.1.6 -m layer7 --l7proto dns -j mark --set-mark 10
+iptables -t mangle -A POSTROUTING -d 192.168.1.6 -m layer7 --l7proto smtp -j mark --set-mark 20
+iptables -t mangle -A POSTROUTING -d 192.168.1.6 -m layer7 --l7proto http -j mark --set-mark 30
+
+iptables -t mangle -A POSTROUTING -d 192.168.1.1 -j mark --set-mark 40
+iptables -t mangle -A POSTROUTING -d 192.168.1.2 -j mark --set-mark 50
+iptables -t mangle -A POSTROUTING -d 192.168.1.3 -j mark --set-mark 60
+
+说明：
+--------------------
+iptables 会去检查封包，看它来自哪里，或者 Layer-7 协议是哪种的 ，然后贴上标签
+之后 fw 过滤器，会依照卷标上的数字，来给封包归类别
+
+IP：计算机的 IP
+
+Layer-7 协定种类：
+此部份是采用 l7-filter 直接做过滤，例如：dns,smtp,http
+P2P 下载的封包，也可以管制
+l7-filter 详细用法请参考 Coyote 的教学文章，补充说明
+
+mark 后面的数字：「类别」的编号
+
+注：这段参考用原始码，只是一个范例，必须修改后，才能符合您的环境
+
+
+#############################################################################
+
+Linux QoS 设定，看似复杂，然其实可以做到非常弹性化 (可程序化)
+
+其效能是取决 CPU、RAM、网卡芯片，可由使用者自行决定组装等级
+若使用高等配备，并不会输给一台几万元的昂贵硬件路由器
+且在价格上，更具优势
+
+Linux QoS 的技术
+基础的像此篇管制小型网络频宽之应用
+进阶的可以配合 l7-filter 做 service 的频宽管制
+到深入一点，复杂一点的
+更可以藉由 iproute2 多重路由，达到多WAN的架构
+
+##########################################
+补充 01： 
+##########################################
+
+FW 过滤器使用方法补充说明 
+
+附加说明：如何限制 P2P 下载？
+
+Linux QoS 有三要素：队列规则，类别，过滤器
+
+队列规则是实际负责 QoS 的单位
+类别是定义 「频宽大小」的单位
+而过滤器，顾名思义，就是用来过滤封包，判断封包该属于哪个类别的单位
+
+换句话说，要限制 P2P....等等之类，关键就在于「过滤器」
+只要「过滤器」有办法把 P2P 的封包抓出来，那么要管制它就不难了
+
+
+FW 实际上是靠 iptables 给封包贴标签
+然后 FW 再依照标签编号，给封包归类别
+所以下面讲的，其实是 iptables 的语法.....
+
+
+iptables 语法简单讲解：
+------------------------------------
+iptables -t mangle -A PREROUTING -s 192.168.1.1 -j mark --set-mark 10
+iptables -t mangle -A POSTROUTING -d 192.168.1.1 -j mark --set-mark 10
+
+-t mangle：指定使用 mangle 表格 (QoS 要用这个表格)
+-A：新增一条规则
+
+PPRROUTING：上传方向，是内部计算机传出去的，后面加 -s 来源端
+POSTROUTING：下传方向，是外面网络传进来的，后面 -d 目的地
+
+-s：来源端
+-d：目的地
+
+-j mark：处理动作，给予贴标签
+--set-mark：贴什么卷标，数字指定于后
+
+※ 重要：
+在 Linux下， 所有的指令和文件名，都有分英文大小写
+PREROUTING 和 prerouting 所代表的意义是不同的，后者是错误语法
+iptables 给封包贴卷标时，「比对规则」有以下六种基本型态：
+(基本型态可混搭，变成更严谨的复杂型态)
+
+
+1.针对 IP 过滤
+iptables -t mangle -A PREROUTING -s 192.168.1.1 -j mark --set-mark 10
+
+2.针对「网段」过滤
+iptables -t mangle -A PREROUTING -s 192.168.1.0/24 -j mark --set-mark 10
+
+3.针对 MAC 过滤
+iptables -t mangle -A PREROUTING -m --mac-source 00:00:AA:BB:CC:EE -j mark --set-mark 10
+
+4.针对 PORT 过滤
+iptables -t mangle -A PREROUTING -p tcp --sport 80 -j mark --set-mark 10
+iptables -t mangle -A POSTROUTING -p tcp --dport 80 -j mark --set-mark 10
+
+iptables -t mangle -A PREROUTING -p udp --sport 53 -j mark --set-mark 10
+iptables -t mangle -A PREROUTING -p icmp -j mark --set-mark 10
+
+5.针对 「网卡接口」过滤 (假如对内有多片网卡的话，-i 进入方向， -o 出去方向)
+iptables -t mangle -A PREROUTING -o eth0 -j mark --set-mark 10
+iptables -t mangle -A POSTROUTING -i eth0 -j mark --set-mark 10
+
+
+6. l7-filter 过滤 
+iptables -t mangle -A PREROUTING  -m layer7 --l7proto bittorrent -j mark --set-mark 10
+( BT上传方向的封包，给予贴标签 10 )
+
+iptables -t mangle -A POSTROUTING  -m layer7 --l7proto edonkey -j mark --set-mark 10
+( 驴子 下载方向的封包，给予贴标签 10 )
+
+
+若要管制 P2P 下载，就是把 bittorrent 和 edonkey 两个 L7 协定 
+各设置 上传/下载，共4条过滤器规则
+并把这4条规则的封包，通通给予贴某一个类别的标签，例如：90
+让过滤器把 P2P 的封包，丢给该类别 10:90 去处理即可
+
+注：此部份仅是设定「过滤器」，实际在处理 QoS 的是「队列规则」、「类别」，所以另一边也必须有相对应的设定。例如：必须定义 10:90 这个类别的频宽，整个 P2P 管制的 QoS 才会生效。
+ 
+补充设定过程范例：
+
+网络环境：
+-----------------------------------------------------
+网络频宽：ADSL 1M/64K
+计算机1：192.168.1.1，有玩在线游戏的需求
+计算机2：192.168.1.2，平常只做浏览网页用途
+
+
+STEP.1
+首先要查出，对外网卡(管制上传)，对内网卡(管制下载)，它们的编号是多少
+如图所示，这种情况的话，eth0 是对内网卡(管制下载)，而 eth1 就是对外网卡(管制上传)。
+
+网卡的编号不是绝对的，可能每台机器都不相同，所以先观察网卡编号，判断哪个是「对外网卡」，那个是「对内网卡」，才能继续往下设定。
+STEP.2
+先构想要如何分配频宽
+
+1M/64K，总下载 128KB/s，总上传 8KB/s
+
+假设有两台计算机，分别为：
+192.168.1.1：玩天堂2专用的
+192.168.1.2：看网页用的
+
+那么规划出 3 个类别：
+---------------------------------------
+第一台计算机 - 玩天堂2用类别：在线游戏要不LAG 最少要保证有4KB/s 上传能力
+
+第二台计算机 - 看网页用类别：看网页首重下载，只要能动即可，速度不重要
+
+default 类别：为保留可能性额外加入的计算机，特地保留这个类别。例如有可能家中原本只有两台计算机，某天临时又插入一台需要上网，它就会吃 default 的类别频宽。但是这个类别只是有备无患，并不一定会用到，所以保证频宽设0。
+STEP.3
+
+tc 指令部份： (编辑任意档：/etc/rc.d/rc.local )
+
+[Copy to clipboard]
+CODE:
+#!/bin/sh
+#
+# Coyote local command init script
+
+#上传方面
+# 清除 eth1 所有队列规则
+tc qdisc del dev eth1 root 2>/dev/null
+
+# 定义最顶层(根)队列规则，并指定 default 类别编号
+tc qdisc add dev eth1 root handle 10: htb default 30
+
+# 定义第一层的 10:1 类别 (总频宽)
+tc class add dev eth1 parent 10: classid 10:1 htb rate 8kbps ceil 8kbps
+
+# 定义第二层叶类别
+# rate 保证频宽，ceil 最大频宽，prio 优先权
+tc class add dev eth1 parent 10:1 classid 10:10 htb rate 4kbps ceil 6kbps prio 0
+tc class add dev eth1 parent 10:1 classid 10:20 htb rate 2kbps ceil 4kbps prio 1
+tc class add dev eth1 parent 10:1 classid 10:30 htb rate 0kbps ceil 2kbps prio 2
+
+# 定义各叶类别的队列规则
+tc qdisc add dev eth1 parent 10:10 handle 101: pfifo
+tc qdisc add dev eth1 parent 10:20 handle 102: pfifo
+tc qdisc add dev eth1 parent 10:30 handle 103: pfifo
+t
+# 设定过滤器
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 10 fw classid 10:10
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 20 fw classid 10:20
+tc filter add dev eth1 parent 10: protocol ip prio 100 handle 30 fw classid 10:30
+
+
+# QoS eth0 下载方面
+#
+
+# 清除 eth0所有队列规则
+tc qdisc del dev eth0 root 2>/dev/null
+
+# 定义最顶层(根)队列规则，并指定 default 类别编号
+tc qdisc add dev eth0 root handle 10: htb default 70
+
+# 定义第一层的 10:1 类别 (总频宽)
+tc class add dev eth0 parent 10: classid 10:1 htb rate 128kbps ceil 128kbps
+
+# 定义第二层叶类别
+# rate 保证频宽，ceil 最大频宽，prio 优先权
+tc class add dev eth0 parent 10:1 classid 10:10 htb rate 32kbps ceil 120kbps prio 0
+tc class add dev eth0 parent 10:1 classid 10:20 htb rate 8kbps ceil 96kbps prio 1
+tc class add dev eth0 parent 10:1 classid 10:30 htb rate 0kbps ceil 88kbps prio 2
+
+# 定义各叶类别的队列规则
+tc qdisc add dev eth0 parent 10:10 handle 101: pfifo
+tc qdisc add dev eth0 parent 10:20 handle 102: pfifo
+tc qdisc add dev eth0 parent 10:30 handle 103: pfifo
+
+
+# 设定过滤器
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 10 fw classid 10:10
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 20 fw classid 10:20
+tc filter add dev eth0 parent 10: protocol ip prio 100 handle 30 fw classid 10:30
+
+STEP.4
+
+iptables 设定方面： (高级防火墙配置 - 编辑自订防火墙规则)
+
+[Copy to clipboard]
+CODE:
+# uploads
+# 设定上传方面，先利用 iptables 给封包贴标签，再交由 fw 过滤器进行过滤
+
+iptables -t mangle -A PREROUTING -s 192.168.1.1 -j mark --set-mark 10
+iptables -t mangle -A PREROUTING -s 192.168.1.2 -j mark --set-mark 20
+
+# downloads
+# 下载方面
+iptables -t mangle -A POSTROUTING -d 192.168.1.1 -j mark --set-mark 10
+iptables -t mangle -A POSTROUTING -d 192.168.1.2 -j mark --set-mark 20
+以上范例仅供参考，必须配合网络环境情况，进行修改才能使用
+有时候指令看起来好像很长一大串，很复杂
+其实去掉批注，就剩没几行了
+再仔细去观察去掉批注的指令串，可以发现
+其实很多地方都是重复的，只有几个数字在改变而已
+多观察，多实作几次，就可以熟练了
+在debian上使用qemu建立mipse... 12-20
+自己解压修改dd-wrt的固件 12-20
+在嵌入式Linux中实现802.11b无... 5-21
+在linux上配置ipip隧道与rout... 5-21
+使用HTun通过http代理服务器建... 3-16
+IGD的另一個選擇 MiniUPnP 3-04
+PPPOE BRAS-1000接入系统安装... 2-25
+Zeroshell 集成radius服务器的... 2-09
+CafeRadius 一款基于web用户认... 2-09
+限制rp-pppoe服务器每一个连接... 1-30
+linux网关之流量控制（iptables Qos） 
+iptables+TC进行流量控制 下面是我们一个子公司的一个linux网关的Qos设置，利用iptables和TC，感觉效果很好的。
+ 
+ 实例1： 
+ 
+ 
+流量控制：
+ 
+防火墙上eth0连接内网，eth1连接外网线路，带宽为2.5M，目标：
+ 
+1、内网用户下载占用的带宽最多为1000kbit/s 而192.168.37.167主192.168.37.168下载带宽可达到1.5Mbit/s
+ 
+2、内网中的192.168.37.124和192.168.37.140的上传占用的带宽最多为1.5M，而其它用户最多为150Kbit/s
+ 
+（这样的流量控制后，内网中即使有人使用bt之类的软件也不怕。因为他的上传最多只能占用150Kbit/s，下载最多1000kbit/s ^-^）
+ 
+ 
+ 
+#!/bin/sh
+ 
+TC="/sbin/tc"
+LAN_IFACE="eth0"
+INET_IFACE="eth1"
+ERP1="192.168.37.167/32"
+ERP2="192.168.37.168/32"
+INTERNAL_LAN="192.168.37.0/24"
+ 
+start(){
+ 
+#################### Qos rule on eth0  ########################
+ 
+#$TC qdisc add dev eth1 root tbf rate 512kbit lantency 50ms burst 1540
+if [ "$LAN_IFACE" != "" ];then
+        $TC qdisc add dev $LAN_IFACE root handle 1:0 cbq bandwidth 100Mbit avpkt 1000 cell 8
+        $TC class add dev $LAN_IFACE parent 1:0 classid 1:1 cbq bandwidth 100Mbit rate 2.5Mbit weight 3Mbit prio 8 allot 1514 cell 8 maxburst 20 avpkt 1000 bounded
+        $TC class add dev $LAN_IFACE parent 1:1 classid 1:2 cbq bandwidth 100Mbit rate 1500kbit weight 2Mbit prio 6 allot 1514 cell 8 maxburst 20 avpkt 1000
+        $TC class add dev $LAN_IFACE parent 1:1 classid 1:3 cbq bandwidth 100Mbit rate 1000kbit weight 1Mbit prio 7 allot 1514 cell 8 maxburst 20 avpkt 1000 bounded
+        $TC qdisc add dev $LAN_IFACE parent 1:2 handle 20: sfq
+        $TC qdisc add dev $LAN_IFACE parent 1:3 handle 30: sfq
+        $TC filter add dev $LAN_IFACE parent 1:0 protocol ip prio 2 u32 match ip dst $ERP1 flowid 1:2
+        $TC filter add dev $LAN_IFACE parent 1:0 protocol ip prio 2 u32 match ip dst $ERP2 flowid 1:2
+        $TC filter add dev $LAN_IFACE parent 1:0 protocol ip prio 4 u32 match ip dst $INTERNAL_LAN flowid 1:3
+        echo ""
+        echo ""
+        echo "qos rule on eth0 start ...........ok!"
+        echo ""
+        echo ""
+fi
+ 
+#################### Qos rule on eth1  ########################
+ 
+if [ "$INET_IFACE" != "" ];then
+        iptables -F -t mangle
+        iptables -X -t mangle
+        iptables -Z -t mangle
+        iptables -A PREROUTING -t mangle -s $ERP1 -j MARK --set-mark 1
+        iptables -A PREROUTING -t mangle -s $ERP2 -j MARK --set-mark 1
+        iptables -A PREROUTING -t mangle -s 192.168.37.124/32 -j MARK --set-mark 1
+        iptables -A PREROUTING -t mangle -s 192.168.37.140/32 -j MARK --set-mark 1
+        iptables -I PREROUTING -t mangle -s $INTERNAL_LAN -j MARK --set-mark 2
+ 
+ 
+        $TC qdisc add dev $INET_IFACE root handle 2:0 cbq bandwidth 100Mbit avpkt 1000 cell 8
+        $TC class add dev $INET_IFACE parent 2:0 classid 2:1 cbq bandwidth 100Mbit rate 2Mbit weight 1Mbit prio 8 allot 1514 cell 8 maxburst 20 avpkt 1000 bounded
+        $TC class add dev $INET_IFACE parent 2:1 classid 2:2 cbq bandwidth 100Mbit rate 1500kbit weight 150kbit prio 6 allot 1514 cell 8 maxburst 20 avpkt 1000
+        $TC class add dev $INET_IFACE parent 2:1 classid 2:3 cbq bandwidth 100Mbit rate 150kbit weight 20kbit prio 7 allot 1514 cell 8 maxburst 20 avpkt 1000 bounded
+        $TC qdisc add dev $INET_IFACE parent 2:2 handle 20: sfq
+        $TC qdisc add dev $INET_IFACE parent 2:3 handle 30: sfq
+ 
+        $TC filter add dev $INET_IFACE parent 2:0 protocol ip prio 1 handle 1 fw classid 2:2
+        $TC filter add dev $INET_IFACE parent 2:0 protocol ip prio 2 handle 2 fw classid 2:3
+        echo ""
+        echo ""
+        echo "qos rule on eth1 start ...........ok!"
+        echo ""
+        echo ""
+fi
+ 
+}
+ 
+stop(){
+ 
+if [ "$LAN_IFACE" != "" ];then
+        $TC qdisc del dev $LAN_IFACE root
+fi
+if [ "$INET_IFACE" != "" ];then
+        $TC qdisc del dev $INET_IFACE root
+fi
+iptables -F -t mangle
+iptables -X -t mangle
+iptables -Z -t mangle
+ 
+}
+ 
+status(){
+echo "show qdisc ............ "
+echo ""
+echo ""
+echo ""
+$TC -d -s qdisc
+echo ""
+echo ""
+echo "show filter ............ "
+echo ""
+echo ""
+if [ "$LAN_IFACE" != "" ];then
+        $TC -d -s filter ls dev $LAN_IFACE
+fi
+echo ""
+echo ""
+if [ "$INET_IFACE" != "" ];then
+        $TC -d -s filter ls dev $INET_IFACE
+fi
+echo ""
+echo ""
+echo "show class ............ "
+echo ""
+echo ""
+if [ "$LAN_IFACE" != "" ];then
+        $TC -d -s class ls dev $LAN_IFACE
+fi
+echo ""
+echo ""
+if [ "$INET_IFACE" != "" ];then
+        $TC -d -s class ls dev $INET_IFACE
+fi
+echo ""
+echo ""
+ 
+}
+ 
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  status)
+    status
+    ;;
+  *)
+    echo $"Usage:$0 {start|stop|restart|status}"
+    exit 1
+esac
+
+
+
+前做过实验的资料,你参考下:
+
+# iptables -A input -F
+# iptables -A output -F
+# iptables -A forward -F
+#echo 1 > /proc/sys/net/ipv4/ip_forward
+#允许转发
+# iptables -A input -j accept
+# iptables -A output -j accept
+# iptables -A forward -j accept
+# iptables -t nat -A POSTROUTING -s 172.17.0.0/16 -j MASQUERADE
+# iptables -t nat -A POSTROUTING -s 172.18.0.0/16 -j MASQUERADE
+# iptables -t nat -A POSTROUTING -s 172.19.0.0/16 -j MASQUERADE
+
+＃进行IP地址伪装，使得内部的主机的数据包能通过服务器与外界联系。
+进行流量管理
+
+＃tc qdisc add dev eth0 root tbf rate 512k lantency 50ms burst 1540
+＃在网卡eth0上使用tbf（TokenBucket Filter）过滤队列，将出口限制在512kbit，延迟50ms，突发数据1540，rate指定的数值就是限制的带宽。
+继续在eth1做限制。
+
+#tc qdisc add dev eth1 root handle 1:0 cbq bandwidth 100Mbit avpkt 1000 cell 8
+#创建队列，指明网卡为100M网卡，这个跟流量限制无关，用于计算使用。
+
+＃tc class add dev eth1 parent 1:0 classid 1:1 cbq bandwidth 100Mbit rate 5Mbit weight 6Mbit prio 8 allot 1514 cell 8 maxburst 20 avpkt 1000 bounded
+#创建根分类，带宽限制在5Mbit，并且不允许借用别的带宽。
+Prio 后面的参数为优先级，指定数据包处理的顺序。
+
+＃tc class add dev eth1 parent 1:1 classid 1:3 cbq bandwidth 100Mbit rate 512kbit weight 5Mbit prio 5 allot 1514 cell 8 maxburst 20 avpkt 1000 bounded
+#在跟类底下，创建分类1：3 限制带宽为512kbit，不允许借用带宽，用于172.17网段。
+
+＃tc class add dev eth1 parent 1:1 classid 1:4 cbq bandwidth 100Mbit rate 128kbit weight 5Mbit prio 5 allot 1514 cell 8 maxburst 20 avpkt 1000 bounded
+#在跟类底下，创建分类1：4 限制带宽为128kbit，不允许借用带宽，用于172.18网段。
+
+＃tc class add dev eth1 parent 1:1 classid 1:5 cbq bandwidth 100Mbit rate 3Mbit weight 10Mbit prio 5 allot 1514 cell 8 maxburst 20 avpkt 1000 bounded 
+#在跟类底下，创建分类1：5 限制带宽为3Mbit，不允许借用带宽，用于172.19网段。
+
+＃tc qdisc add dev eth1 parent 1:3 handle 30: sfq
+＃tc qdisc add dev eth1 parent 1:4 handle 40: sfq
+＃tc qdisc add dev eth1 parent 1:5 handle 50: sfq
+#在每个分类底下，创建队列，使用sfq（Stochastic Fareness Queueing）随即公平队列。
+
+＃tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 172.17.0.0/16 flowid 1:3
+＃tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 172.18.0.0/16 flowid 1:4
+＃tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 172.19.0.0/16 flowid 1:5
+#使用u32过滤器，对目的地址进行分类，对应已经创建的队列。
+通过以上方式实现了简单的流量控制，限制出口的上传流量以及内口的下载流量。
+
+测试从 172.17.1.2 进行下载 限制的是 512kbit ，下载速率为 64-65kB
+172.18.1.2 进行下载 限制的是 128kbit，下载速率为 13-16.3kB
+172.19.1.2 进行下载 限制的是 3Mbit，下载速率达到 180-500kB
+注：不匹配任何规则的数据包，将已root 设定的规则发送。
+发现3M带宽的限制误差比较大。
+
+
+
+
+
+
+
+
+
+
+官方首页 | PHPWind社区营销 | 申请免费论坛空间 | 无图版 | 左右分栏 | 风格切换  | 帮助 | Home首页 | 论坛首页 
+ 	 
+
+" 您尚未　登录  注册 | 标签 | 推荐 | 搜索 | 社区服务  | 道具中心 | PW积分兑换 
+社区服务
+银行
+朋友圈
+勋章中心
+辩论
+风格切换
+gray
+moon
+Christmas
+512
+black
+movie
+wind5
+blue
+wind
+green
+pink
+yellow
+newyear
+短消息
+收件箱
+发件箱
+消息跟踪
+写新消息
+控制面板
+控制面板首页
+编辑个人资料
+查看个人资料
+好友列表
+用户权限查看
+交易币管理
+积分转换
+特殊组购买
+收藏夹
+我的主题
+统计排行
+基本统计信息
+到访IP统计
+管理团队
+管理统计
+在线统计
+会员排行
+版块排行
+帖子排行
+ PHPWind Board " 服务器技术交流 " Nginx 0.5.33 + PHP 5.2.5（FastCGI）搭建胜过Apache 10倍的Web服务器  
+社区 o 世界 o PHPWind五周年庆典
+加入PHPWind,侠客在行动...
+赠送PHPWind论坛空间3个月
+亿人科技|双线型PHPWIND论坛空间热售
+西部数码虚拟主机预装PHPWIND论坛
+PHPWind 7月招聘计划(诚邀您的加盟！)
+预装PHPWIND免费500M空间
+
+	  
+  
+本页主题: Nginx 0.5.33 + PHP 5.2.5（FastCGI）搭建胜过Apache 10倍的Web服务器 打印 | 加为IE收藏 | 复制链接 | 收藏主题 | 上一主题 | 下一主题 
+
+
+	
+ 小猴 
+administrator
+ 	
+级别: 论坛版主
+ 
+
+小 中 大 引用 推荐 编辑 只看 
+ Nginx 0.5.33 + PHP 5.2.5（FastCGI）搭建胜过Apache 10倍的Web服务器
+ 
+　Nginx ("engine x") 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。 Nginx 是由 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发的，它已经在该站点运行超过两年半了。Igor 将源代码以类BSD许可证的形式发布。
+
+　　Nginx 的中文维基：http://wiki.codemongers.com/NginxChs
+________________________________________
+
+在高并发连接的情况下，Nginx是Apache服务器不错的替代品。Nginx同时也可以作为7层负载均衡服务器来使用。根据我的测试结果，Nginx 0.5.33 + PHP 5.2.5 (FastCGI) 可以承受3万以上的并发连接数，相当于同等环境下Apache的10倍。
+
+　 　根据我的经验，4GB内存的服务器+Apache（prefork模式）一般只能处理3000个并发连接，因为它们将占用3GB以上的内存，还得为系统 预留1GB的内存。我曾经就有两台Apache服务器，因为在配置文件中设置的MaxClients为4000，当Apache并发连接数达到3800 时，导致服务器内存和Swap空间用满而崩溃。
+
+　　而这台 Nginx 0.5.33 + PHP 5.2.5 (FastCGI) 服务器在3万并发连接下，开启的10个Nginx进程消耗150M内存（15M*10=150M），开启的64个php-cgi进程消耗1280M内存 （20M*64=1280M），加上系统自身消耗的内存，总共消耗不到2GB内存。如果服务器内存较小，完全可以只开启25个php-cgi进程，这样 php-cgi消耗的总内存数才500M。
+
+　　在3万并发连接下，访问Nginx 0.5.33 + PHP 5.2.5 (FastCGI) 服务器的PHP程序，仍然速度飞快。下图为Nginx的状态监控页面，显示的活动连接数为28457（关于Nginx的监控页配置，会在本文接下来所给出 的Nginx配置文件中写明）：
+
+ 
+　　以下为 Nginx 0.5.33 + PHP 5.2.5 (FastCGI) 服务器在3万并发连接下，开启的10个Nginx进程和64个php-cgi进程时的系统负载情况： 
+
+   
+
+	 
+ 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 	
+顶端 Posted: 2008-05-29 12:09 | [楼 主] 
+ 小猴 
+administrator
+ 	
+级别: 论坛版主
+ 
+
+小 中 大 引用 推荐 编辑 只看 
+ 
+　安装步骤：
+　　（系统要求：Linux 2.6+ 内核，本文中的Linux操作系统为CentOS 4.4）
+
+　　一、获取相关开源程序：
+　　1、下载程序源码包到当前目录：
+　　本文中提到的所有开源软件为截止到2007年11月25日的最新稳定版。我将它们打了两个压缩包。
+
+　　第一个压缩包：nginx-php-1.zip
+　　下载地址：http://ishare.iask.sina.com.cn/cgi-bin/fileid.cgi?fileid=2746375
+
+　　第二个压缩包：nginx-php-2.zip
+　　下载地址：http://ishare.iask.sina.com.cn/cgi-bin/fileid.cgi?fileid=2746370
+
+　　附：各开源软件单独下载地址（如果下载了以上两个压缩包，则无需下载以下软件）：
+　　http://down.s135.com/linux/nginx-php/ （登录用户名、密码均为blog.s135.com）
+
+　　2、解压缩：
+mkdir -p /data0/software
+cd /data0/software
+unzip nginx-php-1.zip
+unzip nginx-php-2.zip
+cd /data0/software/nginx-php
+________________________________________
+
+　　二、安装PHP 5.2.5（FastCGI模式）
+　　1、编译安装PHP 5.2.5所需的支持库：
+tar zxvf libiconv-1.11.tar.gz
+cd libiconv-1.11/
+./configure --prefix=/usr/local
+make
+make install
+cd ../
+
+tar zxvf freetype-2.3.5.tar.gz
+cd freetype-2.3.5/
+./configure
+make
+make install
+cd ../
+
+tar zxvf libpng-1.2.20.tar.gz
+cd libpng-1.2.20/
+./configure
+make
+make install
+cd ../
+
+tar zxvf jpegsrc.v6b.tar.gz
+cd jpeg-6b/
+./configure --enable-static --enable-shared
+make
+make install
+make install-lib
+cd ../
+
+#----If your system was install libxml2, you do not need to install it.----
+#tar zxvf libxml2-2.6.30.tar.gz
+#cd libxml2-2.6.30/
+#./configure
+#make
+#install
+#cd ../
+
+tar zxvf libmcrypt-2.5.8.tar.gz 
+cd libmcrypt-2.5.8/
+./configure
+make
+make install
+/sbin/ldconfig
+cd libltdl/
+./configure --enable-ltdl-install
+make
+make install
+cd ../../
+
+tar zxvf mhash-0.9.9.tar.gz
+cd mhash-0.9.9/
+./configure
+make
+make install
+cd ../
+
+cp /usr/local/lib/libmcrypt.* /usr/lib 
+ln -s /usr/local/lib/libmhash.so.2 /usr/lib/libmhash.so.2
+
+tar zxvf mcrypt-2.6.6.tar.gz
+cd mcrypt-2.6.6/
+./configure
+make
+make install
+cd ../
+________________________________________
+
+　　2、编译安装MySQL 5.0.45
+/usr/sbin/groupadd mysql
+/usr/sbin/useradd -g mysql mysql
+tar zxvf mysql-5.0.45.tar.gz
+cd mysql-5.0.45
+./configure --prefix=/usr/local/webserver/mysql/ --without-debug --with-unix-socket-path=/tmp/mysql.sock --with-client-ldflags=-all-static --with-mysqld-ldflags=-all-static --enable-assembler --with-extra-charsets=gbk,gb2312,utf8 --with-pthread --enable-thread-safe-client
+make && make install
+chmod +w /usr/local/webserver/mysql
+chown -R mysql:mysql /usr/local/webserver/mysql
+cp support-files/my-medium.cnf /usr/local/webserver/mysql/my.cnf
+cd ../
+________________________________________
+
+　　附：以下为附加步骤，如果你想在这台服务器上运行MySQL数据库，则执行以下两步。如果你只是希望让PHP支持MySQL扩展库，能够连接其他服务器上的MySQL数据库，那么，以下两步无需执行。
+　　①、以mysql用户帐号的身份建立数据表：
+/usr/local/webserver/mysql/bin/mysql_install_db --defaults-file=/usr/local/webserver/mysql/my.cnf --basedir=/usr/local/webserver/mysql --datadir=/usr/local/webserver/mysql/data --user=mysql --pid-file=/usr/local/webserver/mysql/mysql.pid --skip-locking --port=3306 --socket=/tmp/mysql.sock
+
+　　②、启动MySQL（最后的&表示在后台运行）
+/bin/sh /usr/local/webserver/mysql/bin/mysqld_safe --defaults-file=/usr/local/webserver/mysql/my.cnf &
+________________________________________
+
+　　3、编译安装PHP（FastCGI模式）
+tar zxvf php-5.2.5.tar.gz
+cd php-5.2.5/
+./configure --prefix=/usr/local/webserver/php --with-config-file-path=/usr/local/webserver/php/etc --with-mysql=/usr/local/webserver/mysql --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir --enable-xml --disable-debug --disable-rpath --enable-discard-path --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fastcgi --enable-force-cgi-redirect --enable-mbstring --with-mcrypt
+sed -i 's#-lz -lm -lxml2 -lz -lm -lxml2 -lz -lm -lcrypt#& -liconv#' Makefile
+make
+make install
+cp php.ini-dist /usr/local/webserver/php/etc/php.ini
+cd ../
+________________________________________
+
+　　4、编译安装PHP5扩展模块
+tar zxvf memcache-2.2.1.tgz
+cd memcache-2.2.1/
+/usr/local/webserver/php/bin/phpize
+./configure --with-php-config=/usr/local/webserver/php/bin/php-config
+make
+make install
+cd ../
+
+cd php-5.2.5/ext/gd/
+/usr/local/webserver/php/bin/phpize
+./configure --with-jpeg-dir --with-png-dir --with-zlib-dir --with-ttf --with-freetype-dir --with-php-config=/usr/local/webserver/php/bin/php-config
+make
+make install
+cd ../../../
+
+　　5、修改php.ini文件
+　　手工修改：查找/usr/local/webserver/php/etc/php.ini中的extension_dir = "./"
+　　修改为extension_dir = "/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/"
+　　并在此行后增加以下几行，然后保存：
+　　extension = "memcache.so"
+　　extension = "gd.so"
+
+　　自动修改：若嫌手工修改麻烦，可执行以下shell命令，自动完成对php.ini文件的修改：
+sed -i 's#extension_dir = "./"#extension_dir = "/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/"\nextension = "memcache.so"\nextension = "gd.so"\n#' /usr/local/webserver/php/etc/php.ini
+________________________________________
+
+　　6、创建www用户和组，以及其使用的目录：
+/usr/sbin/groupadd www -g 48
+/usr/sbin/useradd -u 48 -g www www
+mkdir -p /data0/vshare/htdocs
+chmod +w /data0/vshare/htdocs
+chown -R www:www /data0/vshare/htdocs
+
+　　7、安装lighttpd中附带的spawn-fcgi，用来启动php-cgi
+　　注：压缩包中的spawn-fcgi程序为已经编译成二进制的版本。
+cp spawn-fcgi /usr/local/webserver/php/bin
+chmod +x /usr/local/webserver/php/bin/spawn-fcgi
+
+　　8、启动php-cgi进程，监听127.0.0.1的10080端口，进程数为64（如果服务器内存小于3GB，可以只开启25个进程），用户为www：
+/usr/local/webserver/php/bin/spawn-fcgi -a 127.0.0.1 -p 10080 -C 64 -u www -f /usr/local/webserver/php/bin/php-cgi
+________________________________________
+
+　　三、安装Nginx 0.5.33
+　　1、安装Nginx所需的pcre库：
+tar zxvf pcre-7.2.tar.gz
+cd pcre-7.2/
+./configure
+make && make install
+cd ../
+
+　　2、安装Nginx
+tar zxvf nginx-0.5.33.tar.gz
+cd nginx-0.5.33/
+./configure --user=www --group=www --prefix=/usr/local/webserver/nginx --with-http_stub_status_module
+make && make install
+cd ../
+
+　　3、创建Nginx日志目录
+mkdir -p /data1/logs
+chmod +w /data1/logs
+chown -R www:www /data1/logs
+
+　　4、创建Nginx配置文件
+　　①、在/usr/local/webserver/nginx/conf/目录中创建nginx.conf文件：
+rm -f /usr/local/webserver/nginx/conf/nginx.conf
+vi /usr/local/webserver/nginx/conf/nginx.conf
+　　输入以下内容：
+引用user  www www;
+
+worker_processes 10;
+
+error_log  /data1/logs/nginx_error.log  crit;
+
+#pid        logs/nginx.pid;
+
+#Specifies the value for maximum file descriptors that can be opened by this process. 
+worker_rlimit_nofile 51200;
+
+events 
+{
+      use epoll;
+
+      worker_connections 51200;
+}
+
+http 
+{
+      include      conf/mime.types;
+      default_type  application/octet-stream;
+
+      charset  gb2312;
+      
+      server_names_hash_bucket_size 128;
+      
+      #sendfile on;
+      #tcp_nopush    on;
+
+      keepalive_timeout 60;
+
+      tcp_nodelay on;
+
+      gzip on;
+      gzip_min_length  1k;
+      gzip_buffers    4 8k;
+      gzip_http_version 1.1; 
+      gzip_types      text/plain application/x-javascript text/css text/html application/xml;
+
+      server
+      {
+              listen      80;
+              server_name  blog.s135.com;
+              index index.html index.htm index.php;
+              root  /data0/vshare/htdocs;
+
+              if (-d $request_filename)
+              {
+                    rewrite ^/(.*)([^/])$ http://$host/$1$2/ permanent;
+              }
+                            
+              location ~ .*\.php?$
+              {
+                  include conf/fcgi.conf;      
+                  fastcgi_pass  127.0.0.1:10080;
+                  fastcgi_index index.php;
+              }
+
+              log_format  access  '$remote_addr - $remote_user [$time_local] "$request" '
+                                    '$status $body_bytes_sent "$http_referer" '
+                                    '"$http_user_agent" $http_x_forwarded_for';
+              access_log  /data1/logs/access.log  access;
+      }
+
+      server
+      {
+              listen  80;
+              server_name  status.blog.s135.com;
+
+              location / {
+                  stub_status on;
+                  access_log  off;
+              }
+      } 
+}
+
+　　②、在/usr/local/webserver/nginx/conf/目录中创建fcgi.conf文件：
+vi /usr/local/webserver/nginx/conf/fcgi.conf
+　　输入以下内容：
+引用fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+fastcgi_param  SERVER_SOFTWARE    nginx;
+
+fastcgi_param  QUERY_STRING      $query_string;
+fastcgi_param  REQUEST_METHOD    $request_method;
+fastcgi_param  CONTENT_TYPE      $content_type;
+fastcgi_param  CONTENT_LENGTH    $content_length;
+
+fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+fastcgi_param  REQUEST_URI        $request_uri;
+fastcgi_param  DOCUMENT_URI      $document_uri;
+fastcgi_param  DOCUMENT_ROOT      $document_root;
+fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+
+fastcgi_param  REMOTE_ADDR        $remote_addr;
+fastcgi_param  REMOTE_PORT        $remote_port;
+fastcgi_param  SERVER_ADDR        $server_addr;
+fastcgi_param  SERVER_PORT        $server_port;
+fastcgi_param  SERVER_NAME        $server_name;
+
+# PHP only, required if PHP was built with --enable-force-cgi-redirect
+#fastcgi_param  REDIRECT_STATUS    200;
+
+　　5、启动Nginx
+ulimit -SHn 51200
+/usr/local/webserver/nginx/sbin/nginx -c /usr/local/webserver/nginx/conf/nginx.conf
+________________________________________
+
+　　四、配置开机自动启动Nginx + PHP
+vi /etc/rc.local
+　　在末尾增加以下内容：
+引用ulimit -SHn 51200
+/usr/local/webserver/php/bin/spawn-fcgi -a 127.0.0.1 -p 10080 -C 64 -u www -f /usr/local/webserver/php/bin/php-cgi
+/usr/local/webserver/nginx/sbin/nginx -c /usr/local/webserver/nginx/conf/nginx.conf
+________________________________________
+
+　　五、优化Linux内核参数
+vi /etc/sysctl.conf
+　　在末尾增加以下内容：
+引用net.ipv4.tcp_fin_timeout = 30
+net.ipv4.tcp_keepalive_time = 300
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.ip_local_port_range = 5000    65000
+
+　　使配置立即生效：
+/sbin/sysctl -p
+________________________________________
+
+　　六、在不停止Nginx服务的情况下平滑变更Nginx配置
+　　(1)、修改/usr/local/webserver/nginx/conf/nginx.conf配置文件后，请执行以下命令检查配置文件是否正确：
+/usr/local/webserver/nginx/sbin/nginx -t
+　　如果屏幕显示以下两行信息，说明配置文件正确：
+　　the configuration file /usr/local/webserver/nginx/conf/nginx.conf syntax is ok
+　　the configuration file /usr/local/webserver/nginx/conf/nginx.conf was tested successfully
+
+　　(2)、这时，输入以下命令查看Nginx主进程号：
+ps -ef | grep "nginx: master process" | grep -v "grep" | awk -F ' ' '{print $2}'
+　　屏幕显示的即为Nginx主进程号，例如：
+　　6302
+　　这时，执行以下命令即可使修改过的Nginx配置文件生效：
+kill -HUP 6302
+________________________________________
+
+　　本文若有小的修改，会第一时间在站长之家发布： www.zzhome.com
+	 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 	
+顶端 Posted: 2008-05-29 12:11 | 1 楼 
+ ylshjx 
+www.jxcad.com.cn 欢迎您
+ 	
+级别: 二星会员
+ 
+
+小 中 大 引用 推荐 编辑 只看 
+ 
+我试过。nginx这个负载是可以，但是比较吃内存，我觉得zeus更适合
+[ 此贴被ylshjx在2008-05-29 21:46重新编辑 ]
+	 
+ 中国机械CAD论坛
+
+顶端 Posted: 2008-05-29 21:31 | 2 楼 
+ 小猴 
+administrator
+ 	
+级别: 论坛版主
+ 
+
+小 中 大 引用 推荐 编辑 只看 
+ 
+zeus
+也挺不错的
+	 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 
+在线数百人，会员十五W的游戏论坛招相关友情链接 联系qq:961460580 	
+顶端 Posted: 2008-05-30 22:29 | 3 楼 
+ 我绑架了上帝 
+既然选择了流浪.就没有权利悲伤
+ 	
+级别: 六星会员
+ 
+
+小 中 大 引用 推荐 编辑 只看 
+ 
+Nginx我用了好像有点问题。
+	 
+免费领取梦露时尚睡衣---已收货！
+成果网广告招站长
+PHPWind官方推荐专用空间东亿互联
+PHPWind专业IDC 空间域名服务器租用
+
+顶端 Posted: 2008-06-02 15:34 | 4 楼 
+ ylshjx 
+www.jxcad.com.cn 欢迎您
+ 	
+级别: 二星会员
+ 
+
+小 中 大 引用 推荐 编辑 只看 
+ 
+我觉得不管什么好东东，需要先进行多次测试才能正式上线
+	 
+ 中国机械CAD论坛
+
+顶端 Posted: 2008-06-03 15:48 | 5 楼 
+	 
+ 中国机械CAD论坛
+
+顶端 Posted: 2008-06-03 15:49 | 6 楼 
+

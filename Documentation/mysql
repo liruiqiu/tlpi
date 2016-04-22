@@ -1,0 +1,870 @@
+
+show create procedure recursion_group;
+
+
+ SHOW PROCESSLIST ; ## 查看当前有哪进程.
+  show full processlist;   查看全的进程
+SET NAMES 'utf8';
+SHOW CREATE TABLE table_name;  ##查看见表语名
+ SHOW FIELDS FROM `products`;  ##查看表结构
+  SHOW INDEX FROM `tbl_name`;   ##查看表索引
+  TRUNCATE TABLE `tx_regs`  ## 清空一张表
+  show engines;
+   show full fields from t_report_fee_yuanbaos\G;//把所有信息都输出
+
+  alter table t add column name varchar(20) after age;   //增加字段
+
+
+ CREATE DATABASE demo CHARACTER SET utf8 COLLATE utf8_general_ci; ##标准建库
+ DROP DATABASE demo;
+
+ 
+ 将MySQL数据库拷贝到另一台机器
+ shell> mysqladmin create db_name
+shell> mysqldump -h 'other_hostname' --opt --compress db_name | mysql db_name
+Select * From `TableTest` Into OutFile 'C:/Data_OutFile.txt';
+  load data infile  '/tmp/t_user.txt' into table t_user;
+  
+  LASTBIN=`tail -n 1 /usr/local/mysql/data/mysql-bin.index`
+LASTBINFILE=`basename $LASTBIN`
+
+
+清除binlog
+# purge binary logs to the last binary log
+echo `date +"%y-%m-%d-%H:%M:%S"` >> purge_binlog.log
+echo "purge binary logs to '${LASTBINFILE}'" >> purge_binlog.log
+/usr/local/mysql/bin/mysql -e  "purge binary logs to '${LASTBINFILE}'"
+  
+  CHANGE  master TO master_host='192.168.1.188', master_port=3306, master_user='mysqlslave', master_password='123456';
+  change master to master_host='192.168.1.188', master_port=3306, master_user='mysqlslave', master_password='123456', master_log_file='', master_log_pos= ;
+  
+ optimize table user_commerce_count;  ##
+  date_format(created_at,'%Y-%m-%d') as d
+ mysqldump zhushen_report zhushen_views --where="zhushen_report_id='30' and stop_date='2010-07-15'" > zhushen_views.sql
+ repair table user_commerce_count;  ## 会尝试只修复索引树。这种类型的修复与使用myisamchk --recover --quick相似。
+   
+   ./configure --prefix=/usr/local/mysql --with-charset=utf8 --with-extra-charsets=complex 
+   ./configure --prefix=/usr/local/mysql --with-charset=utf8 --with-plugins=innobase,partition  增加支持分区表
+ tx.com mysql
+ /usr/local/mysql-5.0.67/libexec/mysqld --defaults-file=/data/txdata/stranger/my.cnf --basedir=/usr/local/mysql-5.0.67 --datadir=/data/txdata/stranger --user=mysql --pid-file=/data/txdata/stranger/waptx.126.com.pid --skip-external-locking --open-files-limit=8192 --port=12366 --socket=/data/txdata/stranger/mysql.sock --slave_skip_errors=1062
+ 
+ wap.126.com
+ /usr/local/mysql/libexec/mysqld --basedir=/usr/local/mysql --datadir=/data/mysql --user=mysql --pid-file=/data/mysql/localhost.localdomain.pid --skip-external-locking --port=22334 --socket=/tmp/mysql.sock
+ 
+ 
+ 
+SELECT user_sites.id, name, username  FROM user_sites, users where user_sites.user_id=users.id ;  ## m_Key 站长.  站点
+
+select sum(cast(column_v as SIGNED)) from polymer_datas group by game_area limit 1;
+
+
+ purge master logs before '2008-08-10 00:00:00'; 删除2008-08-10之前的所有日志
+
+使用 lsb_release 命令也可以查看 Ubuntu 的版本号:
+lsb_release -a
+
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'192.168.0.%' IDENTIFIED BY 'qzysy' WITH GRANT OPTION;
+
+ps -avx | grep mysqld
+
+mysqladmin -u root password 34ccpalm
+
+
+mysql -h192.168.0.168 -uroot -p34ccpalm
+
+show databses;
+
+netstat -nlp
+mysql_install_db --user=mysql
+
+
+		 shell> groupadd mysql
+     shell> useradd -g mysql mysql
+     shell> gunzip < mysql-VERSION.tar.gz | tar -xvf -
+     shell> cd mysql-VERSION
+     shell> ./configure --prefix=/usr/local/mysql
+     shell> make
+     shell> make install
+     shell> cp support-files/my-medium.cnf /etc/my.cnf
+     shell> cd /usr/local/mysql
+     shell> /usr/local/mysql/bin/mysql_install_db --user=mysql
+     shell> chown -R root  . && chown -R mysql var && chgrp -R mysql .
+     shell> /usr/local/mysql/bin/mysqld_safe --user=mysql &
+
+
+/usr/local/mysql/bin/mysqladmin -u root password 'new-password'
+/usr/local/mysql/bin/mysqladmin -u root -h bogon password 'new-password'
+
+/usr/local/mysql/bin/mysqld_safe --user=root & 
+ use mysql;
+ select * from user;
+ update user set password=PASSWORD('34ccpalm') where user='root';
+ GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.0.%' IDENTIFIED BY '34ccpalm' WITH GRANT OPTION;
+ GRANT ALL PRIVILEGES ON *.* TO 'power'@'192.168.0.%' IDENTIFIED BY '89ib2j5j81' WITH GRANT OPTION;
+ GRANT ALL PRIVILEGES ON *.* TO 'guest'@'192.168.0.%' IDENTIFIED BY 'ghaxqn6fsi' WITH GRANT OPTION;
+  flush privileges;
+  mysql --version
+  
+   set  password  for  root@"192.168.0.%"=old_password('34ccpalm');
+   
+   –skip-name-resolve
+   /usr/local/mysql/bin/mysqld_safe --skip-grant-table&
+    /Data/apps/mysql/bin/mysqladmin -uroot -p shutdown
+   /Data/apps/mysql/bin/mysqld_safe --defaults-file=/Data/apps/mysql/my.cnf &
+   show variables like 'chara%';  查字符集
+  
+  
+  string dbSql = "mysql://root:34ccpalm@game_database:22334/pokegame_tongji"
+这个是游戏里链接数据库的地址，用pike自带的联结数据库的方法：
+db=Sql.Sql(dbSql,optionsMap)
+tail -f /usr/local/games/pokegame_s/log/error.6666 
+
+./configure  --prefix=/usr/local/mysql/ --with-charset=utf8 --with-extra-charsets=complex --enable-thread-safe-client--enable-local-infile --enable-assembler --disable-shared --with-client-ldflags=-all-static --with-mysqld-ldflags=-all-static && make && make install
+ 
+  ./configure -prefix=/usr/local/mysql --with-charset=utf8 --with-extra-charsets=utf8,gb2312,big5 --enable-thread-safe-client --with-plugins=innobase,partition
+
+
+mysql_install_db --user=mysql
+ 
+ 
+ mysql --protocol=TCP -uroot -p -P22334 -hlocalhost
+ 
+ 
+ select * from chongz_info order by log_time desc limit 10;
+
+SELECT *  FROM `user`  LIMIT 0 , 30;  ##查看用户
+
+limit m,n;  需要注意放在最后
+limit m;  含义椒 limit 0, 10;
+
+order by fieldname asc|desc   排序方式
+
+asc是升序排序，desc是降序排序
+
+
+
+sum(fieldname),count(*),avg(fieldname1), 需要配合group by fieldname2
+
+
+时间的大小问题是  以1970年1月1日为0开始计时
+
+
+select * from chongz_info where log_time between '2008-01-01' and '2008-08-01';
+ 相当于 
+select * from chongz_info where log_time >='2008-01-01' and log_time < '2008-08-01';
+
+
+ select * from sale_info order by open_time desc limit 20;
+ 
+ show engines \G   || show variables like 'have%'; ##支持的存储引擎
+ 
+ default_character_set = utf8 ##把字符集默认改成utf8
+ 
+ show variables; ##服务器参数, 
+ show status;  ## 运行状态
+ select current_user();  ##当前的连接用
+ show variables like 'character_set_database'; || show variables like 'collation_database'; ##显示字符集和校对规则
+ 
+ select * from sale_info order by open_time desc limit 10;  
+建库是需注意,都要改成utf8   
+create database tx15 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+SHOW VARIABLES LIKE 'character_set_%';
+SHOW VARIABLES LIKE 'collation_%';
+
+
+CREATE TABLE `buy_info` (   `id` int(11) NOT NULL auto_increment,   `buyer_id` varchar(36) NOT NULL,   `buyer_name` varchar(63) NOT NULL,   `sale_id` int(11) NOT NULL,   `quotation` bigint(20) NOT NULL,   `quto_time` datetime default NULL,   `fetch_status` int(1) NOT NULL default '0',   `quto_result` int(1) NOT NULL default '0',   `close_time` datetime default NULL,   PRIMARY KEY  (`id`),   KEY `idx_si` (`sale_id`),   KEY `idx_bi_fs_qr` (`buyer_id`,`fetch_status`,`quto_result`) ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `sale_info` (   `id` int(11) NOT NULL auto_increment,   `user_id` varchar(36) NOT NULL,   `user_name` varchar(64) NOT NULL,   `goods_filename` varchar(255) NOT NULL,   `goods_name_cn` varchar(36) NOT NULL,   `goods_type` int(1) NOT NULL default '3',   `goods_short_desc` varchar(255) default '',   `eff_dura` int(11) default '0',   `mend_time` int(2) default '9',   `start_value` bigint(20) NOT NULL default '0',   `end_value` bigint(20) NOT NULL default '0',   `open_time` datetime default NULL,   `sale_status` int(1) NOT NULL default '0',   `fetch_status` int(1) NOT NULL default '0',   `iopen_time` int(11) NOT NULL,   `money_type` int(1) default '0',   `close_time` datetime default NULL,   `cur_value` bigint(20) default '0',   PRIMARY KEY  (`id`),   KEY `idx_ss_gt` (`sale_status`,`goods_type`),   KEY `idx_ui_fs_ss` (`user_id`,`fetch_status`,`sale_status`) ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+
+select b.title , b.id from bulletins as b join bulletin_infos as bi on bi.bulletin_id=b.id where  bi.game_area='qp0';
+
+
+select * from bulletins join bulletin_infos on bulletin_infos.bulletin_id=bulletins.id 
+where  bulletin_infos.game_area='qp0';
+
+
+
+select distinct(remark) from polymer_datas where report_id=136; ##只搜索remark,去重复的.
+
+
+select count(*) from unpolymer_datas; ##查多少条
+
+
+select count( *) column_v from channel_sms2 where createtime between '2008-10-1 11:09:42' and '2008-10-10 11:09:42' and lower(game_id) in ('qp0') group by date(createtime);
+
+
+
+
+
+select * from sale_info where TO_DAYS(NOW()) - TO_DAYS(close_time)>10 limit 4;## 查找10天前的.
+
+
+delete from buy_info where TO_DAYS(NOW()) - TO_DAYS(quto_time)>10; ## 删除10天前的.
+
+
+UPDATE `rert`.`polymer_datas` SET `column_v` = '760' WHERE `polymer_datas`.`id` =121917 LIMIT 1 ;
+
+ update users set is_male=11 where id=2 limit 1; ##更新表
+ mysql schedule -e"update dataSource set password='u6wzhz72'"
+
+ 
+  SELECT *
+FROM polymer_datas
+WHERE report_id = '57'
+AND game_area = 'txyc'
+LIMIT 0 , 30 
+
+
+select day_login_time, area, id, user_reg_time, pswd, daoheng, age, jing, qi, pot, killed, bekilled, school, master, savings, money, fee, honer, bangid, m_key, base_skills, special_skills, sid, m_mid, mobile from tx_dailies where id='#column_0'
+
+
+
+
+select day_login_time as 登陆时间, area as 游戏区, id as 用户名, user_reg_time as 注册时间, pswd as 密码, dh as 修为, age as 年龄, jing as 血上限, qi as 内力上限, pot as 当前潜能, killed as 杀人数, bekilled as 被杀数, school as 门派, master as 师傅, savings as 仓库钱, money as 身上钱, fee as 天下点, honer as 荣誉值, bangid as 帮派ID, m_key as 推广KEY值, base_skills as 基本功, special_skills as 当前装备特招, sid as sid, m_mid as m_mid, mobile as 手机号或其他 from tx_dailies where id='#column_0'
+
+
+
+ENGINE=InnoDB 该表的存储引擎为INNODB
+AUTO_INCREMENT=0 自增列初始值为0
+DEFAULT CHARSET=uft8 默认字符集为utf8
+pack_keys=0 压缩形式
+ROW_FORMAT=COMPACT 定义各行存储形式（其实在INNODB下没什么用..)
+COMMENT后是注释
+其实这些都可以不要，都可以使用默认值- -
+
+
+
+GROUP_CONCAT
+
+
+
+
+alter table emp add column is_finish int(11) default '0'
+
+
+
+查看mysql进程--show processlist
+用show processlist 查看当前运行状态。
+mysql> show processlist;
+下面介绍下各列的含义：
+id，线程编号，当要关闭某一进程时执行 kill id；
+user列，显示当前进程用户；
+host列，显示当前进程是从哪个IP地址和哪个端口号发出来的；
+db列，显示当前这个进程目前连接的是哪个数据库；
+command列，显示当前连接进程所执行命令的类型或状态，一般就是休眠（sleep），查询（query），连接 （connect）；
+time列，这个状态持续的时间，单位是秒；
+state列，显示使用当前连接sql语句的状态，如查询语句，可能中间需要经历copying to tmp table，Sorting result，Sending data等状态才可以完成；
+info列，显示这个连接所执行的sql语句，因为长度有限，所以长的sql语句就显示不全，但是一个判断问题语句的重要依据。
+ 
+mysql列出state的状态主要有以下几种：
+Checking table
+正在检查数据表（这是自动的）。
+
+Closing tables
+正在将表中修改的数据刷新到磁盘中，同时正在关闭已经用完的表。这是一个很快的操作，如果不是这样的话，就应该确认磁盘空间是否已经满了或者磁盘是否正处于重负中。
+
+Connect Out
+复制从服务器正在连接主服务器。
+
+Copying to tmp table on disk
+由于临时结果集大于 tmp_table_size，正在将临时表从内存存储转为磁盘存储以此节省内存。
+
+Creating tmp table
+正在创建临时表以存放部分查询结果。
+
+deleting from main table
+服务器正在执行多表删除中的第一部分，刚删除第一个表。
+
+deleting from reference tables
+服务器正在执行多表删除中的第二部分，正在删除其他表的记录。
+
+Flushing tables
+正在执行 FLUSH TABLES，等待其他线程关闭数据表。
+
+Killed
+发送了一个kill请求给某线程，那么这个线程将会检查kill标志位，同时会放弃下一个kill请求。MySQL会在每次的主循环中检查kill标志位，不过有些情况下该线程可能会过一小段才能死掉。如果该线程程被其他线程锁住了，那么kill请求会在锁释放时马上生效。
+
+Locked
+被其他查询锁住了。
+
+Sending data
+正在处理 SELECT 查询的记录，同时正在把结果发送给客户端。
+
+Sorting for group
+正在为 GROUP BY 做排序。
+
+Sorting for order
+正在为 ORDER BY 做排序。
+
+Opening tables
+这个过程应该会很快，除非受到其他因素的干扰。例如，在执 ALTER TABLE 或 LOCK TABLE 语句行完以前，数据表无法被其他线程打开。正尝试打开一个表。
+
+Removing duplicates
+正在执行一个 SELECT DISTINCT 方式的查询，但是MySQL无法在前一个阶段优化掉那些重复的记录。因此，MySQL需要再次去掉重复的记录，然后再把结果发送给客户端。
+
+Reopen table
+获得了对一个表的锁，但是必须在表结构修改之后才能获得这个锁。已经释放锁，关闭数据表，正尝试重新打开数据表。
+
+Repair by sorting
+修复指令正在排序以创建索引。
+
+Repair with keycache
+修复指令正在利用索引缓存一个一个地创建新索引。它会比 Repair by sorting 慢些。
+
+Searching rows for update
+正在将符合条件的记录找出来以备更新。它必须在 UPDATE 要修改相关的记录之前就完成了。
+
+Sleeping
+正在等待客户端发送新请求.
+
+System lock
+正在等待取得一个外部的系统锁。如果当前没有运行多个 mysqld 服务器同时请求同一个表，那么可以通过增加 –skip-external-locking参数来禁止外部系统锁。
+
+Upgrading lock
+INSERT DELAYED 正在尝试取得一个锁表以插入新记录。
+
+Updating
+正在搜索匹配的记录，并且修改它们。
+
+User Lock
+正在等待 GET_LOCK()。
+
+Waiting for tables
+该线程得到通知，数据表结构已经被修改了，需要重新打开数据表以取得新的结构。然后，为了能重新打开数据表，必须等到所有其他线程关闭这个表。以下几种情况下会产生这个通知：FLUSH TABLES tbl_name, ALTER TABLE, RENAME TABLE, REPAIR TABLE, ANALYZE TABLE, 或 OPTIMIZE TABLE。
+
+waiting for handler insert
+INSERT DELAYED 已经处理完了所有待处理的插入操作，正在等待新的请求。
+大部分状态对应很快的操作，只要有一个线程保持同一个状态好几秒钟，那么可能是有问题发生了，需要检查一下。
+还有其它的状态没在上面中列出来，不过它们大部分只是在查看服务器是否有存在错误是才用得着。
+
+
+
+help! 
+most of the time connection works ok. 
+somtime we are getting 
+
+com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure 
+Last packet sent to the server was 119977 ms ago. 
+
+I use mysql 5.0.27. 
+The server have 4G memory. 
+in my.cnf: 
+port = 3306 
+socket = /tmp/mysql.sock 
+skip-locking 
+key_buffer = 384M 
+max_allowed_packet = 10M 
+max_connections=1000 
+table_cache = 512 
+sort_buffer_size = 1024M 
+read_buffer_size = 1024M 
+join_buffer_size = 2000M 
+key_buffer_size = 1024M 
+read_rnd_buffer_size = 8M 
+myisam_sort_buffer_size = 1024M 
+thread_cache_size = 8 
+query_cache_size = 32M 
+# Try number of CPU's*2 for thread_concurrency 
+thread_concurrency = 8 
+
+innodb_additional_mem_pool_size = 64M 
+innodb_autoextend_increment = 256M 
+
+innodb_buffer_pool_size = 2096M # 50% ~ 80% of system memory 
+innodb_additional_mem_pool_size = 64M 
+
+
+java code : 
+public synchronized static DataSource createDataSource(String driver,String url,String username,String password) throws SQLException, ClassNotFoundException { 
+
+Class.forName(driver); 
+
+DataSource ds_unpooled = DataSources.unpooledDataSource(url,username,password); 
+
+Map overrides = new HashMap(); 
+
+overrides.put("acquireIncrement", 2); 
+overrides.put("minPoolSize", 15); 
+overrides.put("maxPoolSize", 30); 
+
+overrides.put("maxStatements", 10000); 
+
+overrides.put("maxIdleTime", 3600 ); 
+
+overrides.put("automaticTestTable", "C3P0TestTable"); 
+overrides.put("testConnectionOnCheckin", true); 
+
+overrides.put("idleConnectionTestPeriod",180); 
+overrides.put("testConnectionOnCheckout", true); 
+
+// create the PooledDataSource using the default configuration and our overrides 
+DataSource ds_pooled = DataSources.pooledDataSource( ds_unpooled, overrides ); 
+return ds_pooled; 
+}
+
+
+
+
+
+
+
+
+
+
+
+MySQL分区（Partition）功能试验2008-07-06 20:02目录
+[概述]
+[分区表和未分区表试验过程]
+[分区命令详解]
+
+[概述]
+
+自5.1开始对分区(Partition)有支持，6.0应比较稳定
+
+= 水平分区（根据列属性按行分）=
+举个简单例子：一个包含十年发票记录的表可以被分区为十个不同的分区，每个分区包含的是其中一年的记录。
+
+=== 水平分区的几种模式：===
+* Range（范围） – 这种模式允许DBA将数据划分不同范围。例如DBA可以将一个表通过年份划分成三个分区，80年代（1980's）的数据，90年代（1990's）的数据以及任何在2000年（包括2000年）后的数据。
+
+* Hash（哈希） – 这中模式允许DBA通过对表的一个或多个列的Hash Key进行计算，最后通过这个Hash码不同数值对应的数据区域进行分区，。例如DBA可以建立一个对表主键进行分区的表。
+
+* Key（键值） – 上面Hash模式的一种延伸，这里的Hash Key是MySQL系统产生的。
+
+* List（预定义列表） – 这种模式允许系统通过DBA定义的列表的值所对应的行数据进行分割。例如：DBA建立了一个横跨三个分区的表，分别根据2004年2005年和2006年值所对应的数据。
+
+* Composite（复合模式） - 很神秘吧，哈哈，其实是以上模式的组合使用而已，就不解释了。举例：在初始化已经进行了Range范围分区的表上，我们可以对其中一个分区再进行hash 哈希分区。
+
+= 垂直分区（按列分）=
+举个简单例子：一个包含了大text和BLOB列的表，这些text和BLOB列又不经常被访问，这时候就要把这些不经常使用的text和BLOB了划分到另一个分区，在保证它们数据相关性的同时还能提高访问速度。
+
+
+[分区表和未分区表试验过程]
+
+*创建分区表,按日期的年份拆分
+mysql> CREATE TABLE part_tab ( c1 int default NULL, c2 varchar(30) default NULL, c3 date default NULL) engine=myisam
+PARTITION BY RANGE (year(c3)) (PARTITION p0 VALUES LESS THAN (1995),
+PARTITION p1 VALUES LESS THAN (1996) , PARTITION p2 VALUES LESS THAN (1997) ,
+PARTITION p3 VALUES LESS THAN (1998) , PARTITION p4 VALUES LESS THAN (1999) ,
+PARTITION p5 VALUES LESS THAN (2000) , PARTITION p6 VALUES LESS THAN (2001) ,
+PARTITION p7 VALUES LESS THAN (2002) , PARTITION p8 VALUES LESS THAN (2003) ,
+PARTITION p9 VALUES LESS THAN (2004) , PARTITION p10 VALUES LESS THAN (2010),
+PARTITION p11 VALUES LESS THAN MAXVALUE );
+注意最后一行，考虑到可能的最大值
+
+*创建未分区表
+mysql> create table no_part_tab (c1 int(11) default NULL,c2 varchar(30) default NULL,c3 date default NULL) engine=myisam;
+
+*通过存储过程灌入800万条测试数据
+
+mysql> set sql_mode=''; /* 如果创建存储过程失败，则先需设置此变量, bug? */
+
+mysql> delimiter //   /* 设定语句终结符为 //，因存储过程语句用;结束 */
+mysql> CREATE PROCEDURE load_part_tab()
+       begin
+    declare v int default 0;
+    while v < 8000000
+    do
+        insert into part_tab
+        values (v,'testing partitions',adddate('1995-01-01',(rand(v)*36520) mod 3652));
+         set v = v + 1;
+    end while;
+    end
+    //
+mysql> delimiter ;
+mysql> call load_part_tab();
+Query OK, 1 row affected (8 min 17.75 sec)
+mysql> insert into no_part_tab select * from part_tab;
+Query OK, 8000000 rows affected (51.59 sec)
+Records: 8000000 Duplicates: 0 Warnings: 0
+
+* 测试SQL性能
+mysql> select count(*) from part_tab where c3 > date '1995-01-01' and c3 < date '1995-12-31';     
++----------+
+| count(*) |
++----------+
+|   795181 |
++----------+
+1 row in set (0.55 sec)
+mysql> select count(*) from no_part_tab where c3 > date '1995-01-01' and c3 < date '1995-12-31';
++----------+
+| count(*) |
++----------+
+|   795181 |
++----------+
+1 row in set (4.69 sec)
+结果表明分区表比未分区表的执行时间少90%。
+
+* 通过explain语句来分析执行情况
+mysql > explain select count(*) from no_part_tab where c3 > date '1995-01-01' and c3 < date '1995-12-31'\G
+/* 结尾的\G使得mysql的输出改为列模式 */                   
+*************************** 1. row ***************************
+           id: 1
+select_type: SIMPLE
+        table: no_part_tab
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 8000000
+        Extra: Using where
+1 row in set (0.00 sec)
+
+mysql> explain select count(*) from part_tab where c3 > date '1995-01-01' and c3 < date '1995-12-31'\G
+*************************** 1. row ***************************
+           id: 1
+select_type: SIMPLE
+        table: part_tab
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 798458
+        Extra: Using where
+1 row in set (0.00 sec)
+explain语句显示了SQL查询要处理的记录数目
+
+* 试验创建索引后情况
+mysql> create index idx_of_c3 on no_part_tab (c3);
+Query OK, 8000000 rows affected (1 min 18.08 sec)
+Records: 8000000 Duplicates: 0 Warnings: 0
+
+mysql> create index idx_of_c3 on part_tab (c3);
+Query OK, 8000000 rows affected (1 min 19.19 sec)
+Records: 8000000 Duplicates: 0 Warnings: 0
+创建索引后的数据库文件大小列表：
+2008-05-24 09:23             8,608 no_part_tab.frm
+2008-05-24 09:24       255,999,996 no_part_tab.MYD
+2008-05-24 09:24        81,611,776 no_part_tab.MYI
+2008-05-24 09:25                 0 part_tab#P#p0.MYD
+2008-05-24 09:26             1,024 part_tab#P#p0.MYI
+2008-05-24 09:26        25,550,656 part_tab#P#p1.MYD
+2008-05-24 09:26         8,148,992 part_tab#P#p1.MYI
+2008-05-24 09:26        25,620,192 part_tab#P#p10.MYD
+2008-05-24 09:26         8,170,496 part_tab#P#p10.MYI
+2008-05-24 09:25                 0 part_tab#P#p11.MYD
+2008-05-24 09:26             1,024 part_tab#P#p11.MYI
+2008-05-24 09:26        25,656,512 part_tab#P#p2.MYD
+2008-05-24 09:26         8,181,760 part_tab#P#p2.MYI
+2008-05-24 09:26        25,586,880 part_tab#P#p3.MYD
+2008-05-24 09:26         8,160,256 part_tab#P#p3.MYI
+2008-05-24 09:26        25,585,696 part_tab#P#p4.MYD
+2008-05-24 09:26         8,159,232 part_tab#P#p4.MYI
+2008-05-24 09:26        25,585,216 part_tab#P#p5.MYD
+2008-05-24 09:26         8,159,232 part_tab#P#p5.MYI
+2008-05-24 09:26        25,655,740 part_tab#P#p6.MYD
+2008-05-24 09:26         8,181,760 part_tab#P#p6.MYI
+2008-05-24 09:26        25,586,528 part_tab#P#p7.MYD
+2008-05-24 09:26         8,160,256 part_tab#P#p7.MYI
+2008-05-24 09:26        25,586,752 part_tab#P#p8.MYD
+2008-05-24 09:26         8,160,256 part_tab#P#p8.MYI
+2008-05-24 09:26        25,585,824 part_tab#P#p9.MYD
+2008-05-24 09:26         8,159,232 part_tab#P#p9.MYI
+2008-05-24 09:25             8,608 part_tab.frm
+2008-05-24 09:25                68 part_tab.par
+
+* 再次测试SQL性能
+mysql> select count(*) from no_part_tab where c3 > date '1995-01-01' and c3 < date '1995-12-31';    +----------+
+| count(*) |
++----------+
+|   795181 |
++----------+
+1 row in set (2.42 sec)   /* 为原来4.69 sec 的51%*/  
+重启mysql ( net stop mysql, net start mysql)后，查询时间降为0.89 sec,几乎与分区表相同。
+
+mysql> select count(*) from part_tab where c3 > date '1995-01-01' and c3 < date '1995-12-31';
++----------+
+| count(*) |
++----------+
+|   795181 |
++----------+
+1 row in set (0.86 sec)
+
+* 更进一步的试验
+** 增加日期范围
+mysql> select count(*) from no_part_tab where c3 > date '1995-01-01' and c3 < date '1997-12-31';
++----------+
+| count(*) |
++----------+
+| 2396524 |
++----------+
+1 row in set (5.42 sec)
+
+mysql> select count(*) from part_tab where c3 > date '1995-01-01' and c3 < date '1997-12-31';
++----------+
+| count(*) |
++----------+
+| 2396524 |
++----------+
+1 row in set (2.63 sec)
+** 增加未索引字段查询
+mysql> select count(*) from part_tab where c3 > date '1995-01-01' and c3 < date
+'1996-12-31' and c2='hello';
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.75 sec)
+
+mysql> select count(*) from no_part_tab where c3 > date '1995-01-01' and c3 < da
+te '1996-12-31' and c2='hello';
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (11.52 sec)
+
+
+= 初步结论 =
+* 分区和未分区占用文件空间大致相同 （数据和索引文件）
+* 如果查询语句中有未建立索引字段，分区时间远远优于未分区时间
+* 如果查询语句中字段建立了索引，分区和未分区的差别缩小，分区略优于未分区。
+
+
+= 最终结论 =
+* 对于大数据量，建议使用分区功能。
+* 去除不必要的字段
+* 根据手册， 增加myisam_max_sort_file_size 会增加分区性能
+
+[分区命令详解]
+
+= 分区例子 =
+* RANGE 类型
+
+CREATE TABLE users (
+       uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(30) NOT NULL DEFAULT '',
+       email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY RANGE (uid) (
+       PARTITION p0 VALUES LESS THAN (3000000)
+       DATA DIRECTORY = '/data0/data'
+       INDEX DIRECTORY = '/data1/idx',
+
+       PARTITION p1 VALUES LESS THAN (6000000)
+       DATA DIRECTORY = '/data2/data'
+       INDEX DIRECTORY = '/data3/idx',
+
+       PARTITION p2 VALUES LESS THAN (9000000)
+       DATA DIRECTORY = '/data4/data'
+       INDEX DIRECTORY = '/data5/idx',
+
+       PARTITION p3 VALUES LESS THAN MAXVALUE     DATA DIRECTORY = '/data6/data'
+       INDEX DIRECTORY = '/data7/idx'
+);
+
+在这里，将用户表分成4个分区，以每300万条记录为界限，每个分区都有自己独立的数据、索引文件的存放目录，与此同时，这些目录所在的物理磁盘分区可能也都是完全独立的，可以提高磁盘IO吞吐量。
+     
+* LIST 类型
+
+CREATE TABLE category (
+     cid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY LIST (cid) (
+     PARTITION p0 VALUES IN (0,4,8,12)
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+    
+     PARTITION p1 VALUES IN (1,5,9,13)
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx',
+    
+     PARTITION p2 VALUES IN (2,6,10,14)
+     DATA DIRECTORY = '/data4/data'
+     INDEX DIRECTORY = '/data5/idx',
+    
+     PARTITION p3 VALUES IN (3,7,11,15)
+     DATA DIRECTORY = '/data6/data'
+     INDEX DIRECTORY = '/data7/idx'
+);  
+
+分成4个区，数据文件和索引文件单独存放。
+
+* HASH 类型    
+CREATE TABLE users (
+     uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT '',
+     email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY HASH (uid) PARTITIONS 4 (
+     PARTITION p0
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+
+     PARTITION p1
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx',
+
+     PARTITION p2
+     DATA DIRECTORY = '/data4/data'
+     INDEX DIRECTORY = '/data5/idx',
+
+     PARTITION p3
+     DATA DIRECTORY = '/data6/data'
+     INDEX DIRECTORY = '/data7/idx'
+);
+分成4个区，数据文件和索引文件单独存放。
+
+例子：
+CREATE TABLE ti2 (id INT, amount DECIMAL(7,2), tr_date DATE)
+    ENGINE=myisam
+    PARTITION BY HASH( MONTH(tr_date) )
+    PARTITIONS 6;
+
+CREATE PROCEDURE load_ti2()
+       begin
+    declare v int default 0;
+    while v < 80000
+    do
+        insert into ti2
+        values (v,'3.14',adddate('1995-01-01',(rand(v)*3652) mod 365));
+         set v = v + 1;
+    end while;
+    end
+    //
+
+* KEY 类型
+CREATE TABLE users (
+     uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT '',
+     email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY KEY (uid) PARTITIONS 4 (
+     PARTITION p0
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+    
+     PARTITION p1
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx',
+    
+     PARTITION p2
+     DATA DIRECTORY = '/data4/data'
+     INDEX DIRECTORY = '/data5/idx',
+    
+     PARTITION p3
+     DATA DIRECTORY = '/data6/data'
+     INDEX DIRECTORY = '/data7/idx'
+);  
+分成4个区，数据文件和索引文件单独存放。
+
+* 子分区
+子分区是针对 RANGE/LIST 类型的分区表中每个分区的再次分割。再次分割可以是 HASH/KEY 等类型。例如：
+CREATE TABLE users (
+     uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT '',
+     email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY RANGE (uid) SUBPARTITION BY HASH (uid % 4) SUBPARTITIONS 2(
+     PARTITION p0 VALUES LESS THAN (3000000)
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+
+     PARTITION p1 VALUES LESS THAN (6000000)
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx'
+);
+
+对 RANGE 分区再次进行子分区划分，子分区采用 HASH 类型。
+
+或者
+
+CREATE TABLE users (
+     uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT '',
+     email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY RANGE (uid) SUBPARTITION BY KEY(uid) SUBPARTITIONS 2(
+     PARTITION p0 VALUES LESS THAN (3000000)
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+
+     PARTITION p1 VALUES LESS THAN (6000000)
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx'
+);
+
+对 RANGE 分区再次进行子分区划分，子分区采用 KEY 类型。
+
+= 分区管理 =
+
+    * 删除分区
+
+      ALERT TABLE users DROP PARTITION p0;
+
+      删除分区 p0。
+    * 重建分区
+          o RANGE 分区重建
+
+            ALTER TABLE users REORGANIZE PARTITION p0,p1 INTO (PARTITION p0 VALUES LESS THAN (6000000));
+
+            将原来的 p0,p1 分区合并起来，放到新的 p0 分区中。
+          o LIST 分区重建
+
+            ALTER TABLE users REORGANIZE PARTITION p0,p1 INTO (PARTITION p0 VALUES IN(0,1,4,5,8,9,12,13));
+
+            将原来的 p0,p1 分区合并起来，放到新的 p0 分区中。
+          o HASH/KEY 分区重建
+
+            ALTER TABLE users REORGANIZE PARTITION COALESCE PARTITION 2;
+
+            用 REORGANIZE 方式重建分区的数量变成2，在这里数量只能减少不能增加。想要增加可以用 ADD PARTITION 方法。
+    * 新增分区
+          o 新增 RANGE 分区
+
+            ALTER TABLE category ADD PARTITION (PARTITION p4 VALUES IN (16,17,18,19)
+            DATA DIRECTORY = '/data8/data'
+            INDEX DIRECTORY = '/data9/idx');
+
+            新增一个RANGE分区。
+          o 新增 HASH/KEY 分区
+
+            ALTER TABLE users ADD PARTITION PARTITIONS 8;
+
+            将分区总数扩展到8个。
+
+[ 给已有的表加上分区 ]
+
+alter table results partition by RANGE (month(ttime))
+(PARTITION p0 VALUES LESS THAN (1),
+PARTITION p1 VALUES LESS THAN (2) , PARTITION p2 VALUES LESS THAN (3) ,
+PARTITION p3 VALUES LESS THAN (4) , PARTITION p4 VALUES LESS THAN (5) ,
+PARTITION p5 VALUES LESS THAN (6) , PARTITION p6 VALUES LESS THAN (7) ,
+PARTITION p7 VALUES LESS THAN (8) , PARTITION p8 VALUES LESS THAN (9) ,
+PARTITION p9 VALUES LESS THAN (10) , PARTITION p10 VALUES LESS THAN (11),
+PARTITION p11 VALUES LESS THAN (12),
+PARTITION P12 VALUES LESS THAN (13) );
+
+默认分区限制分区字段必须是主键（PRIMARY KEY)的一部分，为了去除此
+限制：
+[方法1] 使用ID
+mysql> ALTER TABLE np_pk
+    ->     PARTITION BY HASH( TO_DAYS(added) )
+    ->     PARTITIONS 4;
+ERROR 1503 (HY000): A PRIMARY KEY must include all columns in the table's partitioning function
+
+However, this statement using the id column for the partitioning column is valid, as shown here:
+
+mysql> ALTER TABLE np_pk
+    ->     PARTITION BY HASH(id)
+    ->     PARTITIONS 4;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0 Duplicates: 0 Warnings: 0
+
+[方法2] 将原有PK去掉生成新PK
+mysql> alter table results drop PRIMARY KEY;
+Query OK, 5374850 rows affected (7 min 4.05 sec)
+Records: 5374850 Duplicates: 0 Warnings: 0
+
+mysql> alter table results add PRIMARY KEY(id, ttime);
+Query OK, 5374850 rows affected (6 min 14.86 sec)
+Records: 5374850 Duplicates: 0 Warnings: 0

@@ -1,0 +1,219 @@
+
+
+在安装一份64位ORACLE数据库之前，想先确认一下操作系统是否是64位。用uname -a命令查看了，但结果中并没有明确说明是多少位，于是再继续找其它方法。
+
+1.编程实现：
+
+在程序中返回 sizeof(int)的值，返回的结果是操作系统的字节数。若返回4则是32位操作系统，返回8即是64位。
+
+2.getconf命令：
+
+getconf 命令可以获取系统的基本配置信息，比如操作系统位数，内存大小，磁盘大小等。
+
+例如：
+
+确定磁盘 hdisk0 大小，若是 root 用户，则输入：
+getconf DISK_SIZE /dev/hdisk0
+
+确定实际内存大小：getconf REAL_MEMORY
+
+确定是否机器硬件是 32 位或 64 位：getconf HARDWARE_BITMODE
+
+确定是否内核是 32 位或 64 位： getconf KERNEL_BITMODE
+
+若以上的getconf KERNEL_BITMODE方法不成功(在我的机器上就不成功)，可能是因为版本不一致，可以再尝试用：getconf WORD_BIT，这个命令返回int类型的长度，与sizeof(int)一致。
+
+关于getconf命令的用法，请查看手册，或者参考：
+
+http://study.chyangwa.com/IT/AIX/aixcmds2/getconf.htm
+
+
+
+
+今天在安装mysql的时候，出现一个错误，可能是与系统位数有关！
+
+查看系统有两种方法
+
+1.直接看看有没有/lib64目目录的方法。64位的系统会有/lib64和/lib两个目录，32位只有/lib一个。
+
+2.getconf LONG_BIT （推荐）
+
+（32位的系统中int类型和long类型一般都是4字节，64位的系统中int类型还是4字节的，但是long已变成了8字节 inux系统中可用”getconf WORD_BIT”和”getconf LONG_BIT”获得word和long的位数。64位系统中应该分别得到32和64。）
+
+getconf 命令使用详解
+
+os 版本不同造成的差异, 具体查看: # man getconf
+
+用途
+
+将系统配置变量值写入标准输出。
+
+语法
+
+getconf [ -v specification ] [ SystemwideConfiguration | PathConfiguration PathName ] [ DeviceVariable DeviceName ]
+
+getconf -a
+
+描述
+
+用 SystemwideConfiguration 参数调用 getconf 命令，将 SystemwideConfiguration 参数所指定的变量值写到标准输出。
+
+用 PathConfiguration 和 PathName 参数调用 getconf 命令，写入 PathConfiguration 参数为 PathName 参数指定路径指定的变量值，到标准输出。
+
+getconf 命令，用 -a 标志调用，并写入全部系统配置变量值到标准输出。
+
+getconf 命令，用 DeviceVariable 和 DeviceName 参数调用，写磁盘设备名或位置的值到标准输出，设备路径由 DeviceName 参数指定。
+
+如果在系统中定义指定的变量且其值描述为可从 confstr 子例程得到，则指定变量的值按以下格式写入：
+
+“%s\n”，< 值 >
+
+否则，如果在系统中定义指定变量，其值按以下格式写入：
+
+“%d\n”, < 值 >
+
+如果指定变量是有效的但在系统中未定义，则将以下内容写入标准输出：
+
+“undefined\n”
+
+如果变量名无效或出现错误，就会有一个诊断消息写入标准错误。
+
+标记
+
+-a specification
+
+显示了指定规格及版本，其配置变量等待确定。如果该标志未被指定，返回值将响应一个实现缺省值 XBS5 的相应的编辑环境。
+
+-v
+
+将全部系统配置变量值写入标准输出。
+
+参数
+
+PathName
+
+为 PathConfiguration 参数指定路径名。
+
+SystemwideConfiguration
+
+指定一个系统配置变量。
+
+PathConfiguration
+
+指定一个系统路径配置变量。
+
+DeviceName
+
+指定一个设备路径名。
+
+DeviceVariable
+
+指定一个设备变量。
+
+示例
+
+   1. 显示变量 ARG_MAX 的值，请输入：
+
+      getconf ARG_MAX
+
+   2. 显示变量 NAME_MAX 的值，用于 /usr 目录，请输入：
+
+      getconf NAME_MAX /usr
+
+   3. 下列 shell 命令显示怎样处理未指定结果：
+
+      if value=$(getconf PATH_MAX /usr)
+      then     if [ "$value" = "undefined" ]
+           then
+                   echo
+                         The value of PATH_MAX in /usr is undefined.
+           else
+                   echo
+                         The value of PATH_MAX in /usr is $value.
+           fi
+      else
+           echo Error in the getconf command.
+      fi
+
+   4. 如果命令：
+
+      getconf _XBS5_ILP32_OFF32
+
+      没有写入 -1\n 或 undefined\n 到标准输出，那么表单命令：
+
+      getconf -v XBS5_ILP32_OFF32 ...
+
+      将确定相应于 XBS5_ILP32_OFF32 编译环境的配置变量值。编译环境指定于 c89，扩展描述。
+   5. 如果命令：
+
+      getconf _XBS5_ILP32_OFFBIG
+
+      没有写入 -1\n 或 undefined\n 到标准输出，那么表单命令：
+
+      getconf -v XBS5_ILP32_OFFBIG ...
+
+      将确定相应于 XBS5_ILP32_OFFBIG 编译环境的配置变量值，编译环境值指定于 c89，扩展描述。
+   6. 如果命令：
+
+      getconf _XBS5_LP64_OFF64
+
+      没有写入 -1\n 或 undefined\n 到标准输出，那么表单命令：
+
+      getconf -v XBS5_LP64_OFF64 ...
+
+      将确定相应于 XBS5_LP64_OFF64 编译环境的配置变量值，编译环境值指定于 c89，扩展描述。
+   7. 如果命令：
+
+      getconf _XBS5_LPBIG_OFFBIG
+
+      没有写入 -1\n 或 undefined\n 到标准输出，那么如下形式的命令：
+
+      getconf -v _XBS5_LPBIG_OFFBIG
+
+      将确定相应于在 c89，扩展描述中指定的 XBS5_LPBIG_OFFBIG 编译环境的配值变量值。
+   8. 确定磁盘 hdisk0 大小， 若是 root 用户，则输入下列：
+
+      getconf DISK_SIZE /dev/hdisk0
+
+   9. 确定实际内存大小，输入下列：
+
+      getconf REAL_MEMORY
+
+  10. 确定是否机器硬件是 32 位或 64 位，则输入下列：
+
+      getconf HARDWARE_BITMODE
+
+  11. 确定是否内核是 32 位或 64 位，则输入下列：
+
+      getconf KERNEL_BITMODE
+
+  12. 确定磁盘 hdisk0 的设备名或位置，则输入下列：
+
+      getconf DEVICE_NAME /dev/hdisk0
+
+文件
+
+/usr/bin/getconf   包含一个 getconf 命令。
+/usr/include/limits.h   定义系统配置变量。
+/usr/include/unistd.h   定义系统配置变量。
+来源：http://www.cnblogs.com/qingteng1983/archive/2010/07/22/1782638.html
+
+
+查看linux系统是多少位,64位,32位
+查看linux系统是多少位，使用 getconf LONG_BIT echo $HOSTTYPE
+
+查看系统多少位
+网上很多种说话   ### getconf WORD_BIT 错误的
+
+这3个是对的  
+    getconf LONG_BIT
+    echo $HOSTTYPE
+
+uname -a
+64位的显示
+Linux ps4 2.6.16.46-0.12-smp #1 SMP Thu May 17 14:00:09 UTC 2007 x86_64 x86_64 x86_64 GNU/Linux
+后面显示有 x86_64
+
+32位的显示：
+Linux fc6 2.6.18-1.2798.fc6 #1 SMP Mon Oct 16 14:54:20 EDT 2006 i686 i686 i386 GNU/Linux
+最后编辑： root 编辑于2010/09/26 12:03 

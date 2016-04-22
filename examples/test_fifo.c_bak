@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include "linux/kfifo.h"
+#include "linux/list.h"
+//#include "linux/printk.h"
+//#include "linux/compiler.h"
+# define kmalloc(x, f) malloc(x)
+
+ #define KERN_EMERG  "<0>"   /* system is unusable           */
+ #define KERN_ALERT  "<1>"   /* action must be taken immediately */
+ #define KERN_CRIT   "<2>"   /* critical conditions          */
+ #define KERN_ERR    "<3>"   /* error conditions         */
+ #define KERN_WARNING    "<4>"   /* warning conditions           */
+ #define KERN_NOTICE "<5>"   /* normal but significant condition */
+ #define KERN_INFO   "<6>"   /* informational            */
+ #define KERN_DEBUG  "<7>"   /* debug-level messages         */
+ 
+ /* Use the default kernel loglevel */
+ #define KERN_DEFAULT    "<d>"
+ /*
+  *   * Annotation for a "continued" line of log printout (only done after a
+  *     * line that had no enclosing \n). Only to be used by core/arch code
+  *       * during early bootup (a continued line is not SMP-safe otherwise).
+  *         */
+ #define KERN_CONT   "<c>"
+ 
+#define printk printf
+#define GFP_KERNEL 1
+//
+
+//#include "kn_common.h"
+
+struct student
+{
+    int id;
+    char* name;
+};
+
+static void print_student(struct student*);
+
+static int testkfifo_init(void)
+{
+    struct kfifo *fifo;
+    struct student *stu1, *stu2, *stu3, *stu4;
+    struct student *stu_tmp;
+    char* c_tmp;
+    int i;
+    // !!importent  init a unlocked lock
+    //spinlock_t sl = SPIN_LOCK_UNLOCKED;
+
+    // init kfifo
+    //fifo = kfifo_alloc(4*sizeof(struct student), GFP_KERNEL, &sl);
+    fifo = kfifo_alloc(4*sizeof(struct student), GFP_KERNEL);
+    
+    stu1 = kmalloc(sizeof(struct student), GFP_KERNEL);
+    stu1->id = 1;
+    stu1->name = "wyb1";
+    kfifo_put(fifo, (char *)stu1, sizeof(struct student));
+
+    stu2 = kmalloc(sizeof(struct student), GFP_KERNEL);
+    stu2->id = 1;
+    stu2->name = "wyb2";
+    kfifo_put(fifo, (char *)stu2, sizeof(struct student));
+
+    stu3 = kmalloc(sizeof(struct student), GFP_KERNEL);
+    stu3->id = 1;
+    stu3->name = "wyb3";
+    kfifo_put(fifo, (char *)stu3, sizeof(struct student));
+
+    stu4 = kmalloc(sizeof(struct student), GFP_KERNEL);
+    stu4->id = 1;
+    stu4->name = "wyb4";
+    kfifo_put(fifo, (char *)stu4, sizeof(struct student));
+
+    c_tmp = kmalloc(sizeof(struct student), GFP_KERNEL);
+    //printk(KERN_ALERT "current fifo length is : %d\n", kfifo_len(fifo));
+    for (i=0; i < 4; i++) {
+
+        kfifo_get(fifo, c_tmp, sizeof(struct student));
+        stu_tmp = (struct student *)c_tmp;
+        print_student(stu_tmp);
+       // printk(KERN_ALERT "current fifo length is : %d\n", kfifo_len(fifo));
+    }
+    
+    //printk(KERN_ALERT "current fifo length is : %d\n", kfifo_len(fifo));
+    kfifo_free(fifo);
+    kfree(c_tmp);
+    return 0;
+}
+
+static void print_student(struct student *stu)
+{
+    printk(KERN_ALERT "=========================\n");
+    print_current_time(1);
+    printk(KERN_ALERT "id = %d\n", stu->id);
+    printk(KERN_ALERT "name = %s\n", stu->name);
+    printk(KERN_ALERT "=========================\n");
+}
+
+static void testkfifo_exit(void)
+{
+    printk(KERN_ALERT "*************************\n");
+    printk(KERN_ALERT "testkfifo is exited!\n");
+    printk(KERN_ALERT "*************************\n");
+}
+
+typedef struct Node
+{
+    int m;
+    struct list_head ptr;
+}Node;
+
+struct list_head *g_h;
+int main()
+{
+    Node *n;
+
+    testfifo_init();
+    testfifo_exit();
+	
+	return 0;
+}

@@ -1,0 +1,524 @@
+第一届中国软件渠道大会 粤沪陕鄂浙五站巡展
+登录　免费注册　广告
+首页
+商城
+渠道
+商机
+信息化
+资讯
+技术
+领军
+搜索 下载 社区 信息协同力 　 操作系统  办公  实用知识  设计  开发  WEB开发  移动开发  数据库  软件工程  网管  安全  管理  信息化  答疑  渠道  	   
+Linux系统整体性能监控工具详解(上)
+2006-11-29　作者：邱建元　网友评论 0 条　点击进入论坛
+
+Linux中常用的监控CPU整体性能的工具有： 
+
+? mpstat： mpstat 不但能查看所有CPU的平均信息，还能查看指定CPU的信息。 
+
+? vmstat：只能查看所有CPU的平均信息；查看cpu队列信息； 
+
+? iostat: 只能查看所有CPU的平均信息。 
+
+? sar： 与mpstat 一样，不但能查看CPU的平均信息，还能查看指定CPU的信息。 
+
+? top：显示的信息同ps接近，但是top可以了解到CPU消耗，可以根据用户指定的时间来更新显示。 
+
+oprofile：OProfile 是一个低开销的系统全局的性能监视工具。它使用处理器上的性能监视硬件来检索关于内核以及系统上的可执行文件的信息，例如内存是何时被引用的；L2 缓存请求数量；收到的硬件中断数量等 
+
+1. /proc/stat/ 
+
+包含了所有CPU活动的信息，该文件中的所有值都是从系统启动开始累计到当前时刻。 
+
+CODE: 
+
+[work@builder ~]$ cat /proc/stat
+cpu 432661 13295 86656 422145968 171474 233 5346
+cpu0 123075 2462 23494 105543694 16586 0 4615
+cpu1 111917 4124 23858 105503820 69697 123 371
+cpu2 103164 3554 21530 105521167 64032 106 334
+cpu3 94504 3153 17772 105577285 21158 4 24
+intr 1065711094 1057275779 92 0 6 6 0 4 0 3527 0 0 0 70 0 20 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7376958 0 0 0 0 0 0 0 
+1054602 0 0 0 0 0 0 0 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0
+ctxt 19067887
+btime 1139187531
+processes 270014
+procs_running 1
+procs_blocked 0
+ 
+
+输出解释 
+
+CPU 以及CPU0、CPU1、CPU2、CPU3每行的每个参数意思（以第一行为例）为： 
+
+参数 解释 
+
+user (432661) 从系统启动开始累计到当前时刻，用户态的CPU时间（单位：jiffies） ，不包含 nice值为负进程。1jiffies=0.01秒 
+
+nice (13295) 从系统启动开始累计到当前时刻，nice值为负的进程所占用的CPU时间（单位：jiffies） 
+
+system (86656) 从系统启动开始累计到当前时刻，核心时间（单位：jiffies） 
+
+idle (422145968) 从系统启动开始累计到当前时刻，除硬盘IO等待时间以外其它等待时间（单位：jiffies） 
+
+iowait (171474) 从系统启动开始累计到当前时刻，硬盘IO等待时间（单位：jiffies） ， 
+
+irq (233) 从系统启动开始累计到当前时刻，硬中断时间（单位：jiffies） 
+
+softirq (5346) 从系统启动开始累计到当前时刻，软中断时间（单位：jiffies） 
+
+CPU时间=user+system+nice+idle+iowait+irq+softirq 
+
+“intr”这行给出中断的信息，第一个为自系统启动以来，发生的所有的中断的次数；然后每个数对应一个特定的中断自系统启动以来所发生的次数。 
+
+“ctxt”给出了自系统启动以来CPU发生的上下文交换的次数。 
+
+“btime”给出了从系统启动到现在为止的时间，单位为秒。 
+
+“processes (total_forks) 自系统启动以来所创建的任务的个数目。 
+
+“procs_running”：当前运行队列的任务的数目。 
+
+“procs_blocked”：当前被阻塞的任务的数目。 
+2. /proc/loadavg 
+
+该文件中的所有值都是从系统启动开始累计到当前时刻。该文件只给出了所有CPU的集合信息，不能该出每个CPU的信息。 
+
+[root@localhost ~]# cat /proc/loadavg 
+
+4.61 4.36 4.15 9/84 5662 
+
+每个值的含义为： 
+
+参数 解释 
+
+lavg_1 (4.61) 1-分钟平均负载 
+
+lavg_5 (4.36) 5-分钟平均负载 
+
+lavg_15(4.15) 15-分钟平均负载 
+
+nr_running (9) 在采样时刻，运行队列的任务的数目，与/proc/stat的procs_running表示相同意思 
+
+nr_threads (84) 在采样时刻，系统中活跃的任务的个数（不包括运行已经结束的任务） 
+
+last_pid(5662) 最大的pid值，包括轻量级进程，即线程。 
+
+假设当前有两个CPU，则每个CPU的当前任务数为4.61/2=2.31 
+
+3. uptime 
+
+uptime是Linux系统常用的命令，用来报告系统已经运行多长时间，依此显示的信息：现在时间，系统已经运行了的时间，目前有多少登陆用户， 1分钟系统平均负载，5分钟系统平均负载，15分钟系统平均负载。该命令从/proc/loadavg 中获得load average的信息。 
+
+范例1：系统只用一个CPU 
+
+[root@localhost ~]# uptime 
+
+12:20:49 up 3 days,9:20, 5 users, load average 1.10 1.32 1.15 
+
+对于一个CPU的系统来说，范例1中的平均负载高了些。通常来说：如果系统有n个CPU而且平均负载小于n,则说明某些CPU还有空闲的时间片。通过该命令，你能知道CPU是否繁忙，但是无法知道为什么忙。 
+
+4. mpstat 
+
+mpstat是Multiprocessor Statistics的缩写，是实时系统监控工具。其报告与CPU的一些统计信息，这些信息存放在/proc/stat文件中。在多CPUs系统里，其不但能查看所有CPU的平均状况信息，而且能够查看特定CPU的信息。下面只介绍 mpstat与CPU相关的参数，mpstat的语法如下： 
+
+mpstat [-P {|ALL}] [internal [count]] 
+
+参数的含义如下： 
+
+参数 解释 
+
+-P {|ALL} 表示监控哪个CPU， cpu在[0,cpu个数-1]中取值 
+
+internal 相邻的两次采样的间隔时间 
+
+count 采样的次数，count只能和delay一起使用 
+
+当没有参数时，mpstat则显示系统启动以后所有信息的平均值。有interval时，第一行的信息自系统启动以来的平均信息。从第二行开始，输出为前一个interval时间段的平均信息。与CPU有关的输出的含义如下： 
+
+参数 解释 从/proc/stat获得数据 
+
+CPU 处理器ID 
+
+user 在internal时间段里，用户态的CPU时间（%） ，不包含 nice值为负 进程 ?usr/?total*100 
+
+nice 在internal时间段里，nice值为负进程的CPU时间（%） ?nice/?total*100 
+
+system 在internal时间段里，核心时间（%） ?system/?total*100 
+
+iowait 在internal时间段里，硬盘IO等待时间（%） ?iowait/?total*100 
+
+irq 在internal时间段里，软中断时间（%） ?irq/?total*100 
+
+soft 在internal时间段里，软中断时间（%） ?softirq/?total*100 
+
+idle 在internal时间段里，CPU除去等待磁盘IO操作外的因为任何原因而空闲的时间闲置时间 （%） ?idle/?total*100 
+
+intr/s 在internal时间段里，每秒CPU接收的中断的次数 ?intr/?total*100 
+
+CPU总的工作时间=total_cur=user+system+nice+idle+iowait+irq+softirq 
+
+total_pre=pre_user+ pre_system+ pre_nice+ pre_idle+ pre_iowait+ pre_irq+ pre_softirq 
+
+?user=user_cur – user_pre 
+
+?total=total_cur-total_pre 
+
+其中_cur 表示当前值，_pre表示interval时间前的值。上表中的所有值可取到两位小数点。 
+
+范例1：average mode (粗略信息) 
+
+当mpstat不带参数时，输出为从系统启动以来的平均值。 
+
+CODE: 
+
+[work@builder linux-2.6.14]$ mpstat 
+Linux 2.6.9-5.31AXsmp (builder.redflag-linux.com) 12/16/2005
+09:38:46 AM CPU %user %nice %system %iowait %irq %soft %idle intr/s
+09:38:48 AM all 23.28 0.00 1.75 0.50 0.00 0.00 74.47 1018.59
+
+范例2: 每2秒产生了4个处理器的统计数据报告 
+
+下面的命令可以每2秒产生了4个处理器的统计数据报告，一共产生三个interval 的信息，然后再给出这三个interval的平均信息。默认时，输出是按照CPU 号排序。第一个行给出了从系统引导以来的所有活跃数据。接下来每行对应一个处理器的活跃状态。。 
+
+CODE: 
+
+[work@builder linux-2.6.14]$ mpstat -P ALL 2 3
+Linux 2.6.9-5.31AXsmp (builder.redflag-linux.com) 12/16/2005
+09:38:46 AM CPU %user %nice %system %iowait %irq %soft %idle intr/s
+09:38:48 AM all 23.28 0.00 1.75 0.50 0.00 0.00 74.47 1018.59
+09:38:48 AM 0 2.01 0.00 1.01 0.50 0.00 0.00 96.48 5.03
+09:38:48 AM 1 51.26 0.00 3.02 1.01 0.00 0.00 44.72 7.04
+09:38:48 AM 2 17.09 0.00 2.01 0.50 0.00 0.00 81.41 0.00
+09:38:48 AM 3 22.61 0.00 1.01 0.00 0.00 0.00 76.38 1006.03
+09:38:48 AM CPU %user %nice %system %iowait %irq %soft %idle intr/s
+09:38:50 AM all 24.22 0.00 1.25 1.25 0.00 0.00 73.28 1049.75
+09:38:50 AM 0 1.00 0.00 1.00 0.00 0.00 0.00 98.01 28.86
+09:38:50 AM 1 93.03 0.00 3.48 0.00 0.00 0.00 2.99 25.37
+09:38:50 AM 2 1.99 0.00 0.50 4.98 0.00 0.00 92.54 0.00
+09:38:50 AM 3 1.00 0.00 0.50 0.00 0.00 0.00 98.51 995.52
+09:38:50 AM CPU %user %nice %system %iowait %irq %soft %idle intr/s
+09:38:52 AM all 23.69 0.00 2.37 0.37 0.00 0.12 73.44 1028.36
+09:38:52 AM 0 2.99 0.00 1.49 0.00 0.00 0.50 95.02 111.94
+09:38:52 AM 1 52.74 0.00 2.99 1.00 0.00 0.00 42.29 4.48
+09:38:52 AM 2 14.93 0.00 1.99 0.00 0.00 0.00 82.09 4.48
+09:38:52 AM 3 23.38 0.00 1.99 0.50 0.00 0.00 73.13 907.46
+Average: CPU %user %nice %system %iowait %irq %soft %idle intr/s
+Average: all 23.73 0.00 1.79 0.71 0.00 0.04 73.73 1032.28
+Average: 0 2.00 0.00 1.16 0.17 0.00 0.17 96.51 48.75
+Average: 1 65.72 0.00 3.16 0.67 0.00 0.00 29.95 12.31
+Average: 2 11.31 0.00 1.50 1.83 0.00 0.00 85.36 1.50
+Average: 3 15.64 0.00 1.16 0.17 0.00 0.00 82.70 969.55
+[work@builder linux-2.6.14]
+
+范例3：比较带参数和不带参数的mpstat的结果。 
+
+在后台开一个2G的文件 
+
+> cat 1.img —/* 1.img=2GBytes 
+
+然后在另一个终端运行mpstat命令 
+
+CODE: 
+
+[root@localhost ~]# mpstat
+Linux 2.6.13 (localhost.localdomain) 2005年12月15日
+13时48分52秒 CPU %user %nice %system %iowait %irq %soft %idle intr/s
+13时48分52秒 all 1.57 0.00 0.24 0.15 0.12 0.01 97.92 308.12
+[root@localhost ~]# mpstat
+Linux 2.6.13 (localhost.localdomain) 2005年12月15日
+13时48分53秒 CPU %user %nice %system %iowait %irq %soft %idle intr/s
+13时48分53秒 all 1.57 0.00 0.24 0.15 0.12 0.01 97.92 308.12
+[root@localhost ~]# mpstat
+Linux 2.6.13 (localhost.localdomain) 2005年12月15日
+13时48分53秒 CPU %user %nice %system %iowait %irq %soft %idle intr/s
+13时48分53秒 all 1.57 0.00 0.24 0.15 0.12 0.01 97.92 308.12
+[root@localhost ~]# mpstat
+Linux 2.6.13 (localhost.localdomain) 2005年12月15日
+13时48分54秒 CPU %user %nice %system %iowait %irq %soft %idle intr/s
+13时48分54秒 all 1.57 0.00 0.24 0.15 0.12 0.01 97.92 308.12
+[root@localhost ~]#
+然后再运行命令：mpstat 3 100 /*每隔3秒给出一次信息，共给出100次*/
+[root@localhost ~]# mpstat 3 100
+Linux 2.6.13 (localhost.localdomain) 2005年12月15日
+13时48分25秒 CPU %user %nice %system %iowait %irq %soft %idle intr/s
+13时48分28秒 all 96.00 0.00 4.00 0.00 0.00 0.00 0.00 401.67
+13时48分31秒 all 96.01 0.00 3.65 0.00 0.33 0.00 0.00 393.36
+13时48分34秒 all 95.36 0.00 4.30 0.00 0.33 0.00 0.00 532.45
+13时48分37秒 all 94.00 0.00 5.67 0.00 0.33 0.00 0.00 400.33
+13时48分40秒 all 95.00 0.00 5.00 0.00 0.00 0.00 0.00 330.33
+13时48分43秒 all 95.33 0.00 4.33 0.00 0.33 0.00 0.00 337.33
+13时48分46秒 all 94.68 0.00 4.98 0.00 0.33 0.00 0.00 329.57
+13时48分49秒 all 95.67 0.00 4.00 0.00 0.33 0.00 0.00 417.33
+13时48分52秒 all 95.67 0.00 3.67 0.00 0.67 0.00 0.00 448.00
+13时48分55秒 all 94.02 0.00 5.32 0.00 0.33 0.33 0.00 410.96
+13时48分58秒 all 95.35 0.00 4.32 0.00 0.33 0.00 0.00 466.45
+[root@localhost ~]#
+ 
+上两表显示出当要正确反映系统的情况，需要正确使用命令的参数。vmstat 和iostat 也需要注意这一问题。 
+
+5. vmstat 
+
+vmstat是Virtual Meomory Statistics（虚拟内存统计）的缩写, 是实时系统监控工具。该命令通过使用knlist子程序和/dev/kmen伪设备驱动器访问这些数据，输出信息直接打印在屏幕。vmstat反馈的与CPU相关的信息包括： 
+
+（1）多少任务在运行 
+
+（2）CPU使用的情况 
+
+（3）CPU收到多少中断 
+
+（4）发生多少上下文切换 
+
+下面只介绍 Vmstat与CPU相关的参数 
+
+vmstat的语法如下： 
+
+　　vmstat [delay [count]] 
+
+参数的含义如下： 
+
+参数 解释 
+
+delay 相邻的两次采样的间隔时间 
+
+count 采样的次数，count只能和delay一起使用 
+
+当没有参数时，vmstat则显示系统启动以后所有信息的平均值。有delay时，第一行的信息自系统启动以来的平均信息。从第二行开始，输出为前一个delay时间段的平均信息。当系统有多个CPU时，输出为所有CPU的平均值。 
+
+与CPU有关的输出的含义 (采用进一法) 
+
+参数 解释 从/proc/stat获得数据 
+
+任务的信息 
+
+r 在internal时间段里，运行队列里等待CPU的任务（任务）的个数，即不包含vmstat进程 procs_running-1 
+
+b 在internal时间段里，被资源阻塞的任务数（I/0，页面调度，等等.） ，通常情况下是接近0的 procs_blocked 
+
+CPU信息 所有值取整（四舍五入） 
+
+us 在internal时间段里，用户态的CPU时间(%)，包含 nice值为负进程 (?user+?nice)/?total*100 
+
+sy 在internal时间段里，核心态的CPU时间(%) (?system+?irq+?softirq)/?total*100 
+
+id 在internal时间段里，cpu空闲的时间，不包括等待i/o的时间(%) ?idle/?total*100 
+
+wa 在internal时间段里，等待i/o的时间(%) ?iowait/?total*100 
+
+系统信息 
+
+in 在internal时间段里，每秒发生中断的次数 ?intr/interval 
+
+cs 在internal时间段里，每秒上下文切换的次数，即每秒内核任务交换的次数 ?ctxt/interval 
+
+CODE: 
+
+total_cur=user+system+nice+idle+iowait+irq+softirq
+total_pre=pre_user+ pre_system+ pre_nice+ pre_idle+ pre_iowait+ pre_irq+ pre_softirq
+&#61540;total=total_cur-total_pre
+ 
+范例1：average mode (粗略信息) 
+
+当vmstat不带参数时，对应的输出值是从系统启动以来的平均值，而r和b则对应的是完成这一命令时，系统的值。从下面例子，可以看出系统基本出去闲置状态（idle）。自启动以来，CPU在用户态消耗时间为5%，在核心态消耗为本1%，剩下的为闲置时间。需要指出的是：这里的用户态时间包括nice值为负的进程的时间。 
+
+CODE: 
+
+[root@localhost ~]# vmstat
+procs -----------memory---------- ---swap-- -----io---- --system-- ----cpu----
+r b swpd free buff cache si so bi bo in cs us sy id wa
+1 0 0 4580 428 98516 0 0 49 6 15 19 2 1 96 1
+[root@localhost ~]#
+ 
+范例2：average mode (详细信息) 
+
+命令格式： 
+
+vmstat –s 
+
+这里只讨论与CPU相关信息。“CPU ticks”表示自系统启动CPU运行时间，这里以tick为时间单位。用tick来西安市us,sy id 和wa的时间；forks指自从系统启动以来，所创建的新任务的个数。这些信息从/proc/stat 的第一行和”processes”行获得。 
+
+CODE: 
+
+[root@localhost ~]# vmstat -s
+255280 total memory
+244216 used memory
+206624 active memory
+21208 inactive memory
+11064 free memory
+628 buffer memory
+91396 swap cache
+255992 total swap
+24 used swap
+255968 free swap
+973400 non-nice user cpu ticks
+477 nice user cpu ticks
+206168 system cpu ticks
+43567714 idle cpu ticks
+373234 IO-wait cpu ticks
+62732 IRQ cpu ticks
+1972 softirq cpu ticks
+22366502 pages paged in
+88756936 pages paged out
+0 pages swapped in
+0 pages swapped out
+135634319 interrupts
+137288441 CPU context switches
+1134440368 boot time
+208990 forks
+[root@localhost ~]#
+
+结果解释 
+
+参数 描述 /proc/stat 
+
+non-nice user cpu ticks 自系统启动以来，CPU在用户态下运行非nice进程的时间，单位为jiffies user 
+
+nice user cpu ticks 自系统启动以来，CPU在用户态下运行nice进程的时间，单位为jiffies nice 
+
+system cpu ticks 自系统启动以来，CPU处于系统状态的时间，单位为jiffies sys 
+
+idle cpu ticks 自系统启动以来，CPU处于闲置状态的时间，单位为jiffies idle 
+
+IO-wait cpu ticks 自系统启动以来，CPU处理IO中断的时间，单位为jiffies iowait 
+
+IRQ cpu ticks 自系统启动以来，CPU处理硬中断的时间，单位为jiffies irq 
+
+softing cpu ticks 自系统启动以来，CPU处理软中断的时间，单位为jiffies Softirq 
+
+interrupts 自系统启动以来，发生的所有的中断的次数目 Intr 
+
+CPU context switches 自系统启动以来，发生的上下文交换的次数 Ctxt 
+
+boot time 自系统启动以来到现在运行的时间，单位为秒。 btime 
+
+forks 自系统启动以来所创建的任务的个数目。 Process 
+
+范例3：定期采样(delay [count]) 
+
+定期采样数据是指每隔delay时间，采样一次。当count 为0时，vmstat 将不停地定期报告信息；否则当报告count次后，vmstat 命令停止运行。 
+
+第一行的信息如同范例1，是自系统启动以来的平均信息。从第二行开始，每行的意思是：r和b采样那一时刻系统运行队列和等待队列的情况；而usystem参数（in,cs）以及CPU参数（us,sy,id,wa）对应的输出值是系统在前一个delay的情况。 
+
+从下面例子可以看出上下文交换的次数小于中断的发生次数。当系统大部分时间是空闲并且中断大部分是时间中断时，这种现象极可能发生。当时间中断发生时, 因为调度器没有什么任务可调度，所以很少发生上下文切换。 
+
+CODE: 
+
+[root@localhost ~]# vmstat 2 4
+procs -----------memory---------- ---swap-- -----io---- --system-- ----cpu----
+r b swpd free buff cache si so bi bo in cs us sy id wa
+1 0 24 11032 652 91396 0 0 49 6 15 19 2 1 96 1
+0 0 24 11032 652 91396 0 0 0 0 377 464 1 0 99 0
+0 0 24 11024 652 91396 0 0 0 0 387 476 1 0 100 0
+0 0 24 11024 652 91396 0 0 0 0 323 377 0 0 100 0
+[root@localhost ~]#
+已有 0 位对此文章感兴趣的网友发布了看法　	  
+我来评两句	登录邮箱： 密码：  
+ 
+ 	 匿名发表 
+
+今日推荐
+·微软欲起诉谷歌Chrome浏览器垄断
+·精选ERP以技术为纲
+·技术答疑：AC.NET标准会计软件--《会稽山》单机专业版[图]
+·AC.NET标准会计软件--《会稽山》下载安装与操作流程
+·敏捷开发和高级别CMMI
+·Siemens PLM Software 技术技巧（12）[组图]
+·Siemens PLM Software 技术技巧（11）[组图]
+·用ANSYS计算变压器箱体涡流，可以加阻抗边界条件吗
+·企业为什么要实施易拓软件
+·网络管理系统的进步[图]
+技术文库(共有 46473 篇文章)
+操作系统
+办公软件
+实用知识
+网络管理
+软件开发
+WEB开发
+软件工程
+数据库
+设计在线
+信息安全
+行业信息化
+管理信息化
+移动开发
+渠道大学
+产品技术答疑
+重点推荐
+企业搜索引擎中间件
+线点科技是国内知名的全文检索、搜索引擎与中文语言知识处理软件厂商.为客户提供专业化产品。
+专业铸就品质——中标普华Linux操作系统
+中标软件提供Linux桌面系统、Linux服务器系统、Office办公套件等在内的系统软件产品及解决方案等。
+中国软件网承接网站建设
+中国软件网拥有多年资深的网站建设经验和专业的美术设计、程序人员，提供全方位的网站建设及网站设计服务。
+领军企业技术文库
+安世亚太之精益研发平台PERA[组图]
+金融业的六西格玛（三）
+制药行业质量管理[组图]
+金融业的六西格玛（一）
+JMP和Minitab的比较[组图]
+JMP半导体行业应用——模拟均匀性靶心转换[组图]
+用较少的硅片解决筛选实验中的混杂问题[组图]
+你的产品能再贵些么？[组图]
+ANSYS计算报告：舰载天线系统辐射特性计算[组图]
+利用ANSYS进行船舶轴系的振动校合计算[组图]
++更多领军技术文库
+润乾软件 人大金仓 百胜软件 点击科技 swsoft 沟通科技 用友软件 正航软件 绿盟科技 万户网络 首信易支付 Business Objects SAS-JMP 安世亚太 金算盘 IBM Rational 北信源VRV 
+最新专题
+1
+IT领袖看奥运
+2
+如果云计算 IT将何去何从
+3
+开源精神的化身——Linux
+4
+人肉搜索 天使OR魔鬼？
+5
+玩转科技奥运
+6
+网络管理员必学手册
+7
+数据库复制技术实施方案及步骤
+8
+2008年十大IT技术
+9
+SQL Server 2008新增特性及关键改进
+10
+负载均衡技术方案攻略
+电子杂志订阅
+点击电子杂志名称查看样刊
+输入E-mail地址即可订阅
+ 订阅中国软件网第一新闻/商机速递
+ 订阅娱乐周刊
+E-mail   
+技术热点
+1
+如果云计算 IT将何去何从
+2
+IT领袖看奥运
+3
+巧用路由器限制局域网主机的带宽流量
+4
+网络管理系统的进步[图]
+5
+CAD初学者如何提高工作效率
+6
+ERP,为什么选台湾天心
+7
+流程制造业企业如何进行ERP选型
+8
+Siemens PLM Software 技术技巧（10）[组图]
+9
+软件的选型，企业从何考虑
+10
+Siemens PLM Software 技术技巧（12）[组图]
+ 	关于软网 | 合作伙伴 | 广告服务 | 联系我们 | 诚聘精英 | 友情链接 | 网站地图 | 联系广告 | 管理员信箱
+Copyright ? 2003－2008 soft6.com All Right Reserved. 北京世纪软网信息技术有限公司版权所有。京ICP证030920号
+Tel:010-82873940　82872199　82872300	
+

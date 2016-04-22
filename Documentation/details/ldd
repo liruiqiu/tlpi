@@ -1,0 +1,14 @@
+1、首先ldd不是一个可执行程序，而只是一个shell脚本
+
+2、ldd能够显示可执行模块的dependency，其原理是通过设置一系列的环境变量，如下： LD_TRACE_LOADED_OBJECTS、LD_WARN、LD_BIND_NOW、LD_LIBRARY_VERSION、 LD_VERBOSE等。当LD_TRACE_LOADED_OBJECTS环境变量不为空时，任何可执行程序在运行时，它都会只显示模块的 dependency，而程序并不真正执行。要不你可以在shell终端测试一下，如下：
+
+(1) export LD_TRACE_LOADED_OBJECTS=1
+(2) 再执行任何的程序，如ls等，看看程序的运行结果
+
+3、 ldd显示可执行模块的dependency的工作原理，其实质是通过ld-linux.so（elf动态库的装载器）来实现的。我们知道，ld- linux.so模块会先于executable模块程序工作，并获得控制权，因此当上述的那些环境变量被设置时，ld-linux.so选择了显示可执 行模块的dependency。
+
+4、实际上可以直接执行ld-linux.so模块，如：/lib/ld-linux.so.2 --list program（这相当于ldd program）
+
+onebyte：
+
+ldd的作用：最近程序一直运行不起来，也很想用ldd看一下其到底加载了哪些运行库，但由于在HOST上已交叉编译过，所以在HOST上用 ldd无果。后来一直没有什么好的办法。今天看了这篇文章才恍然大悟，原来ldd只是个脚本文件，那不是直接将其拷贝到TARGET就可以了吗？立刻动手，果然好使！发现程序原来少了libqte.so.3的库，太好了！从HOST上拷一个过来就可以了。

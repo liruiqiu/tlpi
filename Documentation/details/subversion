@@ -1,0 +1,82 @@
+安装subversion的另一种方法
+下载http://subversion.tigris.org/downloads/subversion-1.4.5.tar.gz
+http://subversion.tigris.org/downloads/subversion-deps-1.4.5.tar.gz
+之后解压，编译，安装
+
+感觉很爽（下面的0～7都可以省略了）
+
+
+=====================================================================================================
+
+0. 安装httpd
+./configure --prefix=/usr/local/apache --enable-module=so --enable-module=rewrite --enable-shared=max 
+
+1. 千万不要用最新版的subversion-1.4.6，我就是在这个上面浪费了太多的时间
+
+2. 下载http://subversion.tigris.org/downloads/subversion-1.4.5.tar.gz
+
+3. 将subversion-1.4.5.tar.gz上传到服务器 
+ 
+4. 解压缩  
+   tar -xfvz subversion-1.4.5.tar.gz
+
+5. 预编译
+   ./configure --prefix=/usr/local/subversion --without-berkeley-db --with-zlib --with-apxs=/usr/local/apache/bin/apxs --with-apr=/usr/local/apache --with-apr-util=/usr/local/apache
+   一般会爆出缺少XXX的  所以解决方法是安装 apache2，如果与当前服务器的端口冲突可以不启用apache。但是必须安装
+   
+   之后还会缺少neon和另外一个组件，这些不是必须的，可以不用安装。subversion会使用fsfs的方式组织文件，估计效率比较低吧。
+
+6. make & make install
+
+7. 编辑环境变量
+    vi /etc/profile,在/etc/profile最后加入:
+    PATH=$PATH:/opt/svn/bin
+    export PATH
+
+8. 建立svn版本库目录
+   mkdir -p /home/svn_root
+
+9. 建立svn版本库
+   svnadmin create /home/svn_root
+
+10.修改svn版本库配置文件
+   vi /home/svn_root/conf/svnserve.conf
+
+   文件内容为：
+   anon-access = none
+   auth-access = write
+   password-db = passwd
+   #authz-db = authz
+   realm = test
+
+11. 配置允许访问的svn用户
+   vi /home/svn_root/conf/passwd
+   [users]
+   ninan = ohmygod
+12. 配置svn用户访问权限(我是不需要这个的)
+    vi /home/svn_root/conf/authz
+
+13. 启动svn
+    svnserve -d -r /home/svn_root
+
+14. 检测自己的工作成果
+ svn import -m "import doc dir" myproj http://lilrq.gicp.net/work/doc
+ 
+ svn checkout svn://221.130.176.189/tx789_pikenv/trunk tx24 
+
+
+svnserve -d --listen-port=12000 -r /home/svn-work
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------windows-----------------------------------------
+svnserver -d -r D:\svn_repos\project

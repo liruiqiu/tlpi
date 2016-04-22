@@ -1,0 +1,358 @@
+
+<b>	粗体bold
+<i>	斜体italic
+<del>	文字当中划线表示删除
+<ins>	文字下划线表示插入
+<sub>	下标
+<sup>	上标
+<blockquote> 	缩进表示引用
+<pre>	保留空格和换行
+<code>	表示计算机代码，等宽字体
+最常用的字符实体(Character Entities)
+显示结果	说明	Entity Name	Entity Number
+	显示一个空格	&nbsp;	&#160;
+<	小于	&lt;	&#60;
+>	大于	&gt;	&#62;
+&	&符号	&amp;	&#38;
+"	双引号	&quot;	&#34;
+
+其他常用的字符实体(Character Entities)显示结果	说明	Entity Name	Entity Number
+?	版权	&copy;	&#169;
+?	注册商标	&reg;	&#174;
+×	乘号	&times;	&#215;
+÷	除号	&divide;	&#247;
+
+
+
+HTML元素参考手册 HTML Elements Reference
+a
+表示超链接的起始或目的位置。
+acronym
+表示取首字母的缩写词。
+address
+表示特定信息，如地址、签名、作者、文档信息。
+applet
+在页面上放置可执行内容。
+area
+定义一个客户端图像映射中一个超级链接区域的形状、坐标和关联 URL。
+b
+指定文本应以粗体显示。
+base
+指定一个显式 URL 用于解析对于外部源的链接和引用，如图像和样式表。
+basefont
+设置显示文本时作为默认字体的基础字体值。
+bdo
+允许作者为选定文本片断禁用双向法则。
+bgsound
+使页面能够带有背景声音或配音。
+big
+指定所含文本要以比当前字体稍大的字体显示。
+blockquote
+表示文本中的一段引用语。
+body
+指明文档主体的开始和结束。
+br
+插入一个换行符。
+button
+指定一个容器，其中所含的 HTML 会被显示为一个按钮。
+caption
+表格的标题，对表格的简单描述。
+center
+将指定文本和图像居中显示。
+cite
+用斜体显示标明引文。
+code
+表示代码范例。
+col
+说明基于列的表格缺省属性。
+colgroup
+说明表格中一列或一组列的缺省属性。
+comment
+表示不可见的注释。防止所包含的文本或者HTML源代码被浏览器解析和显示。
+dd
+在定义列表中表示定义。定义通常在定义列表中缩进显示。
+del
+表示文本已经从文档中删除。
+dfn
+表示术语的定义。
+dir
+表示目录列表。
+div
+表示一块可显示 HTML 的区域
+dl
+表示定义列表。
+dt
+在定义列表中表示定义术语。
+em
+强调文本，通常以斜体显示。
+embed
+允许嵌入任何类型的文档。
+fieldset
+在字段集包含的文本和其它元素外面画一个方框。
+font
+用于说明所包含文本的新字体、大小和颜色。
+form
+说明所包含的控件是某个表单的组成部分。
+frame
+在 FRAMESET 元素内表示单个框架。
+frameset
+表示一个框架集，用于组织多个框架和嵌套框架集。
+head
+提供了关于文档的无序信息集合。
+hn
+以标题样式显示文本。
+hr
+画一条横线。
+html
+表明文档包含 HTML 元素。
+i
+指定文本应以斜体显示。
+iframe
+创建内嵌漂浮框架。
+img
+在文档中嵌入图像或视频片断。
+input
+创建各种表单输入控件。
+input type=button
+创建按钮控件。
+input type=checkbox
+创建复选框控件。
+input type=file
+创建文件上载控件，该控件带有一个文本框和一个浏览按钮。
+input type=hidden
+传输关于客户/服务器交互的状态信息。
+input type=image
+创建一个图像控件，该控件被点击后将导致表单立即被提交。
+input type=password
+创建与 INPUT type=text 控件类似的单行文本输入控件，不过并不显示用户输入的内容。
+input type=radio
+创建单选钮控件。
+input type=reset
+创建一个按钮，点击该按钮后，将重置表单控件回其初始值。
+input type=submit
+创建一个按钮，点击该按钮后，即提交表单。
+input type=text
+创建一个单行的文本输入控件。
+ins
+表示插入到文档中的文本。
+isindex
+使浏览器显示一个对话框，提示用户输入单行文本。
+kbd
+以定宽字体显示文本。
+label
+为页面上的其它元素指定标签。
+legend
+在 fieldSet 对象绘制的方框内插入一个标题。
+li
+表示列表中的一个项目。
+link
+允许当前文档和外部文档建立连接。
+listing
+以固定宽度的字体显示文本。
+map
+包含客户端图像映射的坐标数据。
+marqueee
+创建一个滚动的文本字幕。
+menu
+创建一个无序列表。
+meta
+向服务器和客户端传达关于文档的隐藏信息。
+nobr
+不换行显示文本。
+noframes
+包含对于那些不支持 FRAMESET 元素的浏览器使用的 HTML。
+noscript
+指定在不支持脚本的浏览器中显示的 HTML。
+object
+在 HTML 页面中插入对象。
+ol
+编制排序列表。
+optgroup
+允许作者对 select 元素中的选项进行逻辑分组。
+option
+表示 SELECT 元素中的一个选项。
+p
+表示一段。
+param
+设置 APPLET、EMBED 或 OBJECT 元素的属性初始值。
+pre
+以固定宽度字体显示文本。
+q
+分离文本中的引语。
+s
+带删除线方式显示文本。
+samp
+表示代码范例。
+script
+指定由脚本引擎解释的页面中的脚本。
+select
+表示一个列表框或者一个下拉框。
+small
+指定内含文本要以比当前字体稍小的字体显示。
+span
+指定内嵌文本容器。
+strike
+带删除线显示文本。
+strong
+以粗体显示文本。
+style
+指定页面的样式表。
+sub
+说明内含文本要以下标的形式显示，比当前字体稍小。
+sup
+说明内含文本要以上标的形式显示，比当前字体稍小。
+table
+说明所含内容组织成含有行和列的表格形式。
+tbody
+指明哪些行作为表格的主体。
+td
+指定表格中的单元格。
+textarea
+多行文本输入控件。
+tfoot
+指明哪些行作为表尾。
+th
+指定标题列。标题列将在单元格中居中并以粗体显示。
+thead
+指定哪些行作为表头。
+title
+文档的标题。
+tr
+指定表格中的一行。
+tt
+以固定宽度字体显示文本。
+u
+带下划线显示文本。
+ul
+表示不排序的项目列表。
+var
+定义程序变量，通常以斜体显示。
+wbr
+向一块 NOBR 文本中插入软换行.
+
+该CSS属性参考是根据W3C的CSS2标准的属性参考说明和微软的CSS属性参考说明整理而成。两者有差异处，如默认值，则以Internet Explorer 的效果为准。
+W3C 参考来源： W3C CSS2 Property Index
+微软 参考来源：微软MSDN中的CSS Reference
+颜色和背景属性(Color and background properties)
+color 颜色属性
+该CSS属性用来设定前景色，通常用于设定元素的字体颜色。
+background 背景属性
+该CSS属性是一个复合属性，是5个背景属性 background-color, background-image, background-repeat, background-attachment 和 background-position 的综合快捷写法。
+background-attachment 背景附着属性
+该CSS属性用来设定背景图片是否随文档一起滚动。
+background-color 背景颜色属性
+该CSS属性用来设定对象的背景颜色。
+background-image 背景图片属性
+该CSS属性用来设定元素的背景图片。
+background-position 背景位置属性
+该CSS属性用来设定背景图片的位置。
+background-repeat 背景重复属性
+该CSS属性用来设定背景图片是否重复平铺。
+字体属性(Font properties)
+font 字体属性
+该CSS属性是各种字体属性的一种快捷的综合写法。
+font-family 字体名称属性
+该CSS属性用来设定所用字体的名称。
+font-size 字体大小属性
+该CSS属性用来设定字体的大小。
+font-style 字体风格属性
+设定字体风格是斜体，正常，或是倾斜。
+font-variant 字体变量属性
+该CSS属性用来设定字体是正常显示，还是以小型大写字母显示。
+font-weight 字体浓淡属性
+该CSS属性用来设定字体的浓淡程度。
+文本属性(Text properties)
+direction 方向属性
+该CSS属性用来设定文本的书写顺序。
+letter-spacing 字符间距属性
+该CSS属性用来设定字符间距。
+line-height 行高属性
+该CSS属性用来设定行间距。
+text-align 水平对齐属性
+该CSS属性用来设定文本的水平对齐方式。
+text-decoration 文本修饰属性
+该CSS属性用来审定文本的修饰效果，如上划线，下划线等。
+text-indent 文本缩进属性
+该CSS属性用来设定文本块中第一行的缩进。
+text-transform 文本转换属性
+该CSS属性用来设定字体的大小写转换。
+vertical-align 垂直对齐属性
+该CSS属性用来设定垂直对齐方式。
+white-space 空白属性
+该CSS属性用来处理空白。
+word-spacing 词间距属性
+该CSS属性用来设定词与词之间的空间。
+布局属性(Layout properties)
+border 边框属性
+该CSS属性用来设定边框宽度，风格和颜色。
+border-bottom 下边框属性
+该CSS属性用来设定下边框宽度，风格和颜色。
+border-bottom-color 下边框颜色属性
+该CSS属性用来设定下边框的颜色。
+border-bottom-style 下边框风格属性
+该CSS属性用来设定下边框的风格。
+border-bottom-width 下边框宽度属性
+该CSS属性用来设定下边框的宽度。
+border-collapse 边框合并属性
+该CSS属性用来设定表格的行和列的边框是合并成单边框，还是分别有各自的边框。
+border-color 边框颜色属性
+该CSS属性用来设定边框的颜色。
+border-left 左边框属性
+该CSS属性用来设定左边框宽度，风格和颜色。
+border-left-color 左边框颜色属性
+该CSS属性用来设定左边框的颜色。
+border-left-style 左边框风格属性
+该CSS属性用来设定左边框的风格。
+border-left-width 左边框宽度属性
+该CSS属性用来设定左边框的宽度。
+border-right 右边框属性
+该CSS属性用来设定右边框宽度，风格和颜色。
+border-right-color 右边框颜色属性
+该CSS属性用来设定右边框的颜色。
+border-right-style 右边框风格属性
+该CSS属性用来设定右边框的风格。
+border-right-width 右边框宽度属性
+该CSS属性用来设定右边框的宽度。
+border-style 边框风格属性
+该CSS属性用来设定边框的风格。
+border-top 上边框属性
+该CSS属性用来设定上边框宽度，风格和颜色。
+border-top-color 上边框颜色属性
+该CSS属性用来设定上边框的颜色。
+border-top-style 上边框风格属性
+该CSS属性用来设定上边框的风格。
+border-top-width 上边框宽度属性
+该CSS属性用来设定上边框的宽度。
+border-width 边框宽度属性
+该CSS属性用来设定边框的宽度。
+margin 边距属性
+该CSS属性用来设定边距的宽度。
+margin-bottom 下边距属性
+该CSS属性用来设定下边距的宽度。
+margin-left 左边距属性
+该CSS属性用来设定左边距的宽度。
+margin-right 右边距属性
+该CSS属性用来设定右边距的宽度。
+margin-top 上边距属性
+该CSS属性用来设定下边距的宽度。
+padding 间隙属性
+该CSS属性用来设定间隙的宽度。
+padding-bottom 下间隙属性
+该CSS属性用来设定下间隙的宽度。
+padding-left 左间隙属性
+该CSS属性用来设定左间隙的宽度。
+padding-right 右间隙属性
+该CSS属性用来设定右间隙的宽度。
+padding-top 上间隙属性
+该CSS属性用来设定上间隙的宽度。
+分类属性(Classification properties)
+display 显示属性
+该CSS属性用来设定对象如何显示。
+list-style 列表样式属性
+该CSS属性是设定列表样式的一个快捷的综合写法。用这个属性可以同时设置列表样式类型属性 (list-style-type)，列表样式位置属性 (list-style-position) 和列表样式图片属性 (list-style-image) 。
+list-style-image 列表样式图片属性
+该CSS属性用来设定列表样式图片标记的地址。
+list-style-position 列表样式位置属性
+该CSS属性用来设定列表样式标记的位置。
+list-style-type 列表样式类型属性
+该CSS属性用来设定列表项标记(list-item marker)的类型。

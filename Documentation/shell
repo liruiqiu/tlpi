@@ -1,0 +1,408 @@
+ find . -name "*.h" -o -name "*.c" -o -name "*.cc" > cscope.files
+[zawm@zawm samba-3.6.1]$ cscope -bkq -i cscope.files
+
+CREATE DATABASE IF NOT EXISTS tmadb DEFAULT CHARACTER SET utf8;
+
+
+cflow
+--------------------------------------------------------------------------------------------
+cflow --tree --brief  smbd/server.c 
+
+gprof
+--------------------------------------------------------------------------------------------
+gprof -b cflow gmon.out
+
+
+grep
+--------------------------------------------------------------------------------------------
+	grep "M" up_20091203.sh |tr -d 'M? '|xargs -i diff {} ../tx_lrq/{}
+	grep -H "^name_cn" * -r|iconv -f GB2312 -t UTF-8|grep -E "?μí3|?í·t" > ../tmp_lrq.s ## 解决中文搜索
+	grep "tom" /etc/passwd #查找本机中用户名为tom的用户信息
+	grep -E '(begin|start)' * #查找含有begin或start字符的所有文件
+	grep "/home/hezuo/tx19/txonline/clone/user()->setup(\"" log/error.6159 |tr -d '"()'|more|awk -F'/home/hezuo/tx19/txonline/clone/user->setup' '{print $2}'|sort |uniq
+	grep "/home/hezuo/tx11/txonline/clone/user()->setup(\"" log/error.5511 |tr -d '"()'|more|awk -F'/home/hezuo/tx11/txonline/clone/user->setup' '{print $2}'|sort |uniq
+  
+find
+--------------------------------------------------------------------------------------------
+	find /home -path "/home/tom" -prune -o -print #希望在/home下查找文件，但是不想在/home/tom的目录下查找
+	find /home/sam \( -path /home/sam/dir1 -o -path /home/sam/dir2 \) -prune -o -print #在/home/sam下查找文件，但是避开/home/sam/dir1和/home/sam/dir2
+	其他实例 
+	find / -user sam #查找系统中所有属主为sam的文件
+	find / -amin -10 #查找系统中下所有的最后10min被访问过的文件
+	find / -mmin -5 # 查找在系统中最后5分钟里修改过的文件
+	find / -atime -2 # 查找在系统中最后48小时访问的文件
+	find / -mtime -2 # 查找在系统中最后48小时访问的文件
+	find / -empty # 查找在系统中为空的文件或者文件夹
+	find / -name '*.core' | xargs echo -n 1 "" >/tmp/core.log #在整个系统中查找内存信息转储文件(core dump) ，然后把结果保存到/tmp/core.log。
+	find / -type f | xargs grep "hostname" #在所有文件中查找含有hostname这个词的文件
+	find / -size +100c #查找大于100Bytes的所有文件
+	find / -size +500kc -and -size -1000kc #查找大于500KB且小于1000KB的文件
+	find txonline/clone/item/ |grep -vE "_0_0_|X|Xt|Xd|Xx|Xh|Xj|.svn" |xargs -i grep -H "^name_cn" {} > li.sh
+  find tx5 -name "*.bak*"|grep -v svn|
+  find u -name "*.bak" | xargs -i rm -f {}
+	xargs: unmatched single quote
+	解决:
+	find u  -name "*.bak" -exec rm -rf {} \;
+	xargs -i cp --parents {}
+
+ps
+--------------------------------------------------------------------------------------------
+ps aux|grep login   # 查看是不是有tty 登录
+ps waux | grep httpd #查找系统中的所有httpd进程的相关信息
+ps a | awk '{print $5}' | sort | uniq -c | sort -nk1 #查看系统中所有进程，并按照进程名运行次数从小到大排序
+
+
+
+netstat
+--------------------------------------------------------------------------------------------
+netstat -na|grep ESTABLISHED|awk '{print }'|awk -F: '{print }'|sort|uniq -c|sort -r +0n 
+netstat -na|grep SYN|awk '{print }'|awk -F: '{print }'|sort|uniq -c|sort -r +0n
+
+
+tar
+--------------------------------------------------------------------------------------------
+tar czf test.tar.gz -C /etc/rc.d/init.d .
+tar czf /usr/local/appwork/lrq/test.tar.gz -C /etc/rc.d/init.d .
+tar czf /usr/local/appwork/lrq/test.tar.gz -C /etc/rc.d/ init.d
+
+
+srot
+--------------------------------------------------------------------------------------------
+sort -u file1 -o file2 #去掉文件file1中的重复行，存入file2
+sort file1 | uniq >file2 #去掉文件file1中的重复行，存入file2
+sort file1 | uniq -c | sort -nk1 #把文件file1中的相同行计算出现的次数，并根据出现的次数从小到大排序
+sort -k: -t 2 file #把文件按照“:”分割的第2列排序
+cat tx14_consume_2008-08-04.log | awk -F "[" '{print" ["$4}' |sort |uniq -c | sort -rn 
+sort -rnt: -k 2,2 
+sort -t\| +2   ## 按第3例排序
+cat *.lst | sort | uniq 
+
+grep "_time:" smbstatus_zawm_smb.sh|sort -n --key=2 > smbstatus_zawm_smb_time.sh 
+grep "_count:" smbstatus_zawm_smb.sh|sort -n --key=2 > smbstatus_zawm_smb_count.sh  
+
+cut
+--------------------------------------------------------------------------------------------
+cut -d. -f1-4 file #把文件按照“.”分割的第一到第四列取出
+cut -s -d: -f2,5-7 file #把文件按照“:”分割的第二列，第五到第七列取出，并不输出不包含“:”的行
+
+
+
+awk && sed
+--------------------------------------------------------------------------------------------
+	ls -l |grep ^-|awk '{print $NF}' ## 获得本目录下的文件.
+	ls -l |grep ^d|awk '{print $NF}' ##获得本目录下的目录.
+	awk '{print $0}' file #输出整篇文章
+	awk '{print $1}' file #输出第一列
+	awk -F "\t" '{print $2}' #取出根据tab分割的第2列
+	awk -F ":" '{print $NF}' file #取出根据“:”分割的最后一列
+	awk -F " " '{print NF}' file #输出根据空格分割的每行的列数
+	awk -F "\t" '{print NF}' file #输出根据tab分割的每行的列数
+	awk '{print $0"\n"}' file #把文件的每行之间插入一个空行
+	awk -F ":" '{	print $0;}' #把根据“:”分割多于6列的行取出
+	按域的范围取值
+	awk '{if(($2~/^begin/)&&($3<10))print $NF;}' filename #把第2列以“begin”开头，并且第3列小于10的行的最后一列取出
+	awk -F "\t" '{if($3>5)print $0;}' filename #把以tab分割的第3列大于5的那些行取出
+	其他
+	awk '{$NF="";print $0}' filename #把除最后一列的其他列按原文输出
+	awk '{print NR"\t"$0}' file1  | sort -nk1 -r | awk -F "\t" '{print $2}' #把一个文件按行反序输出（第一行是最后一行，最后一行是第一行）
+	awk -F "\t" '{SUM+=$2}END{print SUM}' filename #把以tab分割的第2列进行加和，并输出和
+	awk '{$1="";print}' bashrc #去掉$1 
+	sed -i 's/^\s\+//g' bashrc #去掉开始的空格
+	mysql zhushen_report -e"desc zhushen_views"|sed "1d"|awk '{print $1}'
+	grep "name_cn=\"" * -r|tr -d '" ;\t'|awk -F":name_cn=" '{print $1","$2}'> li.sh
+	awk '{print $1","$2","$3}' < task_id |tr '\n' ','
+	sed -e '/^$/d'   ##去掉文中的空行
+	gawk -F: '{ sum += $4 }; END { print sum }' /etc/passwd #计算和
+	ls -l | awk '$6 == "Dec"'   ## awk 来查找特定字段中的模式 
+ 	sed -i "s/895fdqd8/lvabipl5/g" `grep 895fdqd8 -rl /usr/local/gameserver1_01_05/conf`
+ 	awk '{if($4 == "':::$prot'") print $7}'
+
+svn
+--------------------------------------------------------------------------------------------
+ svn resolved leave.pike  解决充突
+ svn revert  file  删掉你的改动使用版本库里的. 
+ svn mkdir -m "Making a new dir." http://svn.red-bean.com/repos/newdir	
+ svn import -m "import doc dir" myproj http://lilrq.gicp.net/work/doc
+ sudo svnserve -d --listen-port=89 -r /data/server/svn/work
+find . -name ".svn" -type d |xargs -i rm -rf {}
+
+
+
+
+date
+--------------------------------------------------------------------------------------------
+date +%d '--date=10 days ago' =10前
+
+iconv
+--------------------------------------------------------------------------------------------
+  |iconv -f utf-8 -t gb2312  > out.csv 
+  native2ascii -reverse gameArea.properties   
+ 
+vim  
+-------------------------------------------------------------------------------------------- 
+   %s/str1/str2/g  #str1 替换为 str2
+  ^\d\{3}?
+  %s/\s\+$//  ##vim 去除多余的空格
+  :g/104/s//39/g  # vim  把39改变成104
+  
+  
+  
+  ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+  cscope -Rb -f cscope.out
+  
+  
+  cscope -Rbq -f cscope.out
+  
+  bash的只读变量
+-------------------------------------------------------------------------------------------- 
+?						最新执行的命令的退出状态
+-						当前启用的shell选项标记
+$						当前shell的进程id(pid)
+!						最新后台的最后标记
+-						前一个命令的最后标记
+PPID				Shell父进程的进程id(pid)
+SHELLOPTS		被冒号隔开的当前用户中的shell选项列表，和set -o命令结果一样
+UID					当前用户的用户id
+
+bash 预赋值的变量
+-------------------------------------------------------------------------------------------- 
+BASH_VERSION  当前bash的版本
+HOSTNAME			当前机器的DNS主机名
+OLDPWD				上一次工作目录
+PWD						当前工作目录
+RANDOM				介于0到32767之间的任意整数
+SECONDS				自shell启动以来的秒数
+
+常用的环境变量
+-------------------------------------------------------------------------------------------- 
+TERM		指定了用户终端的底层配置。这个变量在使用串行线控制台（“
+
+other
+--------------------------------------------------------------------------------------------
+		/usr/bin/nohup /bin/sh log_db.sh >> nohup.log 2>&1 &
+		mount -o loop xxx.iso /mnt命令挂载到目录中   ## linux 解压ISO 文件
+		rsync -zrtopg --delete -e ssh user@rsh.server:/etc /tmp
+		/bin/sh cp_table.sh >> log/cp_table.log 2>&1
+		<a href="javascript:history.go(-1)">back</a>为什么出现   js go(-1)
+		ping 192.168.1.113 -s 65000 -i 0.00001
+		ldd [-vdr] [filename]
+		ldd /usr/sbin/useradd
+		chkconfig --list ###  redhat系统里会开机运行的服务呢
+		LD_DEBUG=libs /u01/memcached/bin/memcached -h ##一般对于这种依赖的库找不到的情况，在Linux中可以通过设置LD_DEBUG环境变量来获得更多的信息
+		mkdir -p project/{lib/ext,bin,src,doc/{html,info,pdf},demo/stat/a}  ##使用一个命令来定义复杂的目录树 
+		locale ##杳看系统字符集.
+		vi /etc/sysconfig/i18n ##更改系统字符集
+		fmt 重新对文本进行换行设置
+		split 文件分割
+		aspell 拼写检查
+		for i in $* 脚本的命令行参数
+		for i in /etc/*.conf  与表达式/etc/*.conf相配的文件
+		for i in $(command)    command 命令输出
+		nohup command > myout.file 2>&1 &
+		使用 jobs 查看任务。
+　　使用 fg %n　关闭。
+		 getconf 命令可以获取系统的基本配置信息，比如操作系统位数，内存大小，磁盘大小等。
+     # mkfs.ext3 /dev/sda  这将对硬盘进行重新格式化，自然，硬盘上的所有数据将灰飞烟灭。
+		# :(){ :|:& };: 著名的 fork bomp，此命令将告诉你的系统执行海量的进程，直到你的系统僵死。
+		# any_command > /dev/sda 使用该命令，原始数据将被写到块设备，其结果是造成数据丢失
+		
+		cp filename{,.bak}  快速备份或复制文件。
+		
+		ffmpeg -f x11grab -s wxga -r 25 -i :0.0 -sameq /tmp/out.mpg  把 Linux 桌面录制为视频。
+		
+		!!  执行上一条命令
+		
+					cd - 更改到上一次访问的目录。
+
+  nmap -sT -p3690 192.168.1.200-255
+ 
+ 
+ 
+ 
+ 
+   windows
+-------------------------------------------------------------------------------------------- 
+  shutdown –s -f –t 3600
+
+ jstat -gc pid       查看java项目状态。
+ 
+ 
+ 
+ alias vi=vim
+export ANT_HOME=/usr/local/ant
+export PATH=$JAVA_HOME/bin:$PATH:$ANT_HOME/bin
+export TOMCAT_HOME=/usr/tomcat/apache-tomcat-6.0.16
+export LANG=en_US.UTF-8
+export EDITOR=vi
+export LS_COLORS=$LS_COLORS:"*.rb=01;33"
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export PATH=/usr/localWTK2.5.2/bin:$PATH
+ 
+ 
+ PROMPT_COMMAND:这个变量的内容会在现实bash提示符前执行。
+
+所以我们可以利用这个变量来纪律每个用户执行的命令
+
+具体脚本如下：
+
+export PROMPT_COMMAND='{ date "+[ %Y%m%d %H:%M:%S `whoami` ] `history 1 | { read x cmd; echo "$cmd      from ip:$SSH_CLIENT   $SSH_TTY"; }`"; }&gt;&gt; /home/pu/login.log' 
+
+这个脚本来自Linux系统架构运维的 广州{宅男} 在群里提供，我记录下来，希望对需要的人有用。
+
+ 
+
+解释：
+
+这条命令会把上条命令（history 1）的时间（date ）、用户（whoami）、命令字（$cmd）、客户端ip（$SSH_CLIENT）、tty（$SSH_TTY）写入/home/pu/login.log文件。
+ Shell 命令的详细使用方法。 
+--------------------------------------------------------------------------------------------
+adduser 　　创建新的用户账户 
+alias 　　 设置命令的别名 
+bzips 　　 .bz2的文件压缩程序 
+cal 　　 月历显示 
+cat 　　 将所有内容输出到标准输出设备 
+chfn 　　 更改finger命令显示的信息 
+chgrp 　　变更文件与目录的所属组 
+chmod 　　更换文件或目录的权限 
+chown 　　更换文件或目录的拥有者或所在组 
+clear 　　 清除画面上的信息 
+col 　　 滤除控制字符 
+cp 　　 复制文件或目录 
+crontab 　　设置定时器 
+date 　　 设置显示系统时间及日期 
+dd 　　 由键盘输入文件中的数据，然后依照指定格式来转换数据，再输出至所指定的文件或屏幕上 
+df 　　 显示磁盘文件系统的使用状况 
+dmesg 　　显示开机信息 
+du 　　 显示目录或文件所占磁盘空间 
+e2fsck 　　检查ext2文件系统 
+echo 　　 文字显示 
+edquota 　　编辑quota 
+egrep 　　 查找文件中符合条件的字符串 
+exec 　　 shell执行命令后即交出控制权 
+export 　　设置显示环境变量 
+fdisk 　　 磁盘分割(分区) 
+fg 　　 前台执行程序或命令 
+fgrep 　　查找文件中符合条件的字符串 
+file 　　 识别文件类型 
+find 　　 查找文件或目录 
+finger 　　显示用户信息 
+free 　　 查看内存状态 
+fsck 　　 检查文件系统并试着修复错误 
+ftp 　　 传输文件 
+grep 　　搜索文件中符合条件的字符串 
+groupadd 　　创建组 
+groupdel 　　删除组 
+groupmod 　　改变组识别码或名称 
+gunzip 　　 文件解压缩 
+gzip 　　 文件压缩 
+halt 　　 关闭系统 
+help 　　 shell创建命令内容 
+history 　　 列出所有使用过的命令 
+hostname 　　查询及设置主机名称 
+id 　　 显示用户ID及所属的组ID 
+ifconfig 　　 显示或设置网络上状态 
+insmod 　　 加载模块 
+jobs 　　 显示正在后台执行的工作 
+kill 　　 删除执行中的程序或工作 
+last 　　 列出目前与过去登录系统的用户相关信息 
+less 　　 显示文件内容 
+lilo 　　 安装内核加载、开机管理程序 
+linuxconf 　　设置Linux系统 
+ln 　　 连接文件或目录 
+locate 　　 寻找文件 
+login 　　 登录系统 
+logout 　　注销系统 
+ls 　　 列出目录内容 
+lsmod 　　显示已加载系统的模块名称 
+mail 　　E-mail管理程序 
+make 　　编译系统核心或模块 
+man 　　在线查询命令 
+mcopy 　　复制MS-DOS文件 
+mdel 　　删除MS-DOS文件 
+mdeltree 　　删除MS-DOS文件及包含的子目录文件 
+mdir 　　显示MS-DOS目录 
+mkbootdisk 　　创建目前系统的引导盘 
+mkdir 　　创建目录 
+mke2fs 　　创建ext2文件系统 
+mkfs 　　创建各种文件系统 
+more 　　一页一页地显示文件内容(文本文件) 
+miunt 　　挂入文件系统 
+mouseconfig 　　设置鼠标相关参数 
+mv 　　移动或更名现有的文件或目录 
+netconfig 　　Red Hat Linux用来设置网络功能的图形接口程序 
+netstat 　　显示目前系统的网络状态 
+nice 　　变更程序执行时的优先等级 
+nohup 　　在用户注销系统后继续以后台的方式执行指定的命令 
+open 　　查找第一个可使用的虚拟终端，并执行位于“--”符号后的命令 
+passwd 　　提供管理员及用户管理或变更密码 
+patch 　　利用修补文件来修改源文件 
+pine 　　邮件处理程序，它可收发电子邮件及浏览新闻组 
+ping 　　使用ICMP对远程主机发出要求响应的信息，以侦测远程主机的网络功能是否正常 
+ps 　　显示程序执行的状况 
+pwd 　　显示目前的工作目录 
+quota 　　查询磁盘空间限制以及使用情形 
+quotacheck 　　检查磁盘使用空间及限制 
+quotaoff 　　关闭磁盘使用空间限制 
+quotaon 　　开启磁盘使用空间限制 
+reboot 　　停止系统运作并重新开机 
+renice 　　重新调整程序执行的优先级 
+repquota 　　显示磁盘空间限制状况 
+rm 　　删除文件或目录 
+rmdir 　　删除目录 
+rpm 　　管理Red Hat Linux套件 
+set 　　设置Shell的执行方式 
+setup 　　设置公用程序，可设置的选项包括：登录认证方法、键盘配置、 
+鼠标配置、开机启动服务、声卡本配置、时区设置和 X Window配置等 
+shutdown 　　系统关机 
+startx 　　启动 X Window 
+stat 　　显示inode内容 
+su 　　变更用户身份 
+sync 　　将内存缓冲区内的数据写入磁盘 
+tail 　　列出文件内容最后部分 
+talk 　　和其他用户交谈 
+tar 　　文件备份 
+telnet 　　登录远程主机 
+top 　　显示及管理执行中的程序 
+traceroute 　　显示封包到远程主机间的详细路径 
+umask 　　在创建文件时预设的权限屏蔽 
+umount 　　卸载文件系统 
+unalias 　　删除别名 
+uname 　　显示系统信息 
+uncompress 　　将.Z文件解压缩 
+unzip 　　将.Zip文件解压缩 
+useradd 　　创建用户账号 
+userdel 　　删除用户账户 
+vi 　　编辑文本文件 
+w 　　显示目前登录系统的用户信息 
+wall 　　将信息传送至每位终端用户 
+whereis 　　查找文件，预设whereis去查找的文件包括：/bin、/etc、/sbin、 
+/usr/bin、/usr/etc、/usr/games、/usr/include、/usr/lib、 
+/usr/local、/usr/man、/usr/sbin、/usr/src、/usr/local/bin、 
+/usr/local/etc、/usr/local/game、/usr/local/lib 和/usr/local/man> 
+which 　　在环境变量￥PATH 设置的目录中，搜索符合条件的文件 
+who 　　显示目前登录系统的用户信息 
+whoami 　　显示用户名称 
+whois 　　搜索并显示用户信息 
+write 　　可传送信息给另一位登录的用户 
+Xconfigurator 　　设置 Xfree86 
+xf86config 　　设置XFree86 
+zip 　　压缩程序 
+
+
+
+ PATH：决定了shell将到哪些目录中寻找命令或程序
+ --------------------------------------------------------------------------------------------
+　　HOME：当前用户主目录
+　　MAIL：是指当前用户的邮件存放目录。
+　　SHELL：是指当前用户用的是哪种Shell.
+　　HISTSIZE：是指保存历史命令记录的条数
+　　LOGNAME：是指当前用户的登录名。
+　　HOSTNAME：是指主机的名称，许多应用程序如果要用到主机名的话，通常是从这个环境变量中来取得的。
+　　LANG/LANGUGE：是和语言相关的环境变量，使用多种语言的用户可以修改此环境变量。
+　　PS1：是基本提示符，对于root用户是#，对于普通用户是$.
+　　PS2：是附属提示符，默认是“>”。可以通过修改此环境变量来修改当前的命令符，比如下列命令会将提示符修改成字符串“Hello，		My NewPrompt ：） ”。
+　　# PS1=" Hello，My NewPrompt ：） "
+　　9、使用修改。bashrc文件进行环境变量的编辑，只对当前用户有用。
+　　使用修改 /etc/profile 文件进行环境变量的编辑，是对所有用户有用。大家一定要注意区别。
+　　10、profile文件在系统启动时将被运行。大家可以在里面加入其他命令，但是一定要加正确，不然的话系统会启动不起来的
+

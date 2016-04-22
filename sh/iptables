@@ -1,0 +1,108 @@
+#! /bin/sh
+echo 1 > /proc/sys/net/ipv4/ip_forward
+vi /etc/sysctl.conf     net.ipv4.ip_forward = 1
+/sbin/iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+/sbin/iptables -A FORWARD -s 192.168.0.0/24 -j ACCEPT
+/sbin/iptables -A FORWARD -d 192.168.0.0/24 -j ACCEPT
+/sbin/iptables -A FORWARD -s ! 192.168.0.0/24 -j DROP
+
+
+iptables -I FORWARD 3 -s www.baidu.com -j DROP
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+iptables -A FORWARD -i eth0 -p tcp -s 219.237.0.83 --sport 0:65535 -d www.baidu.com --dport 0:65535 -j DROP
+iptables -A FORWARD -i eth0 -p udp -s 219.237.0.83 --sport 0:65535 -d 202.108.22.5 --dport 0:65535 -j DROP
+iptables -A FORWARD -i eth0 -p tcp -s 219.237.0.0 --sport 0:65535 -d any/0 --dport 0:65535 -j ACCEPT
+iptables -A FORWARD -i eth0 -p icmp -s 219.237.0.83 -d www.baidu.com  -j DROP
+iptables -A FORWARD -i eth0 -s 219.237.0.83  -d www.baidu.com -j DROP
+iptables -A FORWARD  -s 219.237.0.83  -d www.baidu.com -j DROP
+iptables -A FORWARD  -d 219.237.0.83  -s www.baidu.com -j DROP
+iptables -A INPUT -p tcp -i  eth0 --dport ssh -j ACCEPT
+iptables -A FORWARD -s  www.baidu.com -j DROP
+iptables -A FORWARD -s  192.168.0.1  -j DROP
+iptables -A FORWARD -d  www.baidu.com -j DROP
+
+iptables -I FORWARD 1 -s www.msnlivesn.com  -j DROP                      
+iptables -I FORWARD 1 -d www.msnlivesn.com  -j DROP 
+iptables -I FORWARD 1 -s www.meet8.com  -j DROP                   
+iptables -I FORWARD 1 -d www.meet8.com  -j DROP
+ iptables -A FORWARD -s www.msnlivesn.com -j DROP               
+ iptables -A INPUT -s www.msnlivesn.com -j DROP       
+ iptables -A OUTPUT -d www.msnlivesn.com -j DROP
+ptables -D FORWARD -s 192.168.0.1 -j DROP
+iptables -D FORWARD -d 192.168.0.1 -j DROP
+
+fping -a -g 192.168.0.1 192.168.0.20 -s -n > ip
+iptables -t nat -I PREROUTING 1 -p tcp -d 219.143.96.28 --dport 8888 -j DNAT --to 192.168.0.20:8888  ##端口映射
+#iptables -t nat -I PREROUTING 1 -p tcp -d 219.143.96.28 --dport 5109 -j DNAT --to 192.168.0.109:109 
+一、环境和要实现功能
+　　 PC1的网络设置如下：
+
+　　 eth3 192.168.0.1 内网
+
+　　 eth0 219.143.96.28 外网
+
+　　PC2的网络设置则为：192.168.0.20 内网
+
+　　我们要实现的功能就是将PC1的8080端口映射到PC2的80端口，也即访问http://219.143.96.28:8888即可访问到PC2上的WEB服务。
+
+　　二、实现步骤
+
+　　1、 首先应该做的是/etc/sysctl.conf配置文件的 net.ipv4.ip_forward = 1 默认是0
+
+这样允许iptalbes FORWARD。
+
+　　2、 在/etc/rc.d/init.d目录下有iptables 文件，使用格式如下
+
+　　Usage: ./iptables {start|stop|restart|condrestart|status|panic|save}
+
+　　相当与service iptables {….}
+
+　　把iptables 服务停止，清除以前的规则，存盘
+
+　　到/etc/rc.d/init.d目录下，运行
+
+　　./iptables stop
+
+　　iptalbes -F
+
+　　iptalbes -X
+
+　　iptalbes -Z
+
+　　./iptables save
+
+　　3、 重新配置规则
+
+iptables -t nat -A PREROUTING -d 219.143.96.28 -p tcp -m tcp --dport 8888 -j DNAT --to-destination 192.168.0.20:80
+iptables -t nat -A POSTROUTING -d 192.168.0.20 -p tcp -m tcp --dport 8888 -j SNAT --to-source 192.168.0.1
+iptables -A FORWARD -o eth3 -d 192.168.0.20 -p tcp --dport 8888 -j ACCEPT
+iptables -A FORWARD -i eth3 -s 192.168.0.20 -p tcp --sport 8888 -j ACCEPT
+
+
+
+
+iptables -t nat -I PREROUTING 1 -d 219.143.96.28 -p tcp -m tcp --dport 8888 -j DNAT --to-destination 192.168.0.20:8888
+iptables -t nat -I POSTROUTING 1 -d 192.168.0.20 -p tcp -m tcp --dport 8888 -j SNAT --to-source 192.168.0.1
+iptables -I FORWARD 1 -o eth3 -d 192.168.0.20 -p tcp --dport 8888 -j ACCEPT
+iptables -I FORWARD 1 -i eth3 -s 192.168.0.20 -p tcp --sport 8888 -j ACCEPT
+
+　　DNAT SNAT 的请参考帮助，这里不再陈述。
+
+　　4、 新的规则存盘
+
+　　./iptables save
+
+　　规则存盘后在/etc/sysconfig/iptables这个文件里面，若你对这个文件很熟悉
+
+　　直接修改这里的内容也等于命令行方式输入规则。
+
+　　5、 启动iptables 服务
+
+　　./iptables start
+
+　　在/proc/net/ip_conntrack文件里有包的流向，如下面
+
+　　tcp 6 53 TIME_WAIT src=../../221.122.59.2 dst=219.239.11.22 sport=7958 dport=8080 packets=9 bytes=1753
+
+src=../../172.18.10.205 dst=172.18.10.212 sport=80 dport=7958 packets=9 bytes=5777 [ASSURED] use=1 

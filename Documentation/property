@@ -1,0 +1,206 @@
+	cq_eudemon 幻兽资料库
+	id 自动编号
+	item_id 未知，默认好象都是0
+	ori_owner_name 主人角色名
+	name 幻兽名字
+	relationship 未知[字面意思“关系”]
+	phyatk_grow_rate 物理攻击成长值
+	magicatk_grow_rate 魔法攻击成长值
+	life_grow_rate 生活技能成长值
+	phyatk_grow_rate_max 物理攻击成长最大值
+	magicatk_grow_rate_max 魔法攻击成长最大值
+	availabletime 未知
+	life 未知[字面意思“生活”]
+	star_lev 未知
+	phy_atk_min 最小物理攻击
+	phy_atk_max 最大物理攻击
+	magic_atk_min 最小魔法攻击
+	magic_atk_max 最大魔法攻击
+	contract_time 未知[字面意思“合同时间”]
+	magic_defence 魔法防御
+	luck 幸运值
+	damage_type 未知[字面意思“破坏类型”]
+	level 等级
+	exp 经验
+	fidelity 忠诚度？
+	talent1 天分1
+	talent2 天分2
+	talent3 天分3
+	skill_num_limit 最多可学技能数量
+	reborn_times 未知[好象是重生用的]
+	card_id 未知[字面意思“卡片id”]
+	talent4 天分4
+	talent5 天分5
+	initial_phy 初值攻击
+	initial_magic 初值魔法
+	initial_def 初值防御
+	initial_life 初值生活值
+	phydef_grow_rate 物理防御成长值
+	magicdef_grow_rate 魔法防御成长值
+	mete_lev 未知
+	chksum 随机数：和ms那个一个用途
+	item_type 未知
+	owner_id 如果此处和player_id相同,那就是在该玩家身上
+	player_id 玩家id
+	position 未知[字面意思“立场”]
+	syndicate_id 未知[字面意思“联合id”] 
+	
+	
+	
+	  Skill_tree.txt
+	  建立技能树內容于技能威力、范围
+	  內容:
+	  JOB_ID,ID,SKILL_ID,SKILL_LV,Skill1,SkillLV1,Skill2,Skill2....Skill5,SkillLV5 
+	
+	  使用职业,技能,技能最高等級,前置技能1,前置技能等1,前置技能2,前置技能等2.....
+	  EX.1,3,10,2,1,0,0,0,0,0,0,0,0 //剑士,双手剑熟练,等級10,单手剑熟练,等級1,,,,,, 
+	  mob_db.txt
+	  怪物资料库
+	  內容:
+	  ID,Name,JName,LV,HP,SP,EXP,JEXP,Range1,ATK1,ATK2,DEF,MDEF,STR,AGI,VIT,INT,DEX,LUK,Range2,Range3,Scale,Race,Element,Mode,Speed
+	  ,ADelay,aMotion,dMotion,Drop1id,Drop1per,Drop2id,Drop2per,Drop3id,Drop3per,Drop4id,Drop4per,Drop5id,Drop5per,Drop6id,Drop6per
+	  ,Drop7id,Drop7per,Drop8id,Drop8per,Item1,Item2,MEXP,ExpPer,MVP1id,MVP1per,MVP2id,MVP2per,MVP3id,MVP3per
+	  怪物ID,名字,日文名,等級,体力,魔力,经验值,职业经验值,锁定范围,攻击力1,攻击力2,防御力,魔法防御力,力量....
+	  Speed,ADelay,aMotion,dMotion,
+	  移动速度,动作延遲,攻击時速度,被攻击時速度
+	  Drop1id,Drop1per......
+	  掉落物品1,物品1掉落机率......
+	  MVP1id,MVP1per......
+	  MVP物品1,MVP物品1掉落机率......
+	  job_db1.txt
+	  使用武器速度资料库
+	  內容:
+	  //weight,hp,sp,aspd*17(空手,短剑,单手剑,双手剑,单手枪,双手枪,单手斧,双手斧,单手钝器,双手钝器,杖,弓,爪,乐器,鞭,书,拳刃)
+	  重量,体力,魔力,武器aspd*17=实际攻速(毫秒)
+	  //x 
+	  NV,SW,MG,AC,AL,MC,TF,KN,PR,WZ,BS,HT,AS,KNp,CR,MO,SA,RG,AM,BA,DC,CRp
+	  Y轴数值內容 
+	  Novice,Swordman,Mageic,Archer,Acolyte,Merchant,Thief,Knight,Priest,Wizard,Blacksmith,Hunter,Assassin,Knight2,Crusader,Monk,Sa
+	  ge,Rogue,Alchem,Bard,Dancer,Crusader2
+	  PS.数字越小速度越快,100则是不能使用
+	  EX.20000, 0,1, 50, 65, 70,100,100,100, 80,100, 70,100, 
+	  65,100,100,100,100,100,100
+	  job_db2.txt
+	  各职业各個base等級的素質加成
+	  // job_bonus 0-non 1-str 2-agi 3-vit 4-int 5-dex 6-luk
+	  X轴数值內容
+	  //x 
+	  NV,SW,MG,AC,AL,MC,TF,KN,PR,WZ,BS,HT,AS,KNp,CR,MO,SA,RG,AM,BA,DC,CRp
+	  Y轴数值內容 
+	  Novice,Swordman,Mageic,Archer,Acolyte,Merchant,Thief,Knight,Priest,Wizard,Blacksmith,Hunter,Assassin,Knight2,Crusader,Monk,Sa
+	  ge,Rogue,Alchem,Bard,Dancer,Crusader2
+	  EX.0,6,5,0,2,3,0,1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	  //初学者 等級2 LUK加成,等級3 DEX加成.....
+	  const.txt
+	  职业索引
+	  EX.Job_Novice 0 //初学者代号为0
+	  cast_db.txt
+	  技能咏唱时间(毫秒)
+	  技能代号 动画时间,动作时间
+	  EX.156,1500,1000 //AL_HOLYLIGHT,1.5秒动画表現,1秒动作
+	  exp.txt
+	  升级所需经验值
+	  base,初学者JOB,一转JOB,二转JOB
+	  EX.9,10,30,144 //BaseLV1EXP 9,N_JobLV1EXP 10,1JobLV1EXP 
+	  30,2JobLV1EXP 144
+	  battle_athena.cnf
+	  // 是否支持PVP模式
+	  pvp: off
+	  // 怪物是否有爆击几率
+	  enemy_critical: yes
+	  // 咏唱时间（0无咏唱、100正常、200两倍）
+	  casting_rate: 100
+	  // 延迟时间（0无延迟、100正常）
+	  delay_rate: 100
+	  // 延迟时间是否受DEX影响
+	  delay_dependon_dex: yes
+	  // 防御ユニット（SW/ニューマ）が敵に効果を及ぼさないようにするかどうか
+	  defunit_not_enemy: yes
+	  // MVP血量倍率（100正常、200两倍....）
+	  mvp_hp_rate: 100
+	  // 物品掉落倍率（100正常、200两倍....）
+	  item_rate: 600
+	  // 基本经验所得倍率（100正常、200两倍....）
+	  base_exp_rate: 2000
+	  // 职业经验所得倍率（100正常、200两倍....）
+	  job_exp_rate: 2000
+	  // MVP物品所得倍率（100正常、200两倍....）
+	  mvp_item_rate: 600
+	  // MVP经验所得倍率（100正常、200两倍....）
+	  mvp_exp_rate: 600
+	  // GM命令是否专用
+	  atcommand_gm_only: no
+	  // GM是否会全部技能
+	  gm_all_skill: yes
+	  // 武器制造成功率（100正常、200两倍成功率....）
+	  weapon_produce_rate: 200
+	  // 宠物捕获几率(100正常、200两倍几率....)
+	  pet_rate: 100
+	  
+	  
+	  
+	    [Server]
+            IP=127.0.0.1 服务器ip地址
+            Name=RO另类研究中心 服务器名字
+            sv1port=6900 端口
+            sv2port=6121 端口
+            sv3port=5121 端口
+            BaseExpMultiplier=1000 基本经验倍率
+            JobExpMultiplier=1000 职业经验倍率
+            HPRegen=3000 控製玩傢的HPRegen
+            SPRegen=7560 控製玩傢的SPRegen
+            DisableMonsterActive=0 怪物是否打开主动攻击
+            DisableLevelLimit=0  是否关闭等级限制
+            DisableEquipLimit=0  是否关闭装备等级限制
+            DropMultiplier=10000 掉宝
+            DisableSkillLimit=0 技能限制
+            DefaultZeny=300 新人创建以后的金钱
+            DefaultMap=new_zone01 新人创建以后第一次出现的地图
+            DefaultPoint_X=50 坐标
+            DefaultPoint_Y=100 坐标
+            DeathBaseLoss=1 角色死亡后是否损失BASE经验 0关闭，1-？？是倍率
+            DeathJobLoss=1 角色死亡后是否损失JOB经验 0关闭，1-？？是倍率
+            ServerChat=0 服务器聊天？（偶也不知道是什么意思，可能和VZONE.EXE里的SEND有关）
+            GlobalSkillDelay=2000 法术施放时间间隔好像是以毫秒为单位
+            GlobalFieldCount =3 不知道什么意思
+            MonsterMob=1 BOSS级怪物是否带小兵
+            MonsterSkill=1 怪物技能
+            SummonMonsterExp=1 打死召唤怪物是否有经验
+            SummonMonsterAgo=0 召唤怪物是否强制主动攻击，注意，如果这个怪本身就是主动怪，那么是没有效果的
+            SummonMonsterName=1 是否显示召唤怪物的名字，为0显示的是E文代码
+            SummonMonsterMob=1 召唤怪物是否带有小兵
+            GTimeDelay=12 工會戰開始時間？以小時為單位
+            GActiveTime=60 工會戰持續時間？以分為單位
+            StartGMsg=工会战开始！
+            GlobalGMsg=工会基地 $mapname 已经被 $guildname 工会占领！
+            MapGMsg=工会石被破坏！
+            EndGMsg=工会战结束！
+            UseWelcomeMsg=1 欢迎信息
+            WelcomeMsg=欢迎 $charaname 进入 $servername 服务器！
+            DataBackUp=0 数据备份
+            LMonitor=0 不去查找v Login是否運行中
+            LLog=0 設置vLogin是否保存LOGO
+            NPCID=50000 整个服务器的怪物数量
+            WarpDebug=False 调试命令
+            EnableMonsterKnockBack=False 怪物受攻击后能反击？
+            DisableFleeDown=False 被怪物围攻时是否减闪避
+
+            其他WEISS.INI的内容
+
+            AutoStart=1 自动开始服务器
+            ItemDropType=0 掉落物品的类型，改1则全掉？
+            ItemDropDenominator=10000 物品掉落倍率
+            ItemDropPer=10000 单一物品掉落倍率
+            StealMultiplier=100 不知道什么意思
+            EnablePetSkills=1 宠物技能
+            DefaultItem1=1201 新手装备
+            DefaultItem2=2301 新手装备
+            Timer=1 不知道什么意思
+
+
+            Option_PVP=0 PK
+            Option_MaxUsers=100 人数上限
+            Option_AutoSave=600 自动保存时间
+            Option_AutoBackup=0 自动保存
+            Option_WelcomeMsg=-1 欢迎信息
+            Priority=3 设置weiss运行时的优先等级

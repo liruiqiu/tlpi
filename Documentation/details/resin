@@ -1,0 +1,70 @@
+[resin]resin 配置与使用
+心得体会
+
+mjm0928 发表于 2006-4-7 12:56:07 
+
+　1. <http host='localhost' port='80'/>
+   host参数指定的是服务器，port指定的是http端口，默认是localhost和8080。
+2. <srun host='localhost' port='6802'/> 这个是jsp和java Servlet的引擎配置。
+3. 使用Resin开发Java Web项目时，需要建立自己的WebApp。
+4. Resin中的应用可以有2种方式发布：
+       一是在Resin的目录下发布；
+       二是打包成War发布。
+5. 在resin.conf中查找<web-app>标签，该标签表示一个web应用
+     标签中，id属性表示该应用的Web路径。如<web-app id='/test'>，表示该应用在Web上访问的时候应该用http://hostname/test/来访问。app-dir属性表示该应用的实际路径。如<app-dir>d:\resin\doc\test</app-dir>表示该应用在d:\resin\doc\test目录下面。默认值为根下面的和id同名的目录。Resin可以配置3种error-page：404错误也就是文件找不到错误页；Exception违例页；不能连接java引擎页。他们分别可以这样子设置。
+  
+  　　404文件找不到页
+  　　<web-app id='/app1'>
+  　　　<error-page error-code='404' location='/file_not_found.jsp'/>
+  　　</web-app>
+  
+  　　Exception 违例页
+  　　<web-app id='/foo'>
+  　　　<error-page exception-type='java.lang.NullPointerException' location='/nullpointer.jsp'/>
+  　　</web-app>
+  
+  　　不能连接到srun Servlet引擎错误页
+  
+  　　该页设置和应用无关，属于服务器的设置。
+  　　<http-server>
+  　　　<error-page exception-type='connection' location='/missing_file.html'/>
+  　　</http-server>
+  
+  　　参见下面的语句：
+  
+  　　<classpath id='WEB-INF/classes' source='WEB-INF/src' compile='true'/>
+  
+  　　id参数的值表示classpath中编译后的class的存放路径；
+      source参数的值表示classpath中java源代码的存放路径；
+      compile中的值可能是true或者false，表示是否由Resin的srun自动编译java源代码。
+      Classpath的设置一般和javaBean或者Servlet的使用有关。id的值表示javaBean的编译好的包存放的根，source的值表示javaBean的java源代码存放的根。Servlet相同。
+6.  Servlet的设置
+      <servlet-mapping url-pattern='*.xtp' servlet-name='xtp'/>
+  　　<servlet-mapping url-pattern='*.jsp' servlet-name='jsp'/>
+  　　<servlet-mapping url-pattern='/servlet/*' servlet-name='invoker'/>
+  　　一般就是指定那些需要通过srun的解析。比如在这里，把*.jsp改成*.jss，其他不变，那么只要在访问时遇到*.jss的文件就和原来遇到*.jsp一样处理。通过这个可以指定解析的引擎，如以下的配置：
+  　　<servlet-mapping url-pattern='*.xtp' servlet-name='com.caucho.jsp.XtpServlet'/>
+  　　在Servlet中，也可以指定servlet。如
+  　　<servlet servlet-name='hello' servlet-class='test.HelloWorld'/>
+  　　<servlet-mapping url-pattern='/hello.html' servlet-name='hello'/>
+  　　在servlet-mapping中有个重要的参数case-sensitive 如果在windows上，最好配置成false，忽略大小写，从而和windows的约定一致。
+7.  Session的配置
+      <session-config>
+  　　<session-max>4096</session-max>
+  　　<session-timeout>30</session-timeout>
+  　　<enable-cookies>true</enable-cookies>
+  　　<enable-url-rewriting>true</enable-url-rewriting>
+  　　<file-store>WEB-INF/sessions</file-store>
+  　　</session-config>
+  
+  　　session-max ：最大 session数量
+  　　session-timeout ：session过期时间，以分钟为单位。
+  　　是否允许cookie ：指session是否采用cookies。如果采用cookies，浏览器必须支持session才能使用，发布时建议改成false。enable-url-rewriting和enable-cookies一般配合使用。如果enable-cookies是false，
+  　　enable-url-rewriting应该设成true比较合适。
+  　　file-store ：该配置指示服务器是否把session作为文件存放在服务器上。如果把该项注释掉，则在你的web-app目录下的WEB-Inf/sessions目录不保存序列化后的session对象。Session还有jdbc-store配置，对应着把session通过jdbc永久保存在数据库中。其实也就是会话变量的序列化后的保存和重新载入的物理实现。
+
+  
+
+     
+     
+   

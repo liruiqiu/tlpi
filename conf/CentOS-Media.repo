@@ -1,0 +1,7 @@
+[media]
+name=CentOS-$releasever - Media
+baseurl=file:///media/CentOS-7.0-1406-x86_64-Everything
+gpgcheck=1
+enabled=1
+gpgkey=file:///media/CentOS-7.0-1406-x86_64-Everything/RPM-GPG-KEY-CentOS-7
+

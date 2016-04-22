@@ -1,0 +1,148 @@
+
+svn co http://svn.techno-weenie.net/projects/mephisto/trunk mephisto ## 一个被广泛使用的博客应用程序，由Rails框架核心人员开发的项目。
+
+
+
+gem install radiant    ###一个完全由Ruby on Rails开发而成的CMS系统，简单但很强大。
+radiant --database mysql radiant
+rake production db:bootstrap
+ script/server -e production
+
+
+rake db:migrate VERSION=20081224054745   ## 撤消到20081224054745
+
+ruby script/generate model tx_wg
+
+!column_y_arr.include? ##叹号相反的意思
+Ajax
+pwd =/usr/local/appwork/jlrt/public/javascripts/
+application.js 
+这个文件是空的。。用来加入你自己的javascript代码 
+prototype.js 
+这个就是所谓的prototype框架 
+controls.js:事件控制的封装 
+dragdrop.ds :拖拉效果 
+effects.js ：一些特殊效果，例如褪色，加亮之类 
+都是基于prototype的script.aculo.us
+
+这个无限级可刷新Js树型菜单 dTree   
+　1、可设置无限级菜单   
+　2、不必使用框架   
+　3、可刷新，多页面内跳转不会影响菜单   
+　4、可限级创造子树   
+　5、支持目前主流浏览器：IE5，6，7   
+　6、节点图片可设置切换图片效果 
+下载url：http://www.destroydrop.com/javascripts/tree/ 
+看看最下边的时间，2003 Geir Landro人家就写出来了，俺现在才用（佩服）   
+
+解压缩dtree.zip 包。   
+dtree目录下包括这些文件：example01.html 、 dtree.js 、 api.html 、 dtree.css 和img目录        
+注意：除了api.html之外，其它的文件都是必须拷贝的。api.html是dtree的函数介绍。   
+
+打开example01.html文件   
+
+    <link rel="StyleSheet" href="css/dtree.css" type="text/css" />    
+    <script type="text/javascript" src="js/dtree.js"></script>    
+
+必须引用的两个文件。   
+
+生成树 节点的代码：   
+     <script type="text/javascript">    
+        <!--    
+
+        d = new dTree(’d’);//创建一个树对象    
+
+        d.add(0,-1,’My example tree’); //创建一个树对象    
+        d.add(1,0,’Node 1’,’example01.html’);    
+        d.add(2,0,’Node 2’,’example01.html’);    
+        d.add(3,1,’Node 1.1’,’example01.html’);    
+        d.add(4,0,’Node 3’,’example01.html’);    
+        d.add(5,3,’Node 1.1.1’,’example01.html’);    
+        d.add(6,5,’Node 1.1.1.1’,’example01.html’);    
+        d.add(7,0,’Node 4’,’example01.html’);    
+        d.add(8,1,’Node 1.2’,’example01.html’);    
+        d.add(9,0,’My Pictures’,’example01.html’,’Pictures I\’ve taken over the years’,’’,’’,’img/imgfolder.gif’);    
+        d.add(10,9,’The trip to Iceland’,’example01.html’,’Pictures of Gullfoss and Geysir’);    
+        d.add(11,9,’Mom\’s birthday’,’example01.html’);    
+        d.add(12,0,’Recycle Bin’,’example01.html’,’’,’’,’img/trash.gif’);    
+
+        document.write(d);    
+
+        //-->    
+    </script>    
+
+d.add(0,-1,’My example tree’);   
+     这一句为树添加了一个根节点，显示名称为’My example tree’    d.add(1,0,’Node 1’,’example01.html’);   
+    这一句在树的根节点下面添加了一个子节点。（d.add（）方法的参数具体含义可参见api.html文件）        
+常用的：        
+第一个参数，表示当前节点的ID        
+第二个参数，表示当前节点的父节点的ID,根节点的值为 -1       
+第三个参数，节点要显示的文字        
+第四个参数，节点的Url        
+第五个参数，鼠标移至该节点时节点的Title        
+第六个参数，节点的target   
+第七个参数，用做节点的图标,节点没有指定图标时使用默认值   
+第八个参数，用做节点打开的图标,节点没有指定图标时使用默认值   
+第九个参数，判断节点是否打开   
+
+使用实例大家可参照 www.amyou.cn 的树型菜单   
+
+附 rlog翻译：  
+
+属性菜单使用说明    
+
+函数    
+
+add()    
+向树里添加一个节点    
+只能在树被创建之前调用.    
+必须 id, pid, name    
+参数    
+名字    类型    描述    
+id    Number    唯一的ID号    
+pid    Number    判定父节点的数字,根节点的值为 -1    
+name    String    节点的文本标签    
+url    String    节点的Url    
+title    String    节点的Title    
+target    String    节点的target    
+icon    String    用做节点的图标,节点没有指定图标时使用默认值    
+iconOpen    String    用做节点打开的图标,节点没有指定图标时使用默认值    
+open    Boolean    判断节点是否打开    
+例子    
+mytree.add(1, 0, ’My node’, ’node.html’, ’node title’, ’mainframe’, ’img/musicfolder.gif’);    
+
+openAll()    
+打开所有节点    
+可在树被创建以前或以后调用.    
+例子    
+mytree.openAll();    
+
+closeAll()    
+关闭所有节点    
+可在树被创建以前或以后调用.    
+例子    
+mytree.closeAll();    
+
+openTo()    
+Opens the tree to a certain node and can also select the node.    
+只能在树被创建以后调用..    
+参数    
+名字    类型    描述    
+id    Number    节点唯一的ID号    
+select    Boolean    判断节点是否被选择    
+例子    
+mytree.openTo(4, true);    
+
+配置    
+变量    类型    默认值    描述    
+target    String    true    所有节点的target    
+folderLinks    Boolean    true    文件夹可链接    
+useSelection    Boolean    true    节点可被选择(高亮)    
+useCookies    Boolean    true    树可以使用cookies记住状态    
+useLines    Boolean    true    创建带线的树    
+useIcons    Boolean    true    创建带有图标的树    
+useStatusText    Boolean    false    用节点名替代显示在状态栏的节点url    
+closeSameLevel    Boolean    false    只有一个有父级的节点可以被展开,当这个函数可用时openAll() 和 closeAll() 函数将不可用    
+inOrder    Boolean    false    如果父级节点总是添加在子级节点之前,使用这个参数可以加速菜单显示.    
+例子    
+mytree.config.target = "mytarget";   

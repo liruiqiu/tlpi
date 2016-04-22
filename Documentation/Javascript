@@ -1,0 +1,30 @@
+Javascript保留字列表：
+break	delete	function	return	typeof
+case	do	if	switch	var
+catch	else	in	this	void
+continue	false	instanceof	throw	while
+debugger	finally	new	true	with
+default	for	null	try	 
+
+打断 	删除 	功能 	返回 	typeof 
+案例 	做 	如果 	开关 	变种 
+捕捉 	其他的 	印第安纳州 	这个 	无效 
+继续 	虚假 	instanceof 	投 	一会儿 
+调试器 	最后 	新的 	正确的 	带有 
+默认 	为了 	空 	尝试
+
+
+Javascript未来保留字列表：
+abstract	double	goto	native	static
+boolean	enum	implements	package	super
+byte	export	import	private	synchronized
+char	extends	int	protected	throws
+class	final	interface	public	transient
+const	float	long	short	volatile
+
+摘要 	双 	转到 	本地 	静态 
+布尔 	枚举 	实施 	封装 	超级 
+字节 	出口 	进口 	私营 	同步 
+焦炭 	延伸 	国际 	保护 	全 
+级 	最后 	接口 	公众 	瞬态 
+常量 	浮动 	长的 	短的 	挥发性
