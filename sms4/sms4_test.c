@@ -40,12 +40,12 @@ print(buffer, 4);
 printf("the key:\t");
 print(key, 4);
 
-sms4_encrypt(buffer, key);
+sm4_encrypt(buffer, key);
 
 printf("the ciphertext:\t");
 print(buffer, 4);
 
-sms4_decrypt(buffer, key);
+sm4_decrypt(buffer, key);
 
 printf("the plaintext:\t");
 print(buffer, 4);

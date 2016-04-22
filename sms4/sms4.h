@@ -1,7 +1,7 @@
 /*
  * ============================================================================
  *
- *       Filename:  sms4.h
+ *       Filename:  sm4.h
  *
  *    Description:  Public interface for the SMS4 encryption algorithm.
  *
@@ -15,10 +15,10 @@
  *
  * ============================================================================
 */
-#ifndef SMS4_INCLUDED
-#define SMS4_INCLUDED
+#ifndef SM4_INCLUDED
+#define SM4_INCLUDED
 
-void sms4_encrypt(void *plaintext, void const *key);
-void sms4_decrypt(void *ciphertext, void const *key);
+void sm4_encrypt(void *plaintext, void const *key);
+void sm4_decrypt(void *ciphertext, void const *key);
 
 #endif /* SMS4_INCLUDED */

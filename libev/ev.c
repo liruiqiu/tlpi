@@ -3227,6 +3227,7 @@ static void noinline
 periodic_recalc (EV_P_ ev_periodic *w)
 {
   ev_tstamp interval = w->interval > MIN_INTERVAL ? w->interval : MIN_INTERVAL;
+  //ev_tstamp at = w->offset + interval * ev_floor ((ev_rt_now - w->offset) / interval);
   ev_tstamp at = w->offset + interval * ev_floor ((ev_rt_now - w->offset) / interval);
 
   /* the above almost always errs on the low side */

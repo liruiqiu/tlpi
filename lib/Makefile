@@ -14,7 +14,8 @@ include ../Makefile.inc
 allgen :
 	sh Build_ename.sh > ename.c.inc
 	echo 1>&2 "ename.c.inc built"
-	${CC} -c -g ${CFLAGS} *.c
+	${CC} -c ${CFLAGS} *.c
+	${CC} -c ${CFLAGS} common/*.c
 	${RM} ${TLPI_LIB}
 	${AR} rs ${TLPI_LIB} *.o
 

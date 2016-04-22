@@ -1,10 +1,12 @@
 CC=gcc
 FLAGS=-I. -I.. 
+FLAGS= -g -I. -I.. -pedantic -Wall -W -Wmissing-prototypes -Wno-sign-compare -Wno-unused-parameter
 LDFLAGS=$(FLAGS) -L/usr/lib -L../.libs -lev -lpthread -Wall -Wl,-rpath ../.libs
 
 CFLAGS=-g
 LDFLAGS=-I..
-LDLIBS=../.libs/libev.a -lpthread -lm
+LDLIBS= ../.libs/libev.a -lm -lpthread
+
 
 
 OBJECTS=server.o

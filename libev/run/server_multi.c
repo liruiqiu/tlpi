@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <sys/types.h>
-#include <netinet/in.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include <pthread.h>
 #include <ev.h>
 #define MAXLEN 1023

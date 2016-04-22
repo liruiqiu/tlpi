@@ -1,7 +1,7 @@
 /*
  * ============================================================================
  *
- *       Filename:  sms4.c
+ *       Filename:  sm4.c
  *
  *    Description:  Implementation of SMS4 
  *
@@ -16,7 +16,7 @@
  * ============================================================================
 */
 
-#define KERNEL 1
+//#define KERNEL 1
 
 #ifndef KERNEL  
 #include <stdlib.h>
@@ -34,12 +34,14 @@ typedef unsigned char		uint8_t;
 typedef unsigned short int	uint16_t;
 typedef unsigned int		uint32_t;
 typedef unsigned long long int	uint64_t;
+typedef uint8_t u8;
 #endif
 #include "sms4.h"
+#include <inttypes.h>
 
 #define ROUND 32
 
-static uint8_t sms4_sbox[256] = {
+static uint8_t sm4_sbox[256] = {
 0xd6, 0x90, 0xe9, 0xfe, 0xcc, 0xe1, 0x3d, 0xb7,
 0x16, 0xb6, 0x14, 0xc2, 0x28, 0xfb, 0x2c, 0x05,
 0x2b, 0x67, 0x9a, 0x76, 0x2a, 0xbe, 0x04, 0xc3,
@@ -74,7 +76,7 @@ static uint8_t sms4_sbox[256] = {
 0x79, 0xee, 0x5f, 0x3e, 0xd7, 0xcb, 0x39, 0x48 
 };
 
-static uint32_t sms4_ck[32] = {
+static uint32_t sm4_ck[32] = {
 0x00070e15, 0x1c232a31, 0x383f464d, 0x545b6269, 
 0x70777e85, 0x8c939aa1, 0xa8afb6bd, 0xc4cbd2d9, 
 0xe0e7eef5, 0xfc030a11, 0x181f262d, 0x343b4249, 
@@ -104,10 +106,10 @@ return (x ^ rotate_left(x, 13) ^ rotate_left(x, 23));
 static inline uint32_t s_substitute(uint32_t x)
 {
 uint8_t *px = (uint8_t *)&x;
-px[0] = sms4_sbox[px[0]];
-px[1] = sms4_sbox[px[1]];
-px[2] = sms4_sbox[px[2]];
-px[3] = sms4_sbox[px[3]];
+px[0] = sm4_sbox[px[0]];
+px[1] = sm4_sbox[px[1]];
+px[2] = sm4_sbox[px[2]];
+px[3] = sm4_sbox[px[3]];
 
 return x;
 }
@@ -122,7 +124,7 @@ static inline uint32_t key_T_trans(uint32_t x)
 return (key_L_trans(s_substitute(x)));
 }
 
-static inline void sms4_round_func(uint32_t *input, uint32_t sub_key)
+static inline void sm4_round_func(uint32_t *input, uint32_t sub_key)
 {
 uint32_t tmp = input[0];
 
@@ -132,14 +134,14 @@ input[2] = input[3];
 input[3] = tmp ^ T_trans(input[0] ^ input[1] ^ input[2] ^ sub_key);
 }
 
-static inline void sms4_reverse(uint32_t *input)
+static inline void sm4_reverse(uint32_t *input)
 {
 uint32_t tmp;
 tmp = input[0], input[0] = input[3], input[3] = tmp;
 tmp = input[1], input[1] = input[2], input[2] = tmp;
 }
 
-static void sms4_key_schedule(uint32_t const *key, uint32_t *round_key)
+static void sm4_key_schedule(uint32_t const *key, uint32_t *round_key)
 {
 int j;
 uint32_t buf[4];
@@ -152,34 +154,41 @@ buf[2] ^= 0x677d9197; buf[3] ^= 0xb27022dc;
 
 
 for(j = 0; j < ROUND; ++j){
-prk[j] = buf[0] ^ key_T_trans(buf[1] ^ buf[2] ^ buf[3] ^ sms4_ck[j]);
+prk[j] = buf[0] ^ key_T_trans(buf[1] ^ buf[2] ^ buf[3] ^ sm4_ck[j]);
 buf[0] = buf[1];
 buf[1] = buf[2];
 buf[2] = buf[3];
 buf[3] = prk[j];
 }
 }
-
-void sms4_encrypt(void *plaintext, void const *key)
+static void print(uint32_t *buf, int size)
+{
+int i = 0; 
+for(i = 0; i < size; ++i)
+printf("%08" PRIx32 " ", buf[i]);
+printf("\n");
+}
+void sm4_encrypt(void *plaintext, void const *key)
 {
 uint32_t round_key[ROUND] = {0};
-sms4_key_schedule(key, round_key);
+sm4_key_schedule(key, round_key);
+print(round_key, ROUND);
+int i;
+for(i = 0; i < ROUND; ++i)
+sm4_round_func((uint32_t *)plaintext, round_key[i]);
+
+sm4_reverse((uint32_t *)plaintext);
+}
+
+void sm4_decrypt(void *ciphertext, void const *key)
+{
+uint32_t round_key[ROUND] = {0};
+sm4_key_schedule(key, round_key);
 
 int i;
 for(i = 0; i < ROUND; ++i)
-sms4_round_func((uint32_t *)plaintext, round_key[i]);
+sm4_round_func((uint32_t *)ciphertext, round_key[31-i]);
 
-sms4_reverse((uint32_t *)plaintext);
+sm4_reverse((uint32_t *)ciphertext);
 }
 
-void sms4_decrypt(void *ciphertext, void const *key)
-{
-uint32_t round_key[ROUND] = {0};
-sms4_key_schedule(key, round_key);
-
-int i;
-for(i = 0; i < ROUND; ++i)
-sms4_round_func((uint32_t *)ciphertext, round_key[31-i]);
-
-sms4_reverse((uint32_t *)ciphertext);
-}

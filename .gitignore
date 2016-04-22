@@ -1,0 +1,8 @@
+!/libev/.deps/
+!/libev/Makefile
+!/libev/config.h
+!/libev/config.log
+!/libev/config.status
+!/libev/libtool
+!/libev/stamp-h1
+
